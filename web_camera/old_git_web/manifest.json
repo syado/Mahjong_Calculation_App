@@ -5,8 +5,8 @@
     "name": "サンプルのPWAサイト",
   
   
-    "start_url": "https://owata088.github.io/",
+    "start_url": "https://owata088.github.io",
   
   
-    "display": "browser"
+    "display": "standalone"
   }
