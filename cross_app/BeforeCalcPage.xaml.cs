@@ -15,6 +15,9 @@ namespace cross_app
         #region コントロールの宣言
 
         #region 箱の宣言
+
+        #region 基本の箱
+
         //一番外側のStackLayout
         AbsoluteLayout outestAl = new AbsoluteLayout
         {
@@ -150,10 +153,18 @@ namespace cross_app
         {
             BackgroundColor = Color.LightPink,
         };
-        
-        
+
+        #endregion
 
         #region 鳴き状況によって変わるやつ
+
+        //上のアガリ牌全部のStackLayout
+        StackLayout agariPaiSl = new StackLayout
+        {
+            Orientation = StackOrientation.Horizontal,
+            
+        };
+
         //上のアガリの形のメンゼン牌の表示部分
         AbsoluteLayout agariMenzenPaiAl = new AbsoluteLayout
         {
@@ -166,27 +177,27 @@ namespace cross_app
         };
 
         //上のアガリの形の鳴き牌の表示部分の右から1番目
-        AbsoluteLayout agariNaki1PaiAl = new AbsoluteLayout
+        StackLayout agariNaki1PaiSl = new StackLayout
         {
-
+            Orientation = StackOrientation.Horizontal,
         };
 
         //上のアガリの形の鳴き牌の表示部分の右から2番目
-        AbsoluteLayout agariNaki2PaiAl = new AbsoluteLayout
+        StackLayout agariNaki2PaiSl = new StackLayout
         {
-
+            Orientation = StackOrientation.Horizontal,
         };
 
         //上のアガリの形の鳴き牌の表示部分の右から3番目
-        AbsoluteLayout agariNaki3PaiAl = new AbsoluteLayout
+        StackLayout agariNaki3PaiSl = new StackLayout
         {
-
+            Orientation = StackOrientation.Horizontal,
         };
 
         //上のアガリの形の鳴き牌の表示部分の右から4番目
-        AbsoluteLayout agariNaki4PaiAl = new AbsoluteLayout
+        StackLayout agariNaki4PaiSl = new StackLayout
         {
-
+            Orientation = StackOrientation.Horizontal,
         };
         #endregion
 
@@ -385,6 +396,60 @@ namespace cross_app
             Source = ImageSource.FromResource("cross_app.images_pai.m9.png"),
             Aspect = Aspect.AspectFill,
         };
+
+        #endregion
+
+        #region 鳴いた牌
+
+        #region 鳴き1個目
+
+        Image image_nakiPai1_01 = new Image
+        {
+            Source = ImageSource.FromResource("cross_app.images_pai.p1.png"),
+            Aspect = Aspect.AspectFill,
+        };
+
+        Image image_nakiPai1_02 = new Image
+        {
+            Source = ImageSource.FromResource("cross_app.images_pai.p1.png"),
+            Aspect = Aspect.AspectFill,
+        };
+
+        Image image_nakiPai1_03 = new Image
+        {
+            Source = ImageSource.FromResource("cross_app.images_pai.p1.png"),
+            Aspect = Aspect.AspectFill,
+        };
+
+        #endregion
+
+        #region 鳴き2個目
+
+        Image image_nakiPai2_01 = new Image
+        {
+            Source = ImageSource.FromResource("cross_app.images_pai.s5.png"),
+            Aspect = Aspect.AspectFill,
+        };
+
+        Image image_nakiPai2_02 = new Image
+        {
+            Source = ImageSource.FromResource("cross_app.images_pai.s5.png"),
+            Aspect = Aspect.AspectFill,
+        };
+
+        Image image_nakiPai2_03 = new Image
+        {
+            Source = ImageSource.FromResource("cross_app.images_pai.s5.png"),
+            Aspect = Aspect.AspectFill,
+        };
+
+        Image image_nakiPai2_04 = new Image
+        {
+            Source = ImageSource.FromResource("cross_app.images_pai.s5.png"),
+            Aspect = Aspect.AspectFill,
+        };
+
+        #endregion
 
         #endregion
 
@@ -590,6 +655,18 @@ namespace cross_app
 
         #endregion
 
+        #region ポップアップのLayout
+
+        //ポップアップの土台
+        AbsoluteLayout popUpBg = new AbsoluteLayout
+        {
+
+        };
+
+
+
+        #endregion
+
         #endregion
 
         public BeforeCalcPage()
@@ -783,9 +860,17 @@ namespace cross_app
 
             #region とりあえずメンゼン牌だけ
 
-            bottomTopAl.Children.Add(agariMenzenPaiSl);
-            AbsoluteLayout.SetLayoutFlags(agariMenzenPaiSl, AbsoluteLayoutFlags.All);
-            AbsoluteLayout.SetLayoutBounds(agariMenzenPaiSl, new Rectangle(0.5, 0.5, 1, 1));
+            bottomTopAl.Children.Add(agariPaiSl);
+            AbsoluteLayout.SetLayoutFlags(agariPaiSl, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutBounds(agariPaiSl, new Rectangle(0.5, 0.5, 1, 1));
+
+            agariPaiSl.Spacing = 0;
+
+            agariPaiSl.Children.Add(agariMenzenPaiSl);
+
+            agariMenzenPaiSl.HorizontalOptions = LayoutOptions.CenterAndExpand;
+            //AbsoluteLayout.SetLayoutFlags(agariMenzenPaiSl, AbsoluteLayoutFlags.All);
+            //AbsoluteLayout.SetLayoutBounds(agariMenzenPaiSl, new Rectangle(0.5, 0.5, 1, 1));
 
             Image[] image_menzenPai = 
             {
@@ -817,6 +902,109 @@ namespace cross_app
             image_menzenPai[0].HorizontalOptions = LayoutOptions.EndAndExpand;
             image_menzenPai[13].HorizontalOptions = LayoutOptions.StartAndExpand;
 
+
+            #endregion
+
+            #region 鳴き1個追加(ポンチー)
+
+            //メンゼン牌StackLayoutプロパティ変更
+            agariMenzenPaiSl.HorizontalOptions = LayoutOptions.EndAndExpand;
+
+            #region メンゼン牌3つ取り除く
+
+            agariMenzenPaiSl.Children.Remove(image_menzenPai02);
+            agariMenzenPaiSl.Children.Remove(image_menzenPai03);
+            agariMenzenPaiSl.Children.Remove(image_menzenPai04);
+
+
+            #endregion
+
+            agariPaiSl.Children.Add(agariNaki1PaiSl);
+            agariNaki1PaiSl.BackgroundColor = Color.DeepPink;
+            agariNaki1PaiSl.HorizontalOptions = LayoutOptions.StartAndExpand;
+            agariNaki1PaiSl.Spacing = 0;
+
+            Image[] image_nakiPai1 =
+            {
+                image_nakiPai1_01,
+                image_nakiPai1_02,
+                image_nakiPai1_03
+            };
+
+            for (int i = 0; i < image_nakiPai1.Length; i++)
+            {
+                agariNaki1PaiSl.Children.Add(image_nakiPai1[i]);
+                image_nakiPai1[i].MinimumWidthRequest = 5;
+                image_nakiPai1[i].MinimumHeightRequest = 7;
+                image_nakiPai1[i].VerticalOptions = LayoutOptions.CenterAndExpand;
+                if (i == 0)
+                {
+                    image_nakiPai1[i].HorizontalOptions = LayoutOptions.EndAndExpand;
+                }
+                else if (i == image_nakiPai1.Length - 1)
+                {
+                    image_nakiPai1[i].HorizontalOptions = LayoutOptions.StartAndExpand;
+                }
+                else
+                {
+                    image_nakiPai1[i].HorizontalOptions = LayoutOptions.Center;
+                }
+            }
+
+            //image_nakiPai1_01.MinimumWidthRequest = 7;
+            //image_nakiPai1_01.Bounds = new Rectangle()
+            //image_nakiPai1_01.Aspect = Aspect.AspectFit;
+            //image_nakiPai1_01.Rotation = 90;
+
+            #endregion
+
+            #region 鳴き1個追加(暗カン)
+
+            //すでに追加されてる鳴きStackLayoutプロパティの変更
+            agariNaki1PaiSl.HorizontalOptions = LayoutOptions.Center;
+
+            #region メンゼン牌3つ取り除く
+
+            agariMenzenPaiSl.Children.Remove(image_menzenPai02);
+            agariMenzenPaiSl.Children.Remove(image_menzenPai03);
+            agariMenzenPaiSl.Children.Remove(image_menzenPai04);
+
+
+            #endregion
+
+            agariPaiSl.Children.Add(agariNaki2PaiSl);
+            agariNaki2PaiSl.BackgroundColor = Color.GreenYellow;
+            agariNaki2PaiSl.HorizontalOptions = LayoutOptions.StartAndExpand;
+            agariNaki2PaiSl.Spacing = 0;
+
+            Image[] image_nakiPai2 =
+            {
+                image_nakiPai2_01,
+                image_nakiPai2_02,
+                image_nakiPai2_03,
+                image_nakiPai2_04
+            };
+
+            for (int i = 0; i < image_nakiPai2.Length; i++)
+            {
+                agariNaki2PaiSl.Children.Add(image_nakiPai2[i]);
+                image_nakiPai2[i].MinimumWidthRequest = 5;
+                image_nakiPai2[i].MinimumHeightRequest = 7;
+                image_nakiPai2[i].VerticalOptions = LayoutOptions.CenterAndExpand;
+                if (i == 0)
+                {
+                    image_nakiPai2[i].HorizontalOptions = LayoutOptions.EndAndExpand;
+                    image_nakiPai2[i].Margin = new Thickness(10, 0, 0, 0);
+                }
+                else if (i == image_nakiPai2.Length - 1)
+                {
+                    image_nakiPai2[i].HorizontalOptions = LayoutOptions.StartAndExpand;
+                }
+                else
+                {
+                    image_nakiPai2[i].HorizontalOptions = LayoutOptions.Center;
+                }
+            }
 
             #endregion
 
@@ -1017,10 +1205,15 @@ namespace cross_app
             bottomBottomLeftTopRightBottomAl.Children.Add(image_bakaze);
             AbsoluteLayout.SetLayoutFlags(image_bakaze, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.HeightProportional);
             AbsoluteLayout.SetLayoutBounds(image_bakaze, new Rectangle(0.07, 0.07, AbsoluteLayout.AutoSize, 0.45));
+            image_bakaze.MinimumHeightRequest = 7;
+            image_bakaze.MinimumWidthRequest = 5;
 
             bottomBottomLeftTopRightBottomAl.Children.Add(image_jikaze);
             AbsoluteLayout.SetLayoutFlags(image_jikaze, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.HeightProportional);
             AbsoluteLayout.SetLayoutBounds(image_jikaze, new Rectangle(0.07, 0.93, AbsoluteLayout.AutoSize, 0.45));
+            image_jikaze.MinimumHeightRequest = 7;
+            image_jikaze.MinimumWidthRequest = 5;
+
 
             bottomBottomLeftTopRightBottomAl.Children.Add(label_bakaze);
             AbsoluteLayout.SetLayoutFlags(label_bakaze, AbsoluteLayoutFlags.All);
@@ -1033,13 +1226,33 @@ namespace cross_app
 
             #endregion
 
+            #region 左下のボタン2つ
+
+            bottomBottomLeftBottomAl.Children.Add(button_mokkai);
+            AbsoluteLayout.SetLayoutFlags(button_mokkai, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutBounds(button_mokkai, new Rectangle(0.1, 0.5, 0.4, 0.9));
+
+            bottomBottomLeftBottomAl.Children.Add(button_keisan);
+            AbsoluteLayout.SetLayoutFlags(button_keisan, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutBounds(button_keisan, new Rectangle(0.9, 0.5, 0.4, 0.9));
+
             #endregion
 
+            #endregion
 
+            //タップイベント追加
+            var tgr = new TapGestureRecognizer();
+            tgr.Tapped += (sender, e) => OnLabelClicked(sender, e);
+            image_dora01.GestureRecognizers.Add(tgr);
 
             this.Content = outestAl;
 
             
+        }
+
+        private void OnLabelClicked(object sender, EventArgs e)
+        {
+
         }
 
         private void ButtonCalcTap(object sender, EventArgs e)
