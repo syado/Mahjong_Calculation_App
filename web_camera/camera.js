@@ -4,8 +4,8 @@
 カメラで撮影した画像の送信先の記述
 
 */
-let width = 640    // We will scale the photo width to this
-let height = 0     // This will be computed based on the input stream
+let width = "560"   // We will scale the photo width to this
+let height = "315"     // This will be computed based on the input stream
 
 let streaming = false
 
@@ -14,6 +14,7 @@ let canvas = null
 let photo = null
 let startbutton = null
 let constrains = { video: {facingMode: 'environment'}, audio: false }
+let myStream = null;
 /**
  * ユーザーのデバイスによるカメラ表示を開始し、
  * 各ボタンの挙動を設定する
@@ -44,7 +45,15 @@ function startup() {
         takepicture()
         ev.preventDefault()
         //カメラの動作を停止？
-        streaming = true
+        streaming = true    
+        
+        if(myStream){
+            for(track of myStream.getTracks()) track.stop();
+            myStream = null;
+          };
+          video.pause();
+          if("srcObject" in video) video.srcObject = null;
+          else video.src = null;
     }, false);
 
     clearphoto()
@@ -59,6 +68,7 @@ function videoStart() {
         .then(function (stream) {
             video.srcObject = stream
             video.play()
+            myStream = stream;
         })
         .catch(function (err) {
             console.log("An error occured! " + err)
@@ -86,6 +96,19 @@ function takepicture() {
         clearphoto()
     }
 }
+function videoRestartbutton(){
+    navigator.mediaDevices.getUserMedia(constrains)
+    .then(function(stream){
+      if("srcObject" in video) video.srcObject = stream;
+      else video.src = window.URL.createObjectURL(stream);
+      video.onloadedmetadata = function(e){
+        video.play();
+        myStream = stream;
+      };
+    })
+    .catch(function(err){ console.log(err.name + ": " + err.message); });
+  
+  };
 //下記はカメラデータの送信部分
 /*
 function send() {
