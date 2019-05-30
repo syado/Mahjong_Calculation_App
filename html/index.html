@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+
+        <!-- ビューポートの設定 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- vue.js -->
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+        <!-- PWA用設定ファイル -->
+        <link rel="manifest" href="manifest.json">
+
+        <!-- スタイルシートの読み込み -->
+        <link rel="stylesheet" href="style.css">
+
+        <title>麻雀カメラ</title>
+    </head>
+    <body>
+        <!-- 手牌 -->
+        <h2 class="title">手牌</h2>
+        <div class="tehai">
+            <img id="tehai_01" src="hai/m/1.png" onclick="modal_open(this.id)">
+            <img id="tehai_02" src="hai/m/1.png" onclick="modal_open(this.id)">
+            <img id="tehai_03" src="hai/m/1.png" onclick="modal_open(this.id)">
+            <img id="tehai_04" src="hai/m/2.png" onclick="modal_open(this.id)">
+            <img id="tehai_05" src="hai/m/3.png" onclick="modal_open(this.id)">
+            
+            <img id="tehai_06" src="hai/m/4.png" onclick="modal_open(this.id)">
+            <img id="tehai_07" src="hai/m/5.png" onclick="modal_open(this.id)">
+            <img id="tehai_08" src="hai/m/r.png" onclick="modal_open(this.id)">
+            <img id="tehai_09" src="hai/m/6.png" onclick="modal_open(this.id)">
+            <img id="tehai_10" src="hai/m/7.png" onclick="modal_open(this.id)">
+            
+            <img id="tehai_11" src="hai/m/8.png" onclick="modal_open(this.id)">
+            <img id="tehai_12" src="hai/m/9.png" onclick="modal_open(this.id)">
+            <img id="tehai_13" src="hai/m/9.png" onclick="modal_open(this.id)">
+            <img id="tehai_14" src="hai/m/9.png" onclick="modal_open(this.id)">
+        </div>
+
+        <!-- ドラ、風牌、役 -->
+        <div class="wrapper">
+
+            <!-- ドラ -->
+            <div class="column_dora">
+                <div class="info">
+                    <h2 class="title">ドラ</h2>
+                    <div class="dora1">
+                        <img id="dora_01" src="hai/p/1.png" onclick="modal_open(this.id)">
+                        <img id="dora_02" src="hai/s/1.png" onclick="modal_open(this.id)">
+                        <img id="dora_03" src="hai/h/error.png" onclick="modal_open(this.id)">
+                        <img id="dora_04" src="hai/h/error.png" onclick="modal_open(this.id)">
+                        <img id="dora_05" src="hai/h/error.png" onclick="modal_open(this.id)">
+                    </div>
+                    <div class="dora2">
+                        <img id="dora_06" src="hai/h/error.png" onclick="modal_open(this.id)">
+                        <img id="dora_07" src="hai/h/error.png" onclick="modal_open(this.id)">
+                        <img id="dora_08" src="hai/h/error.png" onclick="modal_open(this.id)">
+                        <img id="dora_09" src="hai/h/error.png" onclick="modal_open(this.id)">
+                        <img id="dora_10" src="hai/h/error.png" onclick="modal_open(this.id)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 風牌 -->
+            <div class="column_kaze">
+                <div class="info">
+                    <h2 class="title">風牌</h2>
+                    <div class="line">
+                        <div class="bakaze">
+                            <h3>場風</h3>
+                            <img src="hai/h/1.png" class="kazehai" id="bakaze" onclick="changebakaze()">
+                        </div>
+                        <div class="jikaze">
+                            <h3>自風</h3>
+                            <img src="hai/h/1.png" class="kazehai" id="jikaze" onclick="changejikaze()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 役 -->
+            <div class="column_yaku">
+                <div class="info">
+                    <h2 class="title">役</h2>
+                    <div class="wrapper_yaku">
+                        <div class="yaku">
+                            <div class="checkbox box">
+                                <label>
+                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                    <span class="checkbox-parts">ツモ</span>
+                                </label>
+                                <label>
+                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                    <span class="checkbox-parts">リーチ</span>
+                                </label>
+                                <label>
+                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                    <span class="checkbox-parts">ダブルリーチ</span>
+                                </label>
+                                <label>
+                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                    <span class="checkbox-parts">海底・河底</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="yaku">
+                            <div class="checkbox box">
+                                <label>
+                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                    <span class="checkbox-parts">一発</span>
+                                </label>
+                                <label>
+                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                    <span class="checkbox-parts">嶺上開花</span>
+                                </label>
+                                <label>
+                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                    <span class="checkbox-parts">槍槓</span>
+                                </label>
+                                <label>
+                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                    <span class="checkbox-parts">天和・地和</span>
+                                </label>
+                            </div>                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ボタン -->
+        <button type="button">
+            撮りなおす
+        </button>
+        <button type="button">
+            計算する
+        </button>
+
+        <!-- モーダルウィンドウ -->
+        <div id="modal-content">
+            <div class="hai">
+                <div class="manzu">
+                    <img src="hai/m/1.png" onclick="hai_change(this.src)">
+                    <img src="hai/m/2.png" onclick="hai_change(this.src)">
+                    <img src="hai/m/3.png" onclick="hai_change(this.src)">
+                    <img src="hai/m/4.png" onclick="hai_change(this.src)">
+                    <img src="hai/m/5.png" onclick="hai_change(this.src)">
+                    <img src="hai/m/6.png" onclick="hai_change(this.src)">
+                    <img src="hai/m/7.png" onclick="hai_change(this.src)">
+                    <img src="hai/m/8.png" onclick="hai_change(this.src)">
+                    <img src="hai/m/9.png" onclick="hai_change(this.src)">
+                    <img src="hai/m/r.png" onclick="hai_change(this.src)">
+                </div>
+                <div class="pinzu">
+                    <img src="hai/p/1.png" onclick="hai_change(this.src)">
+                    <img src="hai/p/2.png" onclick="hai_change(this.src)">
+                    <img src="hai/p/3.png" onclick="hai_change(this.src)">
+                    <img src="hai/p/4.png" onclick="hai_change(this.src)">
+                    <img src="hai/p/5.png" onclick="hai_change(this.src)">
+                    <img src="hai/p/6.png" onclick="hai_change(this.src)">
+                    <img src="hai/p/7.png" onclick="hai_change(this.src)">
+                    <img src="hai/p/8.png" onclick="hai_change(this.src)">
+                    <img src="hai/p/9.png" onclick="hai_change(this.src)">
+                    <img src="hai/p/r.png" onclick="hai_change(this.src)">
+                </div>
+                <div class="souzu">
+                    <img src="hai/s/1.png" onclick="hai_change(this.src)">
+                    <img src="hai/s/2.png" onclick="hai_change(this.src)">
+                    <img src="hai/s/3.png" onclick="hai_change(this.src)">
+                    <img src="hai/s/4.png" onclick="hai_change(this.src)">
+                    <img src="hai/s/5.png" onclick="hai_change(this.src)">
+                    <img src="hai/s/6.png" onclick="hai_change(this.src)">
+                    <img src="hai/s/7.png" onclick="hai_change(this.src)">
+                    <img src="hai/s/8.png" onclick="hai_change(this.src)">
+                    <img src="hai/s/9.png" onclick="hai_change(this.src)">
+                    <img src="hai/s/r.png" onclick="hai_change(this.src)">
+                </div>
+                <div class="jihai">
+                    <img src="hai/h/1.png" onclick="hai_change(this.src)">
+                    <img src="hai/h/2.png" onclick="hai_change(this.src)">
+                    <img src="hai/h/3.png" onclick="hai_change(this.src)">
+                    <img src="hai/h/4.png" onclick="hai_change(this.src)">
+                    <img src="hai/h/5.png" onclick="hai_change(this.src)">
+                    <img src="hai/h/6.png" onclick="hai_change(this.src)">
+                    <img src="hai/h/7.png" onclick="hai_change(this.src)">
+                    <img src="hai/h/error.png" onclick="hai_change(this.src)">
+                    <img src="hai/h/error.png" onclick="hai_change(this.src)">
+                    <img src="hai/h/error.png" onclick="hai_change(this.src)">
+                </div>
+            </div>
+            <p><a id="modal-close" class="button-link">閉じる</a></p>
+        </div>
+    
+        
+        <script>
+            //<!--service workerの登録関係 -->
+            if('serviceWorker' in navigator)
+            {
+                navigator.serviceWorker.register('service_worker.js').then(function(registration)
+                {
+                    console.log('ServiceWorker registration successful with scope',registration.scope);
+                }).catch(function(err)
+                {
+                    console.log('ServiceWorker registration faild: ',err);
+                });
+            }
+
+            // クリックしたら風を変える
+            var kaze_src = new Array("hai/h/1.png","hai/nan.png","hai/sya.png","hai/pe.png");
+            var num = 0;
+
+            function changebakaze(){
+                if (num == 3){
+                    num = 0;
+                }
+                else {
+                    num++;
+                }
+                document.getElementById("bakaze").src = kaze_src[num];
+            }
+            function changejikaze(){
+                if (num == 3){
+                    num = 0;
+                }
+                else {
+                    num++;
+                }
+                document.getElementById("jikaze").src = kaze_src[num];
+            }
+        </script>
+        <!-- JavaScriptの読み込み -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="modal.js"></script>
+    </body>
+</html>
