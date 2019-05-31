@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <h1>Mahjong_Calculation_sample</h1>
+  <form>
+    <input type="submit">
+    <div scope="tehai">
+      <div>tehai:
+        <input name="man" placeholder="man">
+        <input name="pin" placeholder="pin">
+        <input name="sou" placeholder="sou">
+        <input name="honors" placeholder="honors">
+        <!-- <button tabindex="-1" type="button" data-role="remove" data-target="tehai">-</button> -->
+      </div>
+    </div>
+    <!-- <button type="button" data-role="add" data-target="tehai">+</button> -->
+    </br>
+    <div scope="agari">
+      <div>agari:
+        <input name="man" placeholder="man">
+        <input name="pin" placeholder="pin">
+        <input name="sou" placeholder="sou">
+        <input name="honors" placeholder="honors">
+        <!-- <button tabindex="-1" type="button" data-role="remove" data-target="tehai">-</button> -->
+      </div>
+    </div>
+    <!-- <button type="button" data-role="add" data-target="tehai">+</button> -->
+    </br>
+    <div scope="wind">
+      <div>wind :
+        <input name="round" placeholder="round">
+        <input name="player" placeholder="player">
+        <!-- <button tabindex="-1" type="button" data-role="remove" data-target="tehai">-</button> -->
+      </div>
+    </div>
+    <!-- <button type="button" data-role="add" data-target="tehai">+</button> -->
+    </br>
+    <div scope="dora">
+      <div>dora :
+        <input name="man" placeholder="man">
+        <input name="pin" placeholder="pin">
+        <input name="sou" placeholder="sou">
+        <input name="honors" placeholder="honors">
+        <!-- <button tabindex="-1" type="button" data-role="remove" data-target="tehai">-</button> -->
+      </div>
+    </div>
+    <!-- <button type="button" data-role="add" data-target="tehai">+</button> -->
+    </br>
+    <div collection="kan">
+      <div>kan  :
+        <input name="man" placeholder="man">
+        <input name="pin" placeholder="pin">
+        <input name="sou" placeholder="sou">
+        <input name="honors" placeholder="honors">
+        <input name="open" placeholder="open">
+        <button tabindex="-1" type="button" data-role="remove" data-target="kan">kan-</button>
+      </div>
+    </div>
+    <button type="button" data-role="add" data-target="kan">kan+</button>
+    </br>
+    <div collection="pon">
+      <div>pon  :
+        <input name="man" placeholder="man">
+        <input name="pin" placeholder="pin">
+        <input name="sou" placeholder="sou">
+        <input name="honors" placeholder="honors">
+        <button tabindex="-1" type="button" data-role="remove" data-target="pon">pon-</button>
+      </div>
+    </div>
+    <button type="button" data-role="add" data-target="pon">pon+</button>
+    </br>
+    <div collection="chi">
+      <div>chi  :
+        <input name="man" placeholder="man">
+        <input name="pin" placeholder="pin">
+        <input name="sou" placeholder="sou">
+        <input name="honors" placeholder="honors">
+        <button tabindex="-1" type="button" data-role="remove" data-target="chi">chi-</button>
+      </div>
+    </div>
+    <button type="button" data-role="add" data-target="chi">chi+</button>
+    </br>
+
+  </form>
+
+  <p>RequestJson</p>
+  <pre id="RequestJson"></pre>
+  <p>ResponseJson</p>
+  <pre id="ResponseJson"></pre>
+
+  <script type="text/javascript" src="{{url_for('static', filename='./walker.js')}}"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+  <script type="text/javascript">
+    var form = document.querySelector("form");
+    form.addEventListener("submit", function (ev) {
+      var r = new Walker(walk).walkNode(ev.currentTarget);
+      document.querySelector("#RequestJson").textContent = JSON.stringify(r, null, 2);
+      $.ajax({
+        url: '/post',
+        method: "POST",
+        dataType: 'json',
+        contentType: 'application/json',
+        scriptCharset: 'utf-8',
+        data: JSON.stringify(r, null, 2),
+        success: function (data) {
+          document.querySelector("#ResponseJson").textContent = JSON.stringify(data, null, 2);
+        }
+      })
+      ev.preventDefault();
+    });
+    new ActionRegister(form).bind();
+  </script>
+</body>
+
+</html>
