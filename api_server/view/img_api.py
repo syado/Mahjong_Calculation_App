@@ -26,10 +26,10 @@ set_session(tf.Session(config=config))
 global graph,model
 graph = tf.get_default_graph()
 
-voc_classes = ['1m', '2m', '3m', '4m', '5m', '6m', '7m', '8m', '9m',
-           '1p', '2p', '3p', '4p', '5p', '6p', '7p', '8p', '9p',
-           '1s', '2s', '3s', '4s', '5s', '6s', '7s', '8s', '9s',
-           'ton', 'sya', 'nan', 'pe', 'haku', 'hatsu', 'tyun', 'backside', '5s_a', '5m_a', '5p_a']
+voc_classes = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9',
+           'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9',
+           's1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9',
+           'j1', 'j3', 'j2', 'j4', 'j5', 'j6', 'j7', 'backside', '5s_a', '5m_a', '5p_a']
 NUM_CLASSES = len(voc_classes) + 1
 
 input_shape=(512, 512, 3)
