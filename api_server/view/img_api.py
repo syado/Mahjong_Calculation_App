@@ -162,6 +162,8 @@ def dl_post_v2(img_path, ritu):
                 score = top_conf[i]
                 label = int(top_label_indices[i])
                 label_name = voc_classes[label - 1]
-                p[i]= {"name":label, "score":score, "position":{"x":xmin,"y":ymin,"h":ymax-ymin,"w":xmax-xmin}}
+                p[i]= {"name":label_name, "score":score, "position":{"x":xmin,"y":ymin,"h":ymax-ymin,"w":xmax-xmin}}
                 display_txt = '{}'.format(label_name)
+            
+
             return p
