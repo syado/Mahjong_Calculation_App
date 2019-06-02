@@ -153,17 +153,18 @@ def dl_post_v2(img_path, ritu):
             top_ymin = det_ymin[top_indices]
             top_xmax = det_xmax[top_indices]
             top_ymax = det_ymax[top_indices]
-            p = {}
+            json_dict = {}
             for i in range(top_conf.shape[0]):
-                xmin = int(round(top_xmin[i] * img.shape[1]))
-                ymin = int(round(top_ymin[i] * img.shape[0]))
-                xmax = int(round(top_xmax[i] * img.shape[1]))
-                ymax = int(round(top_ymax[i] * img.shape[0]))
+                x = int(round(top_xmin[i] * img.shape[1]))
+                y = int(round(top_ymin[i] * img.shape[0]))
+                w = int(round(top_xmax[i] * img.shape[1]))-x
+                h = int(round(top_ymax[i] * img.shape[0]))-y
                 score = top_conf[i]
                 label = int(top_label_indices[i])
                 label_name = voc_classes[label - 1]
-                p[i]= {"name":label_name, "score":score, "position":{"x":xmin,"y":ymin,"h":ymax-ymin,"w":xmax-xmin}}
-                display_txt = '{}'.format(label_name)
-            
+                json_dict[x]={"name":label_name, "score":score, "position":{"x":x,"y":y,"h":h,"w":w}}
 
-            return p
+            json_list = []
+            for key in sorted(list(json_dict.keys())):
+                json_list.append(json_dict[key])
+            return json_list
