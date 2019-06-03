@@ -1,12 +1,7 @@
 {
-    "short_name": "PWAサイト",
-  
-  
-    "name": "サンプルのPWAサイト",
-  
-  
-    "start_url": "https://owata088.github.io/",
-  
-  
-    "display": "browser"
+  "name": "サンプルのPWAサイト",
+  "short_name": "PWAサイト",
+  "start_url": "https://owata088.github.io/",
+  "display": "browser",
+  "orientation": "portrait"
   }
