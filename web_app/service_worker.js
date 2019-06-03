@@ -1,7 +1,7 @@
 //キャッシュファイルの指定
-var CACHE_NAME = 'pwa-sample-caches06011116';
+var CACHE_NAME = 'mahjong-app-caches';
 var urlsToCache = [
-    '/jokeplace.github.io/',
+    '/syado.github.io/',
 ];
 
 //インストール処理

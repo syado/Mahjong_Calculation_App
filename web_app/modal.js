@@ -42,9 +42,9 @@ function modal_open(hai_id) {
 	} ) ;
 }
 
-function hai_change(src_set){
-    var src_name = src_set;
-    document.getElementById(set_id).src = src_name;
+function hai_change(src_name, alt_name){
+	document.getElementById(set_id).src = src_name;
+	document.getElementById(set_id).alt = alt_name;
     $( "#modal-content,#modal-overlay" ).fadeOut( "fast" , function(){
 
         //[#modal-overlay]を削除する
