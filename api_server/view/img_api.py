@@ -1,16 +1,11 @@
 from flask import Flask, render_template, request, jsonify
 from keras.preprocessing import image
 from flask import Blueprint
-
-app = Blueprint("img_api", __name__, url_prefix="/img_api")
-
-
 import cv2
 import keras
 from keras.applications.imagenet_utils import preprocess_input
 from keras.backend.tensorflow_backend import set_session
 from keras.models import Model
-from keras.preprocessing import image
 import numpy as np
 from scipy.misc import imread
 import tensorflow as tf
@@ -18,12 +13,18 @@ from ssd import SSD300
 from ssd_utils import BBoxUtility
 from PIL import Image
 import os
+import base64
+from io import BytesIO
+
+
+app = Blueprint("img_api", __name__, url_prefix="/img_api")
 
 np.set_printoptions(suppress=True)
 
 config = tf.ConfigProto()
 set_session(tf.Session(config=config))
 
+size = 512
 global graph,model
 graph = tf.get_default_graph()
 
@@ -33,7 +34,7 @@ voc_classes = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9',
            'h1', 'h3', 'h2', 'h4', 'h5', 'h6', 'h7', 'backside', 'sr', 'mr', 'pr']
 NUM_CLASSES = len(voc_classes) + 1
 
-input_shape=(512, 512, 3)
+input_shape=(size, size, 3)
 model = SSD300(input_shape, num_classes=NUM_CLASSES)
 model.load_weights('./hdf5/api.hdf5', by_name=True)
 
@@ -57,8 +58,21 @@ def img_post():
         file = request.files['image']
         img_path = os.path.join("./uploads", file.filename)
         file.save(img_path)
-        p = dl_post(img_path, 0.7)
+        img = image.load_img(img_path)
+        p = dl_post(img, 0.7)   
         return jsonify(p) 
+
+#前回に追記
+@app.route('/base64', methods=['POST'])
+def img_post_base64():
+    enc_data  = request.form['img']
+    #dec_data = base64.b64decode( enc_data )              # これではエラー  下記対応↓
+    dec_data = base64.b64decode( enc_data.split(',')[1] ) # 環境依存の様(","で区切って本体をdecode)
+    img  = image.load_img(BytesIO(dec_data))
+    if request.method == 'POST':
+        p = dl_post(img, 0.7)
+        return jsonify(p) 
+
 
 def dl_get(img_path, ritu):
     inputs = []
@@ -106,13 +120,10 @@ def expand2square(pil_img, background_color):
         result.paste(pil_img, ((height - width) // 2, 0))
         return result
 
-def dl_post(img_path, ritu):
+def dl_post(img, ritu):
     inputs = []
-    images = []
-    img = image.load_img(img_path) 
-    img = expand2square(img, (0, 0, 0)).resize((512, 512))
+    img = expand2square(img, (0, 0, 0)).resize((size, size))
     img = image.img_to_array(img)
-    images.append(imread(img_path))
     inputs.append(img.copy())
     inputs = preprocess_input(np.array(inputs)) 
 
@@ -120,8 +131,7 @@ def dl_post(img_path, ritu):
         preds = model.predict(inputs, batch_size=1, verbose=1)
 
         results = bbox_util.detection_out(preds)
-
-        for i, img in enumerate(images):
+        for i in range(1):
             det_label = results[i][:, 0]
             det_conf = results[i][:, 1]
             det_xmin = results[i][:, 2]
@@ -139,10 +149,10 @@ def dl_post(img_path, ritu):
             top_ymax = det_ymax[top_indices]
             json_dict = {}
             for i in range(top_conf.shape[0]):
-                x = int(round(top_xmin[i] * img.shape[1]))
-                y = int(round(top_ymin[i] * img.shape[0]))
-                w = int(round(top_xmax[i] * img.shape[1]))-x
-                h = int(round(top_ymax[i] * img.shape[0]))-y
+                x = int(round(top_xmin[i] * size))
+                y = int(round(top_ymin[i] * size))
+                w = int(round(top_xmax[i] * size))-x
+                h = int(round(top_ymax[i] * size))-y
                 score = top_conf[i]
                 label = int(top_label_indices[i])
                 label_name = voc_classes[label - 1]
