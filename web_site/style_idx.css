@@ -1,0 +1,49 @@
+@media screen and (orientation: landscape) {
+    /* 横向きの場合のスタイル */
+    * {
+        margin: 0%; padding: 0%;
+    }
+    /* 縦画面用のテキストを非表示にする */
+    .error {
+        display: none;
+    }
+
+    /* メイン */
+    .title {
+        text-align: center;
+        font-size: 10vh;
+        line-height: 70vh;
+    }
+    .btn {
+        margin-left: 7.5vw;
+        width: 35vw;
+        height: 10vh;
+    }
+    form {
+        width: 50vw;
+        float: left;
+    }
+    
+ }
+
+@media screen and (orientation: portrait) {
+    /* 縦向きの場合のスタイル */
+    * {
+        margin: 0%; padding: 0%;
+    }
+    /* 縦画面用のテキスト以外を非表示にする */
+    * :not(body):not(.error) {
+        display: none;
+    }
+    /* メイン */
+    body {
+        background-color: black;
+    }
+
+    .error {
+        color: white;
+        text-align: center;
+        line-height: 100vh;
+        font-size: 3.5vh;
+    }
+ }
