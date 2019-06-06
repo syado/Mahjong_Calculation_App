@@ -1,219 +1,229 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
 
-        <!-- ビューポートの設定 -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
 
-        <!-- スタイルシートの読み込み -->
-        <link rel="stylesheet" href="style_set.css">
+    <!-- ビューポートの設定 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>麻雀カメラ</title>
-    </head>
-    <body>
-        <!-- 手牌 -->
-        <h2 class="title">手牌</h2>
-        <div class="tehai">
-            <img id="tehai_01" src="hai/m/1.png" onclick="modal_open(this.id)">
-            <img id="tehai_02" src="hai/m/1.png" onclick="modal_open(this.id)">
-            <img id="tehai_03" src="hai/m/1.png" onclick="modal_open(this.id)">
-            <img id="tehai_04" src="hai/m/2.png" onclick="modal_open(this.id)">
-            <img id="tehai_05" src="hai/m/3.png" onclick="modal_open(this.id)">
-            
-            <img id="tehai_06" src="hai/m/4.png" onclick="modal_open(this.id)">
-            <img id="tehai_07" src="hai/m/5.png" onclick="modal_open(this.id)">
-            <img id="tehai_08" src="hai/m/r.png" onclick="modal_open(this.id)">
-            <img id="tehai_09" src="hai/m/6.png" onclick="modal_open(this.id)">
-            <img id="tehai_10" src="hai/m/7.png" onclick="modal_open(this.id)">
-            
-            <img id="tehai_11" src="hai/m/8.png" onclick="modal_open(this.id)">
-            <img id="tehai_12" src="hai/m/9.png" onclick="modal_open(this.id)">
-            <img id="tehai_13" src="hai/m/9.png" onclick="modal_open(this.id)">
-            <img id="tehai_14" src="hai/m/9.png" onclick="modal_open(this.id)">
-        </div>
+    <!-- スタイルシートの読み込み -->
+    <link rel="stylesheet" href="style_set.css">
 
-        <!-- ドラ、風牌、役 -->
-        <div class="wrapper">
+    <title>麻雀カメラ</title>
+</head>
 
-            <!-- ドラ -->
-            <div class="column_dora">
-                <div class="info">
-                    <h2 class="title">ドラ</h2>
-                    <div class="dora1">
-                        <img id="dora_01" src="hai/p/1.png" onclick="modal_open(this.id)">
-                        <img id="dora_02" src="hai/s/1.png" onclick="modal_open(this.id)">
-                        <img id="dora_03" src="hai/h/error.png" onclick="modal_open(this.id)">
-                        <img id="dora_04" src="hai/h/error.png" onclick="modal_open(this.id)">
-                        <img id="dora_05" src="hai/h/error.png" onclick="modal_open(this.id)">
-                    </div>
-                    <div class="dora2">
-                        <img id="dora_06" src="hai/h/error.png" onclick="modal_open(this.id)">
-                        <img id="dora_07" src="hai/h/error.png" onclick="modal_open(this.id)">
-                        <img id="dora_08" src="hai/h/error.png" onclick="modal_open(this.id)">
-                        <img id="dora_09" src="hai/h/error.png" onclick="modal_open(this.id)">
-                        <img id="dora_10" src="hai/h/error.png" onclick="modal_open(this.id)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- 風牌 -->
-            <div class="column_kaze">
-                <div class="info">
-                    <h2 class="title">風牌</h2>
-                    <div class="line">
-                        <div class="bakaze">
-                            <h3>場風</h3>
-                            <img src="hai/h/1.png" class="kazehai" id="bakaze" onclick="changebakaze()">
-                        </div>
-                        <div class="jikaze">
-                            <h3>自風</h3>
-                            <img src="hai/h/1.png" class="kazehai" id="jikaze" onclick="changejikaze()">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 役 -->
-            <div class="column_yaku">
-                <div class="info">
-                    <h2 class="title">役</h2>
-                    <div class="wrapper_yaku">
-                        <div class="yaku">
-                            <div class="checkbox box">
-                                <label>
-                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                    <span class="checkbox-parts">ツモ</span>
-                                </label>
-                                <label>
-                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                    <span class="checkbox-parts">リーチ</span>
-                                </label>
-                                <label>
-                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                    <span class="checkbox-parts">ダブルリーチ</span>
-                                </label>
-                                <label>
-                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                    <span class="checkbox-parts">海底・河底</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="yaku">
-                            <div class="checkbox box">
-                                <label>
-                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                    <span class="checkbox-parts">一発</span>
-                                </label>
-                                <label>
-                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                    <span class="checkbox-parts">嶺上開花</span>
-                                </label>
-                                <label>
-                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                    <span class="checkbox-parts">槍槓</span>
-                                </label>
-                                <label>
-                                    <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                    <span class="checkbox-parts">天和・地和</span>
-                                </label>
-                            </div>                          
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ボタン -->
-        <form action="index.html" method="POST">
-                <button type="button">撮りなおす</button>
-        </form>
-        <form action="http://52.196.253.153/calc_api/post" method="POST" enctype="multipart/form-data">
-            <button type="submit">計算する</button>     
-        </form>
-
-        <!-- モーダルウィンドウ -->
-        <div id="modal-content">
-            <div class="hai">
-                <div class="manzu">
-                    <img src="hai/m/1.png" onclick="hai_change(this.src)">
-                    <img src="hai/m/2.png" onclick="hai_change(this.src)">
-                    <img src="hai/m/3.png" onclick="hai_change(this.src)">
-                    <img src="hai/m/4.png" onclick="hai_change(this.src)">
-                    <img src="hai/m/5.png" onclick="hai_change(this.src)">
-                    <img src="hai/m/6.png" onclick="hai_change(this.src)">
-                    <img src="hai/m/7.png" onclick="hai_change(this.src)">
-                    <img src="hai/m/8.png" onclick="hai_change(this.src)">
-                    <img src="hai/m/9.png" onclick="hai_change(this.src)">
-                    <img src="hai/m/r.png" onclick="hai_change(this.src)">
-                </div>
-                <div class="pinzu">
-                    <img src="hai/p/1.png" onclick="hai_change(this.src)">
-                    <img src="hai/p/2.png" onclick="hai_change(this.src)">
-                    <img src="hai/p/3.png" onclick="hai_change(this.src)">
-                    <img src="hai/p/4.png" onclick="hai_change(this.src)">
-                    <img src="hai/p/5.png" onclick="hai_change(this.src)">
-                    <img src="hai/p/6.png" onclick="hai_change(this.src)">
-                    <img src="hai/p/7.png" onclick="hai_change(this.src)">
-                    <img src="hai/p/8.png" onclick="hai_change(this.src)">
-                    <img src="hai/p/9.png" onclick="hai_change(this.src)">
-                    <img src="hai/p/r.png" onclick="hai_change(this.src)">
-                </div>
-                <div class="souzu">
-                    <img src="hai/s/1.png" onclick="hai_change(this.src)">
-                    <img src="hai/s/2.png" onclick="hai_change(this.src)">
-                    <img src="hai/s/3.png" onclick="hai_change(this.src)">
-                    <img src="hai/s/4.png" onclick="hai_change(this.src)">
-                    <img src="hai/s/5.png" onclick="hai_change(this.src)">
-                    <img src="hai/s/6.png" onclick="hai_change(this.src)">
-                    <img src="hai/s/7.png" onclick="hai_change(this.src)">
-                    <img src="hai/s/8.png" onclick="hai_change(this.src)">
-                    <img src="hai/s/9.png" onclick="hai_change(this.src)">
-                    <img src="hai/s/r.png" onclick="hai_change(this.src)">
-                </div>
-                <div class="jihai">
-                    <img src="hai/h/1.png" onclick="hai_change(this.src)">
-                    <img src="hai/h/2.png" onclick="hai_change(this.src)">
-                    <img src="hai/h/3.png" onclick="hai_change(this.src)">
-                    <img src="hai/h/4.png" onclick="hai_change(this.src)">
-                    <img src="hai/h/5.png" onclick="hai_change(this.src)">
-                    <img src="hai/h/6.png" onclick="hai_change(this.src)">
-                    <img src="hai/h/7.png" onclick="hai_change(this.src)">
-                    <img src="hai/h/error.png" onclick="hai_change(this.src)">
-                    <img src="hai/h/error.png" onclick="hai_change(this.src)">
-                    <img src="hai/h/error.png" onclick="hai_change(this.src)">
-                </div>
-            </div>
-            <p><a id="modal-close" class="button-link">閉じる</a></p>
-        </div>
+<body>
+    <!-- タブレット端末の場合の警告(テスト用) -->
+    <h1 class="error" id="tablet">現在、タブレット端末は対応していません</h1>
     
+    <!-- 縦画面時に表示 -->
+    <h1 class="error" id="muki">画面を横に傾けてください</h1>
+    
+    <!-- 横画面時に表示 -->
+    <!-- 手牌、和了牌 -->
+    <div class="wrapper">
+        <div class="column_tehai">
+            <h2 class="title">手牌</h2>
+        </div>
+        <div class="column_horahai">
+            <h2 class="title">和了牌</h2>
+        </div>
+    </div>
+    <div class="tehai">
+        <img id="tehai_01" src="hai/m/1.png" alt="m1" onclick="modal_open(this.id)">
+        <img id="tehai_02" src="hai/m/1.png" alt="m1" onclick="modal_open(this.id)">
+        <img id="tehai_03" src="hai/m/1.png" alt="m1" onclick="modal_open(this.id)">
+        <img id="tehai_04" src="hai/m/2.png" alt="m2" onclick="modal_open(this.id)">
+        <img id="tehai_05" src="hai/m/3.png" alt="m3" onclick="modal_open(this.id)">
         
-        <script>
-            // クリックしたら風を変える
-            var kaze_src = new Array("hai/h/1.png","hai/h/2.png","hai/h/3.png","hai/h/4.png");
-            var num = 0;
+        <img id="tehai_06" src="hai/m/4.png" alt="m4" onclick="modal_open(this.id)">
+        <img id="tehai_07" src="hai/m/5.png" alt="m5" onclick="modal_open(this.id)">
+        <img id="tehai_08" src="hai/m/r.png" alt="mr" onclick="modal_open(this.id)">
+        <img id="tehai_09" src="hai/m/6.png" alt="m6" onclick="modal_open(this.id)">
+        <img id="tehai_10" src="hai/m/7.png" alt="m7" onclick="modal_open(this.id)">
+        
+        <img id="tehai_11" src="hai/m/8.png" alt="m8" onclick="modal_open(this.id)">
+        <img id="tehai_12" src="hai/m/9.png" alt="m9" onclick="modal_open(this.id)">
+        <img id="tehai_13" src="hai/m/9.png" alt="m9" onclick="modal_open(this.id)">
+        <img id="tehai_14" src="hai/m/9.png" alt="m9" onclick="modal_open(this.id)">
+    </div>
 
-            function changebakaze(){
-                if (num == 3){
-                    num = 0;
-                }
-                else {
-                    num++;
-                }
-                document.getElementById("bakaze").src = kaze_src[num];
+    <!-- ドラ、風牌、役 -->
+    <div class="wrapper">
+        <!-- ドラ -->
+        <div class="column_dora">
+            <div class="info">
+                <h2 class="title">ドラ</h2>
+                <div class="dora1">
+                    <img id="dora_01" src="hai/p/1.png" alt="p1" onclick="modal_open(this.id)">
+                    <img id="dora_02" src="hai/s/1.png" alt="s1" onclick="modal_open(this.id)">
+                    <img id="dora_03" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
+                    <img id="dora_04" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
+                    <img id="dora_05" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
+                </div>
+                <div class="dora2">
+                    <img id="dora_06" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
+                    <img id="dora_07" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
+                    <img id="dora_08" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
+                    <img id="dora_09" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
+                    <img id="dora_10" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
+                </div>
+            </div>
+        </div>
+
+        <!-- 風牌 -->
+        <div class="column_kaze">
+            <div class="info">
+                <h2 class="title">風牌</h2>
+                <div class="wrapper">
+                    <div class="column_title">
+                        <h3 class="ba">場風</h3>
+                    </div>
+                    <div class="column_kazehai">
+                        <img src="hai/h/1.png" id="bakaze" onclick="changebakaze()">
+                    </div>
+                </div>
+                <div class="wrapper">
+                    <div class="column_title">
+                        <h3 class="ji">自風</h3>
+                    </div>
+                    <div class="column_kazehai">
+                        <img src="hai/h/1.png" id="jikaze" onclick="changejikaze()">
+                    </div>
+                </div>
+        </div>
+        </div>
+
+        <!-- 役 -->
+        <div class="column_yaku">
+            <div class="info">
+                <h2 class="title">役</h2>
+                <div class="wrapper">
+                    <div class="yaku">
+                        <div class="checkbox box">
+                            <label>
+                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <span class="checkbox-parts">ツモ</span>
+                            </label>
+                            <label>
+                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <span class="checkbox-parts">リーチ</span>
+                            </label>
+                            <label>
+                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <span class="checkbox-parts">ダブルリーチ</span>
+                            </label>
+                            <label>
+                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <span class="checkbox-parts">海底・河底</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="yaku">
+                        <div class="checkbox box">
+                            <label>
+                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <span class="checkbox-parts">一発</span>
+                            </label>
+                            <label>
+                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <span class="checkbox-parts">嶺上開花</span>
+                            </label>
+                            <label>
+                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <span class="checkbox-parts">槍槓</span>
+                            </label>
+                            <label>
+                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <span class="checkbox-parts">天和・地和</span>
+                            </label>
+                        </div>                          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ボタン -->
+    <form action="index.html" method="POST">
+            <button id="back" type="submit">撮りなおす</button>
+    </form>
+    <form action="http://52.196.253.153/calc_api/post" method="POST" enctype="multipart/form-data">
+        <button id="calc" type="submit">計算する</button>     
+    </form>
+
+    <!-- モーダルウィンドウ -->
+    <div id="modal-content">
+        <div class="hai">
+            <div class="manzu" id="syurui">
+                <script>
+                    var i = "m"
+                    var ar = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "r"];
+                    for (var j of ar) {
+                        document.write(`<img src="hai/${i}/${j}.png" alt="${i}${j}" onclick="hai_change(this.src, this.alt)">`);
+                    }
+                </script>
+            </div>
+            <div class="pinzu" id="syurui">
+                <script>
+                    var i = "p"
+                    var ar = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "r"];
+                    for (var j of ar) {
+                        document.write(`<img src="hai/${i}/${j}.png" alt="${i}${j}" onclick="hai_change(this.src, this.alt)">`);
+                    }
+                </script>
+            </div>
+            <div class="souzu" id="syurui">
+                <script>
+                    var i = "s"
+                    var ar = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "r"];
+                    for (var j of ar) {
+                        document.write(`<img src="hai/${i}/${j}.png" alt="${i}${j}" onclick="hai_change(this.src, this.alt)">`);
+                    }
+                </script>
+            </div>
+            <div class="jihai" id="syurui">
+                <script>
+                    var i = "h"
+                    var ar = ["1", "2", "3", "4", "5", "6", "7", "error", "error", "error"];
+                    for (var j of ar) {
+                        document.write(`<img src="hai/${i}/${j}.png" alt="${i}${j}" onclick="hai_change(this.src, this.alt)">`);
+                    }
+                </script>
+            </div>
+        </div>
+        <button type="button" id="modal-close">閉じる</button>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // クリックしたら風を変える
+        var kaze_src = new Array("hai/h/1.png","hai/h/2.png","hai/h/3.png","hai/h/4.png");
+        var num = 0;
+
+        function changebakaze(){
+            if (num == 3){
+                num = 0;
             }
-            function changejikaze(){
-                if (num == 3){
-                    num = 0;
-                }
-                else {
-                    num++;
-                }
-                document.getElementById("jikaze").src = kaze_src[num];
+            else {
+                num++;
             }
-        </script>
-        <!-- JavaScriptの読み込み -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script src="modal_set.js"></script>
-    </body>
+            document.getElementById("bakaze").src = kaze_src[num];
+        }
+        function changejikaze(){
+            if (num == 3){
+                num = 0;
+            }
+            else {
+                num++;
+            }
+            document.getElementById("jikaze").src = kaze_src[num];
+        }
+    </script>
+    <!-- JavaScriptの読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="modal_set.js"></script>
+</body>
+
 </html>
