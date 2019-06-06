@@ -1,5 +1,3 @@
-var set_id = "";
-
 function centeringModalSyncer() {
 	var w = $( window ).width() ;
 	var h = $( window ).height() ;
@@ -10,8 +8,7 @@ function centeringModalSyncer() {
 	$( "#modal-content" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
 }
 
-function modal_open(hai_id) {
-    set_id = hai_id;
+function modal_open() {
 
 	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
 	$( this ).blur() ;	//ボタンからフォーカスを外す
@@ -30,6 +27,7 @@ function modal_open(hai_id) {
 
 	//[#modal-overlay]、または[#modal-close]をクリックしたら…
 	$( "#modal-overlay,#modal-close" ).unbind().click( function(){
+		videoRestartbutton()
 
 		//[#modal-content]と[#modal-overlay]をフェードアウトした後に…
 		$( "#modal-content,#modal-overlay" ).fadeOut( "fast" , function(){
@@ -40,17 +38,6 @@ function modal_open(hai_id) {
 		} ) ;
 
 	} ) ;
-}
-
-function hai_change(src_name, alt_name){
-	document.getElementById(set_id).src = src_name;
-	document.getElementById(set_id).alt = alt_name;
-    $( "#modal-content,#modal-overlay" ).fadeOut( "fast" , function(){
-
-        //[#modal-overlay]を削除する
-        $('#modal-overlay').remove() ;
-
-    } ) ;
 }
 
 $( window ).resize( centeringModalSyncer ) ;

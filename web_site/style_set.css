@@ -165,12 +165,12 @@ button {
 	height: auto;
 	width: 9vw;
 }
-.honor {
+.jihai {
 	display: flex;
 	justify-content: space-around;
 	height: 20vh;
 }
-.honor > * {
+.jihai > * {
 	height: auto;
 	width: 9vw;
 }

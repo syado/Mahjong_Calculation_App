@@ -16,6 +16,7 @@ from scipy.misc import imread
 import tensorflow as tf
 from ssd import SSD300
 from ssd_utils import BBoxUtility
+from PIL import Image
 import os
 
 np.set_printoptions(suppress=True)
@@ -56,7 +57,7 @@ def img_post():
         file = request.files['image']
         img_path = os.path.join("./uploads", file.filename)
         file.save(img_path)
-        p = dl_post_v2(img_path, 0.7)
+        p = dl_post(img_path, 0.7)
         return jsonify(p) 
 
 def dl_get(img_path, ritu):
@@ -92,41 +93,24 @@ def dl_get(img_path, ritu):
                 display_txt = '{}'.format(label_name)
             return p
         
+def expand2square(pil_img, background_color):
+    width, height = pil_img.size
+    if width == height:
+        return pil_img
+    elif width > height:
+        result = Image.new(pil_img.mode, (width, width), background_color)
+        result.paste(pil_img, (0, (width - height) // 2))
+        return result
+    else:
+        result = Image.new(pil_img.mode, (height, height), background_color)
+        result.paste(pil_img, ((height - width) // 2, 0))
+        return result
+
 def dl_post(img_path, ritu):
     inputs = []
     images = []
-    img = image.load_img(img_path, target_size=(512, 512))
-    img = image.img_to_array(img)
-    images.append(imread(img_path))
-    inputs.append(img.copy())
-    inputs = preprocess_input(np.array(inputs)) 
-
-    with graph.as_default():  
-        preds = model.predict(inputs, batch_size=1, verbose=1)
-
-        results = bbox_util.detection_out(preds)
-
-        for i, img in enumerate(images):
-            det_label = results[i][:, 0]
-            det_conf = results[i][:, 1]
-
-            top_indices = [i for i, conf in enumerate(det_conf) if conf >= ritu]
-
-            top_conf = det_conf[top_indices]
-            top_label_indices = det_label[top_indices].tolist()
-            p = {}
-            for i in range(top_conf.shape[0]):
-                score = top_conf[i]
-                label = int(top_label_indices[i])
-                label_name = voc_classes[label - 1]
-                p[i]= (label_name, score)
-                display_txt = '{}'.format(label_name)
-            return p
-
-def dl_post_v2(img_path, ritu):
-    inputs = []
-    images = []
-    img = image.load_img(img_path, target_size=(512, 512))
+    img = image.load_img(img_path) 
+    img = expand2square(img, (0, 0, 0)).resize((512, 512))
     img = image.img_to_array(img)
     images.append(imread(img_path))
     inputs.append(img.copy())
