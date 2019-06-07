@@ -1,2 +1,5 @@
 *.ini
 *.hdf5
+api_server/uploads/
+keras_ssd/PASCAL_VOC/outputimage/*.jpg
+keras_ssd/PASCAL_VOC/outputxml/*.xml
