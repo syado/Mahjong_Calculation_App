@@ -97,7 +97,7 @@ def maj_cal(data):
 
     if "wind" in data.keys():
         handconfig.round_wind = WINDS[int(data["wind"]["round"])-1]
-        handconfig.player = WINDS[int(data["wind"]["player"])-1]
+        handconfig.player_wind = WINDS[int(data["wind"]["player"])-1]
 
     if "kan" in data.keys() and len(data["kan"]) > 0:
         for kan in data["kan"]:
@@ -131,7 +131,7 @@ def maj_cal(data):
                 handconfig.is_haitei=True
             elif i in ["houtei", "河底", "ほうてい", "ホウテイ"]:
                 handconfig.is_houtei=True
-            elif i in ["is_daburu_riichi", "だぶりー", "ダブリー", "だぶるりーち", "ダブルリーチ"]:
+            elif i in ["daburu_riichi", "だぶりー", "ダブリー", "だぶるりーち", "ダブルリーチ"]:
                 handconfig.is_daburu_riichi=True
             elif i in ["nagashi_mangan", "流しマンガン", "ナガシマンガン", "ながしまんがん"]:
                 handconfig.is_nagashi_mangan=True
