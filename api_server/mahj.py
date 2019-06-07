@@ -101,7 +101,7 @@ def maj_cal(data):
 
     if "kan" in data.keys() and len(data["kan"]) > 0:
         for kan in data["kan"]:
-            opened = (kan["open"] in {"1",1})
+            opened = (kan["open"] in {"1", 1})
             melds.append(Meld(meld_type=Meld.KAN, tiles=to_136_array(obj=kan), opened=opened))
 
     if "pon" in data.keys() and len(data["pon"]) > 0:
@@ -117,7 +117,7 @@ def maj_cal(data):
 
     if "option" in data.keys():
         for i in data["option"]:
-            if i in ["tumo", "ツモ", "つも"]:
+            if i in ["tsumo", "ツモ", "つも"]:
                 handconfig.is_tsumo =True
             elif i in ["riichi", "リーチ", "りーち"]:
                 handconfig.is_riichi =True
@@ -131,15 +131,15 @@ def maj_cal(data):
                 handconfig.is_haitei=True
             elif i in ["houtei", "河底", "ほうてい", "ホウテイ"]:
                 handconfig.is_houtei=True
-            elif i in ["だぶりー", "ダブリー", "だぶるりーち", "ダブルリーチ"]:
+            elif i in ["is_daburu_riichi", "だぶりー", "ダブリー", "だぶるりーち", "ダブルリーチ"]:
                 handconfig.is_daburu_riichi=True
-            elif i in ["流しマンガン", "ナガシマンガン", "ながしまんがん"]:
+            elif i in ["nagashi_mangan", "流しマンガン", "ナガシマンガン", "ながしまんがん"]:
                 handconfig.is_nagashi_mangan=True
-            elif i in ["テンホウ", "てんほう"]:
+            elif i in ["tenhou", "テンホウ", "てんほう"]:
                 handconfig.is_tenhou=True
-            elif i in ["レンホウ", "れんほう"]:
+            elif i in ["renhou", "レンホウ", "れんほう"]:
                 handconfig.is_renhou=True
-            elif i in ["ちいほう", "チイホウ"]:
+            elif i in ["chiihou", "ちいほう", "チイホウ"]:
                 handconfig.is_chiihou=True
 
     import json

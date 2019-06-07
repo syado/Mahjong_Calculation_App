@@ -1,38 +1,40 @@
 from flask import Flask, render_template, request, jsonify
 from keras.preprocessing import image
 from flask import Blueprint
-
-app = Blueprint("img_api", __name__, url_prefix="/img_api")
-
-
 import cv2
 import keras
 from keras.applications.imagenet_utils import preprocess_input
 from keras.backend.tensorflow_backend import set_session
 from keras.models import Model
-from keras.preprocessing import image
 import numpy as np
 from scipy.misc import imread
 import tensorflow as tf
 from ssd import SSD300
 from ssd_utils import BBoxUtility
+from PIL import Image
 import os
+import base64
+from io import BytesIO
+
+
+app = Blueprint("img_api", __name__, url_prefix="/img_api")
 
 np.set_printoptions(suppress=True)
 
 config = tf.ConfigProto()
 set_session(tf.Session(config=config))
 
+size = 512
 global graph,model
 graph = tf.get_default_graph()
 
-voc_classes = ['1m', '2m', '3m', '4m', '5m', '6m', '7m', '8m', '9m',
-           '1p', '2p', '3p', '4p', '5p', '6p', '7p', '8p', '9p',
-           '1s', '2s', '3s', '4s', '5s', '6s', '7s', '8s', '9s',
-           'ton', 'sya', 'nan', 'pe', 'haku', 'hatsu', 'tyun', 'backside', '5s_a', '5m_a', '5p_a']
+voc_classes = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9',
+           'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9',
+           's1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9',
+           'h1', 'h3', 'h2', 'h4', 'h5', 'h6', 'h7', 'backside', 'sr', 'mr', 'pr']
 NUM_CLASSES = len(voc_classes) + 1
 
-input_shape=(512, 512, 3)
+input_shape=(size, size, 3)
 model = SSD300(input_shape, num_classes=NUM_CLASSES)
 model.load_weights('./hdf5/api.hdf5', by_name=True)
 
@@ -56,8 +58,21 @@ def img_post():
         file = request.files['image']
         img_path = os.path.join("./uploads", file.filename)
         file.save(img_path)
-        p = dl_post(img_path, 0.7)
+        img = image.load_img(img_path)
+        p = dl_post(img, 0.7)   
         return jsonify(p) 
+
+#前回に追記
+@app.route('/base64', methods=['POST'])
+def img_post_base64():
+    enc_data  = request.form['img']
+    #dec_data = base64.b64decode( enc_data )              # これではエラー  下記対応↓
+    dec_data = base64.b64decode( enc_data.split(',')[1] ) # 環境依存の様(","で区切って本体をdecode)
+    img  = image.load_img(BytesIO(dec_data))
+    if request.method == 'POST':
+        p = dl_post(img, 0.7)
+        return jsonify(p) 
+
 
 def dl_get(img_path, ritu):
     inputs = []
@@ -92,12 +107,23 @@ def dl_get(img_path, ritu):
                 display_txt = '{}'.format(label_name)
             return p
         
-def dl_post(img_path, ritu):
+def expand2square(pil_img, background_color):
+    width, height = pil_img.size
+    if width == height:
+        return pil_img
+    elif width > height:
+        result = Image.new(pil_img.mode, (width, width), background_color)
+        result.paste(pil_img, (0, (width - height) // 2))
+        return result
+    else:
+        result = Image.new(pil_img.mode, (height, height), background_color)
+        result.paste(pil_img, ((height - width) // 2, 0))
+        return result
+
+def dl_post(img, ritu):
     inputs = []
-    images = []
-    img = image.load_img(img_path, target_size=(512, 512))
+    img = expand2square(img, (0, 0, 0)).resize((size, size))
     img = image.img_to_array(img)
-    images.append(imread(img_path))
     inputs.append(img.copy())
     inputs = preprocess_input(np.array(inputs)) 
 
@@ -105,21 +131,34 @@ def dl_post(img_path, ritu):
         preds = model.predict(inputs, batch_size=1, verbose=1)
 
         results = bbox_util.detection_out(preds)
-
-        for i, img in enumerate(images):
+        for i in range(1):
             det_label = results[i][:, 0]
             det_conf = results[i][:, 1]
+            det_xmin = results[i][:, 2]
+            det_ymin = results[i][:, 3]
+            det_xmax = results[i][:, 4]
+            det_ymax = results[i][:, 5]
 
             top_indices = [i for i, conf in enumerate(det_conf) if conf >= ritu]
 
             top_conf = det_conf[top_indices]
             top_label_indices = det_label[top_indices].tolist()
-            p = {}
+            top_xmin = det_xmin[top_indices]
+            top_ymin = det_ymin[top_indices]
+            top_xmax = det_xmax[top_indices]
+            top_ymax = det_ymax[top_indices]
+            json_dict = {}
             for i in range(top_conf.shape[0]):
+                x = int(round(top_xmin[i] * size))
+                y = int(round(top_ymin[i] * size))
+                w = int(round(top_xmax[i] * size))-x
+                h = int(round(top_ymax[i] * size))-y
                 score = top_conf[i]
                 label = int(top_label_indices[i])
                 label_name = voc_classes[label - 1]
-                p[i]= (label_name, score)
-                display_txt = '{}'.format(label_name)
-            return p
+                json_dict[x]={"name":label_name, "score":score, "position":{"x":x,"y":y,"h":h,"w":w}}
 
+            json_list = []
+            for key in sorted(list(json_dict.keys())):
+                json_list.append(json_dict[key])
+            return json_list
