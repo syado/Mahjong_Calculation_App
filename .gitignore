@@ -1,2 +1,3 @@
 *.ini
 *.hdf5
+api_server/uploads/
