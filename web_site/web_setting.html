@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style_set.css">
 
     <!-- JavaScriptの読み込み -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="modal_set.js"></script>
 
     <title>麻雀カメラ</title>
@@ -151,10 +151,10 @@
     </div>
 
     <!-- ボタン -->
-    <form action="index.html" method="POST">
+    <form action="index.html" method="GET">
         <button id="back" type="submit">撮りなおす</button>
     </form>
-    <form action="http://52.196.253.153/calc_api/post" method="POST" enctype="multipart/form-data">
+    <form action="//mahjong.syado.net/calc_api/post" method="POST" enctype="multipart/form-data">
         <button id="calc" type="submit">計算する</button>
     </form>
 
