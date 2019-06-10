@@ -75,6 +75,29 @@
             height: 37vh;
             width: 20vw;
         }
+        /* 役 */
+        .wrapper_yaku {
+            display: flex;
+            overflow: scroll;
+        }
+        .yaku {
+            height: 43vh;
+            width: 25vw;
+        }
+        .yaku > * {
+            margin-top: 0.5vh;
+            text-align: center;
+            position: relative;
+            padding: 2.7vh 0px 2.7vh 0px;
+            color: #444;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            display:inline-block;
+            line-height:1;
+            width: 24vw;
+            height: 4vh;
+            font-size: 3.7vh;
+        }
         /* ドラ */
         .dora1 {
             margin-top: 1vh;
@@ -128,7 +151,15 @@
             width: 50vw;
             background-color: red;
             color: white;
+            /* text-align: center; */
+        }
+        #hanhu {
+            margin-left: 5%;
+            font-size: 5vh;
+        }
+        #ten {
             text-align: center;
+            font-size: 8vh;
         }
         /* ボタン */
         button {
