@@ -10,6 +10,10 @@
     <!-- スタイルシートの読み込み -->
     <link rel="stylesheet" href="style_set.css">
 
+    <!-- JavaScriptの読み込み -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="modal_set.js"></script>
+
     <title>麻雀カメラ</title>
 </head>
 
@@ -31,22 +35,21 @@
         </div>
     </div>
     <div class="tehai">
-        <img id="tehai_01" src="hai/m/1.png" alt="m1" onclick="modal_open(this.id)">
-        <img id="tehai_02" src="hai/m/1.png" alt="m1" onclick="modal_open(this.id)">
-        <img id="tehai_03" src="hai/m/1.png" alt="m1" onclick="modal_open(this.id)">
-        <img id="tehai_04" src="hai/m/2.png" alt="m2" onclick="modal_open(this.id)">
-        <img id="tehai_05" src="hai/m/3.png" alt="m3" onclick="modal_open(this.id)">
-        
-        <img id="tehai_06" src="hai/m/4.png" alt="m4" onclick="modal_open(this.id)">
-        <img id="tehai_07" src="hai/m/5.png" alt="m5" onclick="modal_open(this.id)">
-        <img id="tehai_08" src="hai/m/r.png" alt="mr" onclick="modal_open(this.id)">
-        <img id="tehai_09" src="hai/m/6.png" alt="m6" onclick="modal_open(this.id)">
-        <img id="tehai_10" src="hai/m/7.png" alt="m7" onclick="modal_open(this.id)">
-        
-        <img id="tehai_11" src="hai/m/8.png" alt="m8" onclick="modal_open(this.id)">
-        <img id="tehai_12" src="hai/m/9.png" alt="m9" onclick="modal_open(this.id)">
-        <img id="tehai_13" src="hai/m/9.png" alt="m9" onclick="modal_open(this.id)">
-        <img id="tehai_14" src="hai/m/9.png" alt="m9" onclick="modal_open(this.id)">
+        <script>
+            var args = getUrlVars();
+            var ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
+            for (var j = 0; j < 14; j++) {
+                var hai = args[String(j)];
+                if (hai != undefined){
+                    var hai_0 = hai.slice(0,1);
+                    var hai_1 = hai.slice(1,2);
+                    document.write(`<img id="${ar[j]}" src="hai/${hai_0}/${hai_1}.png" alt="${hai}" onclick="modal_open(this.id)">`);
+                }
+                else{
+                    document.write(`<img id="${ar[j]}" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">`);
+                }
+            }
+        </script>
     </div>
 
     <!-- ドラ、風牌、役 -->
@@ -56,18 +59,20 @@
             <div class="info">
                 <h2 class="title">ドラ</h2>
                 <div class="dora1">
-                    <img id="dora_01" src="hai/p/1.png" alt="p1" onclick="modal_open(this.id)">
-                    <img id="dora_02" src="hai/s/1.png" alt="s1" onclick="modal_open(this.id)">
-                    <img id="dora_03" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
-                    <img id="dora_04" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
-                    <img id="dora_05" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
+                    <script>
+                        var ar = ["dora_01", "dora_02", "dora_03", "dora_04", "dora_05"];
+                        for (var j of ar) {
+                            document.write(`<img id="${j}" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">`);
+                        }
+                    </script>
                 </div>
                 <div class="dora2">
-                    <img id="dora_06" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
-                    <img id="dora_07" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
-                    <img id="dora_08" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
-                    <img id="dora_09" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
-                    <img id="dora_10" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">
+                    <script>
+                        var ar = ["dora_06", "dora_07", "dora_08", "dora_09", "dora_10"];
+                        for (var j of ar) {
+                            document.write(`<img id="${j}" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">`);
+                        }
+                    </script>
                 </div>
             </div>
         </div>
@@ -103,19 +108,19 @@
                     <div class="yaku">
                         <div class="checkbox box">
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <input id="tumo" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="tumo()" />
                                 <span class="checkbox-parts">ツモ</span>
                             </label>
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                <span class="checkbox-parts">リーチ</span>
+                                <input id="wriichi" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="wriichi()" />
+                                <span class="checkbox-parts">ダブル立直</span>
                             </label>
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                <span class="checkbox-parts">ダブルリーチ</span>
+                                <input id="rinshan" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="rinshan()" />
+                                <span class="checkbox-parts">嶺上開花</span>
                             </label>
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <input id="haitei" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="haitei()" />
                                 <span class="checkbox-parts">海底・河底</span>
                             </label>
                         </div>
@@ -123,19 +128,19 @@
                     <div class="yaku">
                         <div class="checkbox box">
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <input id="riichi" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="riichi()" />
+                                <span class="checkbox-parts">立直</span>
+                            </label>
+                            <label>
+                                <input id="ippatsu" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="ippatsu()" />
                                 <span class="checkbox-parts">一発</span>
                             </label>
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                <span class="checkbox-parts">嶺上開花</span>
-                            </label>
-                            <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <input id="chankan" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="chankan()" />
                                 <span class="checkbox-parts">槍槓</span>
                             </label>
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <input id="tenhou" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="tenhou()" />
                                 <span class="checkbox-parts">天和・地和</span>
                             </label>
                         </div>                          
@@ -146,10 +151,10 @@
     </div>
 
     <!-- ボタン -->
-    <form action="index.html" method="POST">
+    <form action="index.html" method="GET">
             <button id="back" type="submit">撮りなおす</button>
     </form>
-    <form action="http://52.196.253.153/calc_api/post" method="POST" enctype="multipart/form-data">
+    <form action="//mahjong.syado.net/calc_api/post" method="POST" enctype="multipart/form-data">
         <button id="calc" type="submit">計算する</button>     
     </form>
 
@@ -220,10 +225,69 @@
             }
             document.getElementById("jikaze").src = kaze_src[num];
         }
+        function tumo(){
+            document.getElementById("chankan").checked = false;
+        }
+        function riichi(){
+            if(document.getElementById("riichi").checked){
+                document.getElementById("wriichi").checked = false;
+                document.getElementById("tenhou").checked= false;
+            }
+            else {
+                document.getElementById("ippatsu").checked = false;
+            }
+        }
+        function wriichi(){
+            if(document.getElementById("wriichi").checked){
+                document.getElementById("riichi").checked = false;
+                document.getElementById("tenhou").checked= false;
+            }
+            else {
+                document.getElementById("ippatsu").checked = false;
+            }
+        }
+        function ippatsu(){
+            if(document.getElementById("riichi").checked){
+                document.getElementById("ippatsu").checked = true;
+                document.getElementById("rinshan").checked = false;
+            }
+            else if(document.getElementById("wriichi").checked){
+                document.getElementById("ippatsu").checked = true;
+                document.getElementById("rinshan").checked = false;
+            }
+            else {
+                document.getElementById("ippatsu").checked = false;
+                document.getElementById("tenhou").checked = false;
+            }
+        }
+        function rinshan(){
+            document.getElementById("tumo").checked = true;
+            document.getElementById("chankan").checked = false;
+            document.getElementById("haitei").checked = false;
+            document.getElementById("tenhou").checked = false;
+            document.getElementById("ippatsu").checked = false;
+        }
+        function chankan(){
+            document.getElementById("tumo").checked = false;
+            document.getElementById("rinshan").checked = false;
+            document.getElementById("haitei").checked = false;
+            document.getElementById("tenhou").checked = false;
+        }
+        function haitei(){
+            document.getElementById("rinshan").checked = false;
+            document.getElementById("chankan").checked = false;
+            document.getElementById("tenhou").checked = false;
+        }
+        function tenhou(){
+            document.getElementById("tumo").checked = true;
+            document.getElementById("ippatsu").checked = false;
+            document.getElementById("riichi").checked = false;
+            document.getElementById("wriichi").checked = false;
+            document.getElementById("rinshan").checked = false;
+            document.getElementById("chankan").checked = false;
+            document.getElementById("haitei").checked = false;
+        }
     </script>
-    <!-- JavaScriptの読み込み -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="modal_set.js"></script>
 </body>
 
 </html>
