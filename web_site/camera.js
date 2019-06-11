@@ -106,8 +106,6 @@ function videoRestartbutton(){
       };
     })
     .catch(function(err){ console.log(err.name + ": " + err.message); });
-  
-  };
-
+};
 
 startup()

@@ -3,7 +3,12 @@
 <head>
     <meta charset="utf-8">
 
+    <!-- スタイルシートの読み込み -->
     <link rel="stylesheet" href="style_idx.css">
+
+    <!-- JavaScriptの読み込み -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="api.js"></script>
 
     <title>麻雀カメラ</title>
 </head>
@@ -20,8 +25,6 @@
     <form id="img_form" action="//mahjong.syado.net/img_api/post" method="POST" enctype="multipart/form-data">
         <input onchange="img_form_send()" type="file" name="image" accept="image/png, image/jpeg, image/jpg">
     </form>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="api.js"></script>
 </body>
 
 </html>

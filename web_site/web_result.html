@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+
+    <!-- ビューポートの設定 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- スタイルシートの読み込み -->
+    <link rel="stylesheet" href="style_rslt.css">
+
+    <title>麻雀カメラ</title>
+</head>
+
+<body>
+    <!-- タブレット端末の場合の警告(テスト用) -->
+    <h1 class="error" id="tablet">現在、タブレット端末は対応していません</h1>
+    
+    <!-- 縦画面時に表示 -->
+    <h1 class="error" id="muki">画面を横に傾けてください</h1>
+    
+    <!-- 横画面時に表示 -->
+    <h2 class="title">和了形</h2>
+    <div class="tehai">
+        <img id="tehai_01" src="hai/m/1.png" alt="m1">
+        <img id="tehai_02" src="hai/m/1.png" alt="m1">
+        <img id="tehai_03" src="hai/m/1.png" alt="m1">
+        <img id="tehai_04" src="hai/m/2.png" alt="m2">
+        <img id="tehai_05" src="hai/m/3.png" alt="m3">
+        
+        <img id="tehai_06" src="hai/m/4.png" alt="m4">
+        <img id="tehai_07" src="hai/m/5.png" alt="m5">
+        <img id="tehai_08" src="hai/m/r.png" alt="mr">
+        <img id="tehai_09" src="hai/m/6.png" alt="m6">
+        <img id="tehai_10" src="hai/m/7.png" alt="m7">
+        
+        <img id="tehai_11" src="hai/m/8.png" alt="m8">
+        <img id="tehai_12" src="hai/m/9.png" alt="m9">
+        <img id="tehai_13" src="hai/m/9.png" alt="m9">
+        <img id="tehai_14" src="hai/m/9.png" alt="m9">
+    </div>
+    <!-- ドラ、風牌、役 -->
+    <div class="wrapper">
+        <!-- 役 -->
+        <div class="column_yaku">
+            <div class="info">
+                <h2 class="title">役</h2>
+                <div class="wrapper_yaku">
+                    <div class="yaku">
+                        <p>門前自摸</p>
+                        <p>一発</p>
+                        <p>平和</p>
+                        <p>役牌 白</p>
+                        <p>役牌 中</p>
+                        <p>役牌 自風</p>
+                        <p>嶺上開花</p>
+                        <p>河底撈魚</p>
+                        <p>七対子</p>
+                        <p>三暗刻</p>
+                        <p>三色同順</p>
+                        <p>一気通貫</p>
+                        <p>小三元</p>
+                        <p>混一色</p>
+                        <p>二盃口</p>
+                        <p>国士無双十三面待ち</p>
+                    </div>
+                    <div class="yaku">
+                        <p>立直</p>
+                        <p>断公九</p>
+                        <p>一盃口</p>
+                        <p>役牌 發</p>
+                        <p>役牌 場風</p>
+                        <p>槍槓</p>
+                        <p>海底撈月</p>  
+                        <p>ダブル立直</p>
+                        <p>対々和</p>
+                        <p>三色同刻</p>
+                        <p>混老頭</p>
+                        <p>混全帯幺九</p>
+                        <p>三槓子</p>
+                        <p>純全帯幺九</p>
+                        <p>清一色</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column_result">
+            <div class="wrapper">
+                <!-- ドラ -->
+                <div class="column_dora">
+                    <div class="info">
+                        <h2 class="title">ドラ</h2>
+                        <div class="dora1">
+                            <img id="dora_01" src="hai/p/1.png" alt="p1">
+                            <img id="dora_02" src="hai/s/1.png" alt="s1">
+                            <img id="dora_03" src="hai/h/error.png" alt="error">
+                            <img id="dora_04" src="hai/h/error.png" alt="error">
+                            <img id="dora_05" src="hai/h/error.png" alt="error">
+                        </div>
+                        <div class="dora2">
+                            <img id="dora_06" src="hai/h/error.png" alt="error">
+                            <img id="dora_07" src="hai/h/error.png" alt="error">
+                            <img id="dora_08" src="hai/h/error.png" alt="error">
+                            <img id="dora_09" src="hai/h/error.png" alt="error">
+                            <img id="dora_10" src="hai/h/error.png" alt="error">
+                        </div>
+                    </div>
+                </div>
+                <!-- 風牌 -->
+                <div class="column_kaze">
+                    <div class="info">
+                        <h2 class="title">風牌</h2>
+                        <div class="wrapper">
+                            <div class="column_title">
+                                <h3 class="ba">場風</h3>
+                            </div>
+                            <div class="column_title">
+                                <h3 class="ji">自風</h3>
+                            </div>
+                        </div>
+                        <div class="wrapper">
+                            <div class="column_kazehai">
+                                <img src="hai/h/1.png" id="bakaze">
+                            </div>
+                            <div class="column_kazehai">
+                                <img src="hai/h/1.png" id="jikaze">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="result">
+                <p id="hanhu">10翻100符</p>
+                <p id="ten">親:32000 子:16000</p>
+            </div>
+        </div>
+    </div>
+    <!-- ボタン -->
+    <form action="web_setting.html" method="POST">
+            <button id="back" type="submit">計算をやり直す</button>
+    </form>
+    <form action="index.html" method="POST">
+        <button id="home" type="submit">終了する</button>     
+    </form>
+</body>
+
+</html>
