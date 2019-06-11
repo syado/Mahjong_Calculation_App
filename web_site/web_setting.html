@@ -42,7 +42,7 @@
                 var hai = args[String(j)];
                 if (hai != undefined){
                     var hai_0 = hai.slice(0,1);
-                    var hai_1 = hai.slice(1,2);
+                    var hai_1 = hai.slice(1);
                     document.write(`<img id="${ar[j]}" src="hai/${hai_0}/${hai_1}.png" alt="${hai}" onclick="modal_open(this.id)">`);
                 }
                 else{
@@ -86,7 +86,7 @@
                         <h3 class="ba">場風</h3>
                     </div>
                     <div class="column_kazehai">
-                        <img src="hai/h/1.png" id="bakaze" onclick="changebakaze()">
+                        <img src="hai/h/1.png" id="bakaze" alt="1" onclick="changewind(this.id, this.alt)">
                     </div>
                 </div>
                 <div class="wrapper">
@@ -94,7 +94,7 @@
                         <h3 class="ji">自風</h3>
                     </div>
                     <div class="column_kazehai">
-                        <img src="hai/h/1.png" id="jikaze" onclick="changejikaze()">
+                        <img src="hai/h/1.png" id="jikaze" alt="1" onclick="changewind(this.id, this.alt)">
                     </div>
                 </div>
             </div>
@@ -207,23 +207,16 @@
         var kaze_src = new Array("hai/h/1.png", "hai/h/2.png", "hai/h/3.png", "hai/h/4.png");
         var num = 0;
 
-        function changebakaze() {
-            if (num == 3) {
+        function changewind(id, alt) {
+            var num = Number(alt)-1
+            if (num >= 3) {
                 num = 0;
             }
             else {
                 num++;
             }
-            document.getElementById("bakaze").src = kaze_src[num];
-        }
-        function changejikaze() {
-            if (num == 3) {
-                num = 0;
-            }
-            else {
-                num++;
-            }
-            document.getElementById("jikaze").src = kaze_src[num];
+            document.getElementById(id).src = kaze_src[num];
+            document.getElementById(id).alt = String(num);
         }
     </script>
 </body>
