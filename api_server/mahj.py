@@ -131,8 +131,8 @@ def maj_cal(data):
                 handconfig.is_haitei=True
             elif i in ["houtei", "河底", "ほうてい", "ホウテイ"]:
                 handconfig.is_houtei=True
-            elif i in ["is_daburu_riichi", "だぶりー", "ダブリー", "だぶるりーち", "ダブルリーチ"]:
-                handconfig.is_daburu_riichi=True
+            elif i in ["daburu_riichi", "だぶりー", "ダブリー", "だぶるりーち", "ダブルリーチ"]:
+                handconfig.daburu_riichi=True
             elif i in ["nagashi_mangan", "流しマンガン", "ナガシマンガン", "ながしまんがん"]:
                 handconfig.is_nagashi_mangan=True
             elif i in ["tenhou", "テンホウ", "てんほう"]:
