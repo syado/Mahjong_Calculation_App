@@ -1,23 +1,30 @@
-<!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
 
-        <link rel="stylesheet" href="style_idx.css">
+<head>
+    <meta charset="utf-8">
 
-        <title>麻雀カメラ</title>
-    </head>
-    <body>
-        <!-- 縦画面時に表示 -->
-        <h1 class="error">画面を横に傾けてください</h1>
+    <!-- スタイルシートの読み込み -->
+    <link rel="stylesheet" href="style_idx.css">
 
-        <!-- 横画面時に表示 -->
-        <h1 class="title">麻雀カメラ</h1>
-        <form action="web_camera.html" method="POST">
-            <button class="btn" type="submit">写真を撮る</button>
-        </form>
-        <form action="http://52.196.253.153/img_api/post" method="POST" enctype="multipart/form-data">
-            <input onchange="this.form.submit()" type="file" name="image" accept="image/png, image/jpeg, image/jpg">
-        </form>
-    </body>
+    <!-- JavaScriptの読み込み -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="api.js"></script>
+
+    <title>麻雀カメラ</title>
+</head>
+
+<body>
+    <!-- 縦画面時に表示 -->
+    <h1 class="error">画面を横に傾けてください</h1>
+
+    <!-- 横画面時に表示 -->
+    <h1 class="title">麻雀カメラ</h1>
+    <form action="web_camera.html" method="GET">
+        <button class="btn" type="submit">写真を撮る</button>
+    </form>
+    <form id="img_form" action="//mahjong.syado.net/img_api/post" method="POST" enctype="multipart/form-data">
+        <input onchange="img_form_send()" type="file" name="image" accept="image/png, image/jpeg, image/jpg">
+    </form>
+</body>
+
 </html>

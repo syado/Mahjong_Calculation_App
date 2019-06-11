@@ -7,6 +7,12 @@
         <!-- スタイルシートの読み込み -->
         <link rel="stylesheet" href="style_cmr.css">
 
+        <!-- JavaScriptの読み込み -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="modal_cmr.js"></script>
+        <script src="camera.js"> </script>
+        <script src="api.js"></script>
+
         <title>麻雀カメラ</title>
     </head>
     <body>
@@ -27,7 +33,7 @@
                 <button type="button" id="modal-close">
                     撮りなおす
                 </button>
-                <button type="button" onclick="send()">
+                <button type="button" onclick="camera_send()">
                     送信する
                 </button>
             </div>
@@ -35,12 +41,7 @@
         <script>
             document.querySelector('#video').addEventListener('click', function (e) {
             video.pause();
-            // localMediaStream.stop();
         }, false);
         </script>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script src="modal_cmr.js"></script>
-        <script src="camera.js"> </script>
     </body>
 </html>

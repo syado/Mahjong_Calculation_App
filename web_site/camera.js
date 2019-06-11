@@ -106,37 +106,6 @@ function videoRestartbutton(){
       };
     })
     .catch(function(err){ console.log(err.name + ": " + err.message); });
-  
-  };
-//下記はカメラデータの送信部分
-function send() {
-    //送信先URL
-    var host_url = "http://52.196.253.153/img_api/base64";
-    //canvas elementを取得
-    var canvas = document.getElementById('canvas');
-    //base64データを取得（エンコード）
-    var img_base64 = canvas.toDataURL('image/png');
-    
-    var fd = new FormData();
-    fd.append('img', img_base64);
-
-    $.ajax({
-        //画像処理サーバーに返す場合
-        url: host_url,
-        type: 'POST',
-        data: fd,
-        contentType: false,
-        processData: false,
-        success: function(data, dataType) {
-            //非同期で通信成功時に読み出される [200 OK 時]
-            console.log('Success', data);
-            for(item of data) console.log(item.name);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            //非同期で通信失敗時に読み出される
-            console.log('Error : ' + errorThrown);
-        }
-    });
-}
+};
 
 startup()
