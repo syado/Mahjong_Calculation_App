@@ -13,6 +13,7 @@
     <!-- JavaScriptの読み込み -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="modal_set.js"></script>
+    <script src="web_setting.js"></script>
 
     <title>麻雀カメラ</title>
 </head>
@@ -39,7 +40,7 @@
             var args = getUrlVars();
             var ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
             for (var j = 0; j < 14; j++) {
-                var hai = args[String(j+1)];
+                var hai = args[String(j)];
                 if (hai != undefined){
                     var hai_0 = hai.slice(0,1);
                     var hai_1 = hai.slice(1);
