@@ -15,7 +15,7 @@
         line-height: 70vh;
     }
     .btn {
-        margin-left: 7.5vw;
+        /* margin-left: 7.5vw; */
         width: 35vw;
         height: 10vh;
     }
@@ -23,8 +23,50 @@
         width: 50vw;
         float: left;
     }
+    .button_div {
+        width: 35vw;
+        height: 10vh;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%,0%);
+        transform: translate(-50%,0%);
+        
+    }
+    .button_div {
+        display: inline-block;
+        position: relative;
+        /* padding: 1em 2.2em; */
+        line-height: 10vh;
+        text-align: -webkit-center;
+        text-align: center;
+        color: #fff;
+        border-radius: 4px;
+        background-color: #2772DB;
+        overflow: hidden;
+        -webkit-transition: .3s ease;
+        -moz-transition: .3s ease;
+        -o-transition: .3s ease;
+        transition: .3s ease;
+      }
+      .button_div:hover {
+        background-color: #2062bf;
+      }
+      .btn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
+    body {
+        background-color: #1e9623;
+        color: white;
+    }
     
- }
+}
 
 @media screen and (orientation: portrait) {
     /* 縦向きの場合のスタイル */
@@ -46,4 +88,4 @@
         line-height: 100vh;
         font-size: 3.5vh;
     }
- }
+}

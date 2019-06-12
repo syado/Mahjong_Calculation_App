@@ -22,6 +22,10 @@ function changewind(id, alt) {
 }
 function tumo() {
     document.getElementById("chankan").checked = false;
+    if (!document.getElementById("tumo").checked){
+        document.getElementById("rinshan").checked = false;
+        document.getElementById("tenhou").checked = false;
+    }
 }
 function riichi() {
     if (document.getElementById("riichi").checked) {
@@ -43,12 +47,16 @@ function wriichi() {
 }
 function ippatsu() {
     if (document.getElementById("riichi").checked) {
-        document.getElementById("ippatsu").checked = true;
-        document.getElementById("rinshan").checked = false;
+        if (document.getElementById("ippatsu").checked){
+            document.getElementById("ippatsu").checked = true;
+            document.getElementById("rinshan").checked = false;
+        }
     }
     else if (document.getElementById("wriichi").checked) {
-        document.getElementById("ippatsu").checked = true;
-        document.getElementById("rinshan").checked = false;
+        if (document.getElementById("ippatsu").checked){
+            document.getElementById("ippatsu").checked = true;
+            document.getElementById("rinshan").checked = false;
+        }
     }
     else {
         document.getElementById("ippatsu").checked = false;
