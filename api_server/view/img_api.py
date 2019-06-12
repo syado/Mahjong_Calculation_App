@@ -9,7 +9,7 @@ from keras.models import Model
 import numpy as np
 from scipy.misc import imread
 import tensorflow as tf
-from ssd import SSD300
+from ssd import SSD512
 from ssd_utils import BBoxUtility
 from PIL import Image
 import os
@@ -35,8 +35,8 @@ voc_classes = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9',
 NUM_CLASSES = len(voc_classes) + 1
 
 input_shape=(size, size, 3)
-model = SSD300(input_shape, num_classes=NUM_CLASSES)
-model.load_weights('./hdf5/api.hdf5', by_name=True)
+model = SSD512(input_shape, num_classes=NUM_CLASSES)
+model.load_weights('./hdf5/weights.34-0.04.hdf5', by_name=True)
 
 bbox_util = BBoxUtility(NUM_CLASSES)
 
@@ -55,13 +55,24 @@ def img_get():
 def img_post():
     # リクエストがポストかどうかの判別
     if request.method == 'POST':
-        file = request.files['image']
+        file = request.files["image"]
         img_path = os.path.join("./uploads", file.filename)
         file.save(img_path)
         img = image.load_img(img_path)
-        p = dl_post(img, 0.7)   
+        p = dl_post(img, 0.97)   
         return jsonify(p) 
 
+@app.route('/hdf5', methods=['GET','POST'])
+def hdf5_uploads():
+    # リクエストがポストかどうかの判別
+    if request.method == 'POST':
+        file = request.files['hdf5']
+        img_path = os.path.join("./hdf5", file.filename)
+        file.save(img_path)
+        return jsonify({"hdf5":"upload"})
+    elif request.method == 'GET':
+        return render_template('hdf5_index.html')
+        
 #前回に追記
 @app.route('/base64', methods=['POST'])
 def img_post_base64():
@@ -70,7 +81,7 @@ def img_post_base64():
     dec_data = base64.b64decode( enc_data.split(',')[1] ) # 環境依存の様(","で区切って本体をdecode)
     img  = image.load_img(BytesIO(dec_data))
     if request.method == 'POST':
-        p = dl_post(img, 0.7)
+        p = dl_post(img, 0.97)
         return jsonify(p) 
 
 
@@ -147,7 +158,12 @@ def dl_post(img, ritu):
             top_ymin = det_ymin[top_indices]
             top_xmax = det_xmax[top_indices]
             top_ymax = det_ymax[top_indices]
-            json_dict = {}
+            json_list = []
+            x_list = []
+            y_list = []
+
+            from statistics import mean, median,variance,stdev
+
             for i in range(top_conf.shape[0]):
                 x = int(round(top_xmin[i] * size))
                 y = int(round(top_ymin[i] * size))
@@ -156,9 +172,23 @@ def dl_post(img, ritu):
                 score = top_conf[i]
                 label = int(top_label_indices[i])
                 label_name = voc_classes[label - 1]
-                json_dict[x]={"name":label_name, "score":score, "position":{"x":x,"y":y,"h":h,"w":w}}
+                json_list.append({"name":label_name, "score":score, "position":{"x":x,"y":y,"h":h,"w":w}})
+                x_list.append(x)
+                y_list.append(y)
+            
+            #y座標の中央値を求める
+            median_y = median(y_list)
+            #中央値からの差の絶対値をリスト保存
+            abs_y = [abs(median_y-y) for y in y_list]
+            #最大値（一番離れている）を求めてインデックスを返す
+            agari_index = abs_y.index(max(abs_y))
+            #上がり牌をリストから除く
+            agari_json = json_list.pop(agari_index)
 
-            json_list = []
+            json_dict ={ i["position"]["x"]:i for i in json_list}
+
+            json_data = []
             for key in sorted(list(json_dict.keys())):
-                json_list.append(json_dict[key])
-            return json_list
+                json_data.append(json_dict[key])
+            json_data.append(agari_json)
+            return json_data
