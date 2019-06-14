@@ -38,8 +38,11 @@
             line-height: 13vh;
             text-align: center;
             height: 12vh;
-            border: solid 1px #000;
+            /* border: solid 1px #0000;         */
             border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.25);
+            width: calc( 100% - 2vh );
+            margin: 0 1vh 0 1vh;
         }
         /* 手牌、和了牌 */
         .column_tehai {
@@ -148,24 +151,26 @@
             display: none;
         }
         .checkbox-parts{
-            margin-top: 0.5vh;
+            margin-top: 1vh;
             margin-left: 1.5vw;
             text-align: center;
             position: relative;
             padding: 2.7vh 0px 2.7vh 0px;
-            color: #444;
+            color: #000;
             border-radius: 8px;
-            border: 1px solid #ddd;
+            /* border: 1px solid #0000; */
             display:inline-block;
-            line-height:1;
+            line-height: 4vh;
             width: 17vw;
             height: 4vh;
             font-size: 3.7vh;
+            background-color: white;
+
         }
         .checkbox-input:checked + .checkbox-parts{
             background: #ff555e;
             color: #fff;
-            border: 1px solid #ff555e;
+            /* border: 1px solid #ff555d00; */
         }
         /* ボタン */
         button {
@@ -184,6 +189,7 @@
             position: fixed ;
             display: none ;
             z-index: 2 ;
+            background-color: #1e9623;
         }
         #modal-overlay {
             z-index: 1 ;
@@ -214,6 +220,10 @@
             margin-top: 1vh;
             height: 10vh;
             width: 90vw;
+        }
+        body {
+            background-color: #1e9623;
+            color: white;
         }
     }
 }

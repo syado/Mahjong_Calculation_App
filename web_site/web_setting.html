@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="style_set.css">
 
     <!-- JavaScriptの読み込み -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="modal_set.js"></script>
+    <script src="web_setting.js"></script>
 
     <title>麻雀カメラ</title>
 </head>
@@ -20,10 +21,10 @@
 <body>
     <!-- タブレット端末の場合の警告(テスト用) -->
     <h1 class="error" id="tablet">現在、タブレット端末は対応していません</h1>
-    
+
     <!-- 縦画面時に表示 -->
     <h1 class="error" id="muki">画面を横に傾けてください</h1>
-    
+
     <!-- 横画面時に表示 -->
     <!-- 手牌、和了牌 -->
     <div class="wrapper">
@@ -42,7 +43,7 @@
                 var hai = args[String(j)];
                 if (hai != undefined){
                     var hai_0 = hai.slice(0,1);
-                    var hai_1 = hai.slice(1,2);
+                    var hai_1 = hai.slice(1);
                     document.write(`<img id="${ar[j]}" src="hai/${hai_0}/${hai_1}.png" alt="${hai}" onclick="modal_open(this.id)">`);
                 }
                 else{
@@ -86,7 +87,7 @@
                         <h3 class="ba">場風</h3>
                     </div>
                     <div class="column_kazehai">
-                        <img src="hai/h/1.png" id="bakaze" onclick="changebakaze()">
+                        <img src="hai/h/1.png" id="bakaze" alt="1" onclick="changewind(this.id, this.alt)">
                     </div>
                 </div>
                 <div class="wrapper">
@@ -94,7 +95,7 @@
                         <h3 class="ji">自風</h3>
                     </div>
                     <div class="column_kazehai">
-                        <img src="hai/h/1.png" id="jikaze" onclick="changejikaze()">
+                        <img src="hai/h/1.png" id="jikaze" alt="1" onclick="changewind(this.id, this.alt)">
                     </div>
                 </div>
             </div>
@@ -143,7 +144,7 @@
                                 <input id="tenhou" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="tenhou()" />
                                 <span class="checkbox-parts">天和・地和</span>
                             </label>
-                        </div>                          
+                        </div>
                     </div>
                 </div>
             </div>
@@ -152,11 +153,9 @@
 
     <!-- ボタン -->
     <form action="index.html" method="GET">
-            <button id="back" type="submit">撮りなおす</button>
+        <button id="back" type="submit">撮りなおす</button>
     </form>
-    <form action="//mahjong.syado.net/calc_api/post" method="POST" enctype="multipart/form-data">
-        <button id="calc" type="submit">計算する</button>     
-    </form>
+    <button id="calc" onclick="calc()">計算する</button>
 
     <!-- モーダルウィンドウ -->
     <div id="modal-content">
@@ -193,7 +192,8 @@
                     var i = "h"
                     var ar = ["1", "2", "3", "4", "5", "6", "7", "error", "error", "error"];
                     for (var j of ar) {
-                        document.write(`<img src="hai/${i}/${j}.png" alt="${i}${j}" onclick="hai_change(this.src, this.alt)">`);
+                        if (j != "error") document.write(`<img src="hai/${i}/${j}.png" alt="${i}${j}" onclick="hai_change(this.src, this.alt)">`);
+                        else document.write(`<img src="hai/${i}/${j}.png" alt="${j}" onclick="hai_change(this.src, this.alt)">`);
                     }
                 </script>
             </div>
@@ -201,93 +201,6 @@
         <button type="button" id="modal-close">閉じる</button>
     </div>
 
-    <!-- JavaScript -->
-    <script>
-        // クリックしたら風を変える
-        var kaze_src = new Array("hai/h/1.png","hai/h/2.png","hai/h/3.png","hai/h/4.png");
-        var num = 0;
-
-        function changebakaze(){
-            if (num == 3){
-                num = 0;
-            }
-            else {
-                num++;
-            }
-            document.getElementById("bakaze").src = kaze_src[num];
-        }
-        function changejikaze(){
-            if (num == 3){
-                num = 0;
-            }
-            else {
-                num++;
-            }
-            document.getElementById("jikaze").src = kaze_src[num];
-        }
-        function tumo(){
-            document.getElementById("chankan").checked = false;
-        }
-        function riichi(){
-            if(document.getElementById("riichi").checked){
-                document.getElementById("wriichi").checked = false;
-                document.getElementById("tenhou").checked= false;
-            }
-            else {
-                document.getElementById("ippatsu").checked = false;
-            }
-        }
-        function wriichi(){
-            if(document.getElementById("wriichi").checked){
-                document.getElementById("riichi").checked = false;
-                document.getElementById("tenhou").checked= false;
-            }
-            else {
-                document.getElementById("ippatsu").checked = false;
-            }
-        }
-        function ippatsu(){
-            if(document.getElementById("riichi").checked){
-                document.getElementById("ippatsu").checked = true;
-                document.getElementById("rinshan").checked = false;
-            }
-            else if(document.getElementById("wriichi").checked){
-                document.getElementById("ippatsu").checked = true;
-                document.getElementById("rinshan").checked = false;
-            }
-            else {
-                document.getElementById("ippatsu").checked = false;
-                document.getElementById("tenhou").checked = false;
-            }
-        }
-        function rinshan(){
-            document.getElementById("tumo").checked = true;
-            document.getElementById("chankan").checked = false;
-            document.getElementById("haitei").checked = false;
-            document.getElementById("tenhou").checked = false;
-            document.getElementById("ippatsu").checked = false;
-        }
-        function chankan(){
-            document.getElementById("tumo").checked = false;
-            document.getElementById("rinshan").checked = false;
-            document.getElementById("haitei").checked = false;
-            document.getElementById("tenhou").checked = false;
-        }
-        function haitei(){
-            document.getElementById("rinshan").checked = false;
-            document.getElementById("chankan").checked = false;
-            document.getElementById("tenhou").checked = false;
-        }
-        function tenhou(){
-            document.getElementById("tumo").checked = true;
-            document.getElementById("ippatsu").checked = false;
-            document.getElementById("riichi").checked = false;
-            document.getElementById("wriichi").checked = false;
-            document.getElementById("rinshan").checked = false;
-            document.getElementById("chankan").checked = false;
-            document.getElementById("haitei").checked = false;
-        }
-    </script>
 </body>
 
 </html>
