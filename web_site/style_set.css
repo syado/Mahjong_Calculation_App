@@ -314,6 +314,7 @@
             text-align: center;
             font-weight: bold;
             font-size: 10vh;
+            line-height: 14vh;
             color: red;
         }
         .close-rslt {
