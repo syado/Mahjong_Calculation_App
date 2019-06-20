@@ -65,6 +65,23 @@
         background-color: #1e9623;
         color: white;
     }
+    div#blind {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        background-color: rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    span.loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -10px;
+        margin-left: -100px;
+    }　
     
 }
 

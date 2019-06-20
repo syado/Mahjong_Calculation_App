@@ -37,6 +37,7 @@ function camera_send() {
 }
 
 function img_form_send() {
+    loading_on();
     $.ajax({
         //画像処理サーバーに返す場合
         url: $("#img_form").attr('action'),
@@ -44,6 +45,9 @@ function img_form_send() {
         data: new FormData($('#img_form').get(0)),
         contentType: false,
         processData: false,
+        complete: function(){
+            loading_off();
+        },
         success: function (data, dataType) {
             //非同期で通信成功時に読み出される [200 OK 時]
             console.log('Success', data);
@@ -61,3 +65,11 @@ function img_form_send() {
         }
     });
 }
+
+// 送信中
+var loading_on = function() {
+    $(document.body).append("<div id=\"blind\"><span class=\"loading\"></span></div>");
+};
+var loading_off = function() {
+    $("#blind").remove();
+};

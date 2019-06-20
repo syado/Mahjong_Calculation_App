@@ -182,7 +182,7 @@ function calc() {
             // 役を生成
             modal_yaku_load(data.yaku);
             // 点数を生成
-            modal_ten_load(data);
+            modal_ten_load(data.han, data.fu, data.cost.main, data.cost.additional);
             // alert(data.cost.main);
         }
     });

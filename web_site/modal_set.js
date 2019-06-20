@@ -114,17 +114,22 @@ function modal_hai_load() {
 
 function modal_yaku_load(yaku_list) {
 	// リザルトの役を初期化
-	var element = document.getElementById("modal_yaku");
-	modal_reset(element);
+	var element1 = document.getElementById("yaku_name");
+	modal_reset(element1);
+	var element2 = document.getElementById("yaku_han");
+	modal_reset(element2);
 	// JSONから取得した役を生成
-	for (var j = 0; j < yaku_list.length; j++) {
-		var yaku = document.createElement("p");
-		yaku.innerHTML = yaku_list[j];
-		element.appendChild(yaku);
+	for (key in yaku_list) {
+		var name = document.createElement("p")
+		var han = document.createElement("p")
+		name.innerHTML = yaku_list[key].japanese
+		han.innerHTML = yaku_list[key].han + "翻";
+		element1.appendChild(name);
+		element2.appendChild(han);
 	}
 }
 
-function modal_ten_load(data) {
+function modal_ten_load(cost_han, cost_fu, cost_main, cost_additional) {
 	// リザルトの点を初期化
 	var element = document.getElementById("modal_ten");
 	modal_reset(element);
@@ -134,30 +139,30 @@ function modal_ten_load(data) {
 	var tumo = document.getElementById("tumo").checked
 	var wind = document.getElementById("jikaze").alt
 	han.id = "han";
-	han.innerHTML = data.han + "翻" + data.fu + "符";
+	han.innerHTML = cost_han + "翻" + cost_fu + "符";
 	ten.id = "ten";
 	if (tumo == false) {
-		ten.innerHTML = data.cost.main + "点";
+		ten.innerHTML = cost_main + "点";
 	}
 	else if (wind == 1) {
-		ten.innerHTML = "ALL " + data.cost.main + "点";
+		ten.innerHTML = "ALL " + cost_main + "点";
 	}
 	else {
-		ten.innerHTML = "親" +  data.cost.main + "点 子" + data.cost.additional + "点";
+		ten.innerHTML = "親" +  cost_main + "点 子" + cost_additional + "点";
 	}
 	element.appendChild(han);
 	element.appendChild(ten);
 	// manganを生成する関数を呼び出し
-	modal_mangan_load(data);
+	var cost_sum = cost_main + (cost_additional * 2)
+	modal_mangan_load(cost_sum);
 }
 
-function modal_mangan_load(data) {
+function modal_mangan_load(cost) {
 	// リザルトの点を初期化
 	var element = document.getElementById("modal_mangan");
 	modal_reset(element);
 	// manganを生成
 	var mangan = document.createElement("p");
-	var cost = data.cost.main + (data.cost.additional * 2)
 	var wind = document.getElementById("jikaze").alt
 	if (wind == 1) {
 		if (cost >= 48000) {

@@ -255,22 +255,36 @@
             height: 48vh;
             width: 45vw;
         }
-        .modal_yaku {
+        .wrapper_yaku {
             height: 36vh;
             width: 45vw;
             overflow: scroll;
+            display: flex;
         }
-        .modal_yaku > * {
-            text-align: center;
-            color: black;
-            border-radius: 8px;
+        .column_m_yaku {
+            height: 36vh;
+            width: 37.5vw;
+            margin-left: 2.5vw;
+        }
+        .column_m_yaku > * {
+            border-radius: 8px 0 0 8px;
             background-color: white;
-            width: 40vw;
+            color: black;
             margin-top: 0.5vh;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 4vh;
-            padding: 0.5vh 0px 0.5vh 0px;
+            padding-left: 3vw;
+        }
+        .column_m_han {
+            height: 36vh;
+            width: 7.5vw;
+            margin-right: 2.5vw; 
+        }
+        .column_m_han > * {
+            border-radius: 0 8px 8px 0;
+            text-align: right;
+            background-color: white;
+            color: black;
+            margin-top: 0.5vh;
+            padding-right: 2vw;
         }
         .modal_ten {
             height: 23vh;

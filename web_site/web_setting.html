@@ -41,12 +41,12 @@
             var ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
             for (var j = 0; j < 14; j++) {
                 var hai = args[String(j)];
-                if (hai != undefined){
-                    var hai_0 = hai.slice(0,1);
+                if (hai != undefined) {
+                    var hai_0 = hai.slice(0, 1);
                     var hai_1 = hai.slice(1);
                     document.write(`<img id="${ar[j]}" src="hai/${hai_0}/${hai_1}.png" alt="${hai}" onclick="modal_open(this.id)">`);
                 }
-                else{
+                else {
                     document.write(`<img id="${ar[j]}" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">`);
                 }
             }
@@ -109,19 +109,23 @@
                     <div class="yaku">
                         <div class="checkbox box">
                             <label>
-                                <input id="tumo" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="tumo()" />
+                                <input id="tumo" class="checkbox-input" name="checkbox[]" type="checkbox"
+                                    onclick="tumo()" />
                                 <span class="checkbox-parts">ツモ</span>
                             </label>
                             <label>
-                                <input id="wriichi" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="wriichi()" />
+                                <input id="wriichi" class="checkbox-input" name="checkbox[]" type="checkbox"
+                                    onclick="wriichi()" />
                                 <span class="checkbox-parts">ダブル立直</span>
                             </label>
                             <label>
-                                <input id="rinshan" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="rinshan()" />
+                                <input id="rinshan" class="checkbox-input" name="checkbox[]" type="checkbox"
+                                    onclick="rinshan()" />
                                 <span class="checkbox-parts">嶺上開花</span>
                             </label>
                             <label>
-                                <input id="haitei" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="haitei()" />
+                                <input id="haitei" class="checkbox-input" name="checkbox[]" type="checkbox"
+                                    onclick="haitei()" />
                                 <span class="checkbox-parts">海底・河底</span>
                             </label>
                         </div>
@@ -129,19 +133,23 @@
                     <div class="yaku">
                         <div class="checkbox box">
                             <label>
-                                <input id="riichi" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="riichi()" />
+                                <input id="riichi" class="checkbox-input" name="checkbox[]" type="checkbox"
+                                    onclick="riichi()" />
                                 <span class="checkbox-parts">立直</span>
                             </label>
                             <label>
-                                <input id="ippatsu" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="ippatsu()" />
+                                <input id="ippatsu" class="checkbox-input" name="checkbox[]" type="checkbox"
+                                    onclick="ippatsu()" />
                                 <span class="checkbox-parts">一発</span>
                             </label>
                             <label>
-                                <input id="chankan" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="chankan()" />
+                                <input id="chankan" class="checkbox-input" name="checkbox[]" type="checkbox"
+                                    onclick="chankan()" />
                                 <span class="checkbox-parts">槍槓</span>
                             </label>
                             <label>
-                                <input id="tenhou" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="tenhou()" />
+                                <input id="tenhou" class="checkbox-input" name="checkbox[]" type="checkbox"
+                                    onclick="tenhou()" />
                                 <span class="checkbox-parts">天和・地和</span>
                             </label>
                         </div>
@@ -209,7 +217,11 @@
         <div class="wrapper">
             <div class="column_modal">
                 <h2>役</h2>
-                <div id="modal_yaku" class="modal_yaku">
+                <div class="wrapper_yaku">
+                    <div id="yaku_name" class="column_m_yaku">
+                    </div>
+                    <div id="yaku_han" class="column_m_han">
+                    </div>
                 </div>
             </div>
             <div class="column_modal">
