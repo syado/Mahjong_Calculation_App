@@ -1,5 +1,6 @@
 //下記はカメラデータの送信部分
 function camera_send() {
+    $( ".loading" ).fadeIn( "fast" ) ;
     //送信先URL
     var host_url = "https://mahjong.syado.net/img_api/base64";
     //canvas elementを取得
@@ -37,7 +38,7 @@ function camera_send() {
 }
 
 function img_form_send() {
-    loading_on();
+    $( ".loading" ).fadeIn( "fast" ) ;
     $.ajax({
         //画像処理サーバーに返す場合
         url: $("#img_form").attr('action'),
@@ -65,11 +66,3 @@ function img_form_send() {
         }
     });
 }
-
-// 送信中
-var loading_on = function() {
-    $(document.body).append("<div id=\"blind\"><span class=\"loading\"></span></div>");
-};
-var loading_off = function() {
-    $("#blind").remove();
-};
