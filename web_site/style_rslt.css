@@ -32,31 +32,15 @@
         }
     
         /* メイン */
-        /* 項目名 */
         h2 {
             font-size: 5vh;
             line-height: 13vh;
             text-align: center;
             height: 12vh;
-            /* border: solid 1px #0000;         */
+            border: solid 1px #000;
             border-radius: 8px;
-            background-color: rgba(0, 0, 0, 0.25);
-            width: calc( 100% - 2vh );
-            margin: 0 1vh 0 1vh;
         }
         /* 手牌、和了牌 */
-        .column_tehai {
-            height: 12vh;
-            width: 92.5vw;
-        }
-        .column_horahai {
-            height: 12vh;
-            width: 7.5vw;
-        }
-        .column_horahai > *{
-            font-size: 2.3vw;
-        }    
-        /* 手牌、和了牌の牌スタイル */
         .tehai {
             display: flex;
             justify-content: space-evenly;
@@ -71,159 +55,117 @@
             max-height: 20vh;
             max-width: 7vw;
         }
-        .tehai > #tehai_14 {
-            margin-left: 0.3%;
-        }
         /* ドラ、風牌、役 */
         .wrapper {
             display: flex;
         }
-        .column_dora {
-            height: 55vh;
-            width: 44vw;
-        }
-        .column_kaze {
-            height: 55vh;
-            width: 16vw;
-        }
         .column_yaku {
             height: 55vh;
-            width: 40vw;
+            width: 50vw;
+        }
+        .column_result {
+            height: 55vh;
+            width: 50vw
+        }
+        .column_dora {
+            height: 37vh;
+            width: 30vw;
+        }
+        .column_kaze {
+            height: 37vh;
+            width: 20vw;
+        }
+        /* 役 */
+        .wrapper_yaku {
+            display: flex;
+            overflow: scroll;
+        }
+        .yaku {
+            height: 43vh;
+            width: 25vw;
+        }
+        .yaku > * {
+            margin-top: 0.5vh;
+            text-align: center;
+            position: relative;
+            padding: 2.7vh 0px 2.7vh 0px;
+            color: #444;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            display:inline-block;
+            line-height:1;
+            width: 24vw;
+            height: 4vh;
+            font-size: 3.7vh;
         }
         /* ドラ */
         .dora1 {
             margin-top: 1vh;
-            display: flex;
-            justify-content: space-evenly;
-            height: 20vh;
+            /* display: flex;
+            justify-content: space-evenly; */
+            text-align: center;
+            height: 10vh;
         }
         .dora1 > *{
             width: auto;
             height: auto;
-            max-width: 8.8vw;
-            max-height: 21vh;
+            max-width: 8vw;
+            max-height: 10vh;
         }
         .dora2 {
-            display: flex;
-            justify-content: space-evenly;
+            /* display: flex;
+            justify-content: space-evenly; */
+            text-align: center;
             margin-top: 1vh;
-            height: 20vh;
+            height: 10vh;
         }
         .dora2 > *{
             width: auto;
             height: auto;
-            max-width: 8.8vw;
-            max-height: 21vh;
+            max-width: 8vw;
+            max-height: 10vh;
         }
         /* 風牌 */
         .column_title {
-            height: 21.5vh;
-            width: 6vw;
-            text-align: right;
+            height: 6vh;
+            width: 10vw;
+            text-align: center;
         }
         .column_title > * {
             font-size: 4vh;
         }
-        .column_title > .ba {
-            margin-top: 1vh;
-        }
         .column_kazehai {
-            height: 21.5vh;
+            height: 17vh;
             width: 10vw;
             text-align: center;
         }
         .column_kazehai > * {
             height: auto;
             width: auto;
-            max-height: 20vh;
+            max-height: 17vh;
             max-width: 10vw;
         }
-        .column_kazehai > #bakaze {
-            margin-top: 1vh;
+        /* 点数 */
+        .result {
+            height: 18vh;
+            width: 50vw;
+            background-color: red;
+            color: white;
+            /* text-align: center; */
         }
-        /* 役 */
-        .yaku {
-            height: 43vh;
-            width: 36vw;
+        #hanhu {
+            margin-left: 5%;
+            font-size: 5vh;
         }
-        /* 役ボタンのスタイル */
-        .checkbox-input{
-            display: none;
-        }
-        .checkbox-parts{
-            margin-top: 1vh;
-            margin-left: 1.5vw;
+        #ten {
             text-align: center;
-            position: relative;
-            padding: 2.7vh 0px 2.7vh 0px;
-            color: #000;
-            border-radius: 8px;
-            /* border: 1px solid #0000; */
-            display:inline-block;
-            line-height: 4vh;
-            width: 17vw;
-            height: 4vh;
-            font-size: 3.7vh;
-            background-color: white;
-
-        }
-        .checkbox-input:checked + .checkbox-parts{
-            background: #ff555e;
-            color: #fff;
-            /* border: 1px solid #ff555d00; */
+            font-size: 8vh;
         }
         /* ボタン */
         button {
             float: left;
             height: 10vh;
             width: 50vw;
-        }
-        /* モーダルウィンドウ */
-        #modal-content {
-            height: 90vh ;
-            width: 90vw ;
-            margin: 0 ;
-            padding: 10px 20px ;
-            border: 2px solid #aaa ;
-            background: #fff ;
-            position: fixed ;
-            display: none ;
-            z-index: 2 ;
-            background-color: #1e9623;
-        }
-        #modal-overlay {
-            z-index: 1 ;
-            display: none ;
-            position: fixed ;
-            top: 0 ;
-            left: 0 ;
-            width: 100% ;
-            height: 120% ;
-            background-color: rgba( 0,0,0, 0.75 ) ;
-        }
-        /* モーダルウィンドウ内の牌スタイル */
-        #syurui {
-            display: flex;
-            justify-content: space-around;
-            height: 20vh;
-        }
-        #syurui :not(.manzu) {
-            margin-top: 0.5vh;
-        }
-        #syurui > * {
-            height: auto;
-            width: auto;
-            max-height: 18.5vh;
-            max-width: 7vw;
-        }
-        #modal-close {
-            margin-top: 1vh;
-            height: 10vh;
-            width: 90vw;
-        }
-        body {
-            background-color: #1e9623;
-            color: white;
         }
     }
 }

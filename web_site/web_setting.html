@@ -13,6 +13,7 @@
     <!-- JavaScriptの読み込み -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="modal_set.js"></script>
+    <script src="web_setting.js"></script>
 
     <title>麻雀カメラ</title>
 </head>
@@ -42,7 +43,7 @@
                 var hai = args[String(j)];
                 if (hai != undefined){
                     var hai_0 = hai.slice(0,1);
-                    var hai_1 = hai.slice(1,2);
+                    var hai_1 = hai.slice(1);
                     document.write(`<img id="${ar[j]}" src="hai/${hai_0}/${hai_1}.png" alt="${hai}" onclick="modal_open(this.id)">`);
                 }
                 else{
@@ -86,7 +87,7 @@
                         <h3 class="ba">場風</h3>
                     </div>
                     <div class="column_kazehai">
-                        <img src="hai/h/1.png" id="bakaze" onclick="changebakaze()">
+                        <img src="hai/h/1.png" id="bakaze" alt="1" onclick="changewind(this.id, this.alt)">
                     </div>
                 </div>
                 <div class="wrapper">
@@ -94,7 +95,7 @@
                         <h3 class="ji">自風</h3>
                     </div>
                     <div class="column_kazehai">
-                        <img src="hai/h/1.png" id="jikaze" onclick="changejikaze()">
+                        <img src="hai/h/1.png" id="jikaze" alt="1" onclick="changewind(this.id, this.alt)">
                     </div>
                 </div>
             </div>
@@ -108,19 +109,19 @@
                     <div class="yaku">
                         <div class="checkbox box">
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <input id="tumo" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="tumo()" />
                                 <span class="checkbox-parts">ツモ</span>
                             </label>
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                <span class="checkbox-parts">リーチ</span>
+                                <input id="wriichi" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="wriichi()" />
+                                <span class="checkbox-parts">ダブル立直</span>
                             </label>
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                <span class="checkbox-parts">ダブルリーチ</span>
+                                <input id="rinshan" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="rinshan()" />
+                                <span class="checkbox-parts">嶺上開花</span>
                             </label>
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <input id="haitei" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="haitei()" />
                                 <span class="checkbox-parts">海底・河底</span>
                             </label>
                         </div>
@@ -128,19 +129,19 @@
                     <div class="yaku">
                         <div class="checkbox box">
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <input id="riichi" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="riichi()" />
+                                <span class="checkbox-parts">立直</span>
+                            </label>
+                            <label>
+                                <input id="ippatsu" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="ippatsu()" />
                                 <span class="checkbox-parts">一発</span>
                             </label>
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
-                                <span class="checkbox-parts">嶺上開花</span>
-                            </label>
-                            <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <input id="chankan" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="chankan()" />
                                 <span class="checkbox-parts">槍槓</span>
                             </label>
                             <label>
-                                <input class="checkbox-input" name="checkbox[]" type="checkbox" />
+                                <input id="tenhou" class="checkbox-input" name="checkbox[]" type="checkbox" onclick="tenhou()" />
                                 <span class="checkbox-parts">天和・地和</span>
                             </label>
                         </div>
@@ -151,12 +152,10 @@
     </div>
 
     <!-- ボタン -->
-    <form action="index.html" method="POST">
+    <form action="index.html" method="GET">
         <button id="back" type="submit">撮りなおす</button>
     </form>
-    <form action="http://52.196.253.153/calc_api/post" method="POST" enctype="multipart/form-data">
-        <button id="calc" type="submit">計算する</button>
-    </form>
+    <button id="calc" onclick="calc()">計算する</button>
 
     <!-- モーダルウィンドウ -->
     <div id="modal-content">
@@ -193,7 +192,8 @@
                     var i = "h"
                     var ar = ["1", "2", "3", "4", "5", "6", "7", "error", "error", "error"];
                     for (var j of ar) {
-                        document.write(`<img src="hai/${i}/${j}.png" alt="${i}${j}" onclick="hai_change(this.src, this.alt)">`);
+                        if (j != "error") document.write(`<img src="hai/${i}/${j}.png" alt="${i}${j}" onclick="hai_change(this.src, this.alt)">`);
+                        else document.write(`<img src="hai/${i}/${j}.png" alt="${j}" onclick="hai_change(this.src, this.alt)">`);
                     }
                 </script>
             </div>
@@ -201,31 +201,6 @@
         <button type="button" id="modal-close">閉じる</button>
     </div>
 
-    <!-- JavaScript -->
-    <script>
-        // クリックしたら風を変える
-        var kaze_src = new Array("hai/h/1.png", "hai/h/2.png", "hai/h/3.png", "hai/h/4.png");
-        var num = 0;
-
-        function changebakaze() {
-            if (num == 3) {
-                num = 0;
-            }
-            else {
-                num++;
-            }
-            document.getElementById("bakaze").src = kaze_src[num];
-        }
-        function changejikaze() {
-            if (num == 3) {
-                num = 0;
-            }
-            else {
-                num++;
-            }
-            document.getElementById("jikaze").src = kaze_src[num];
-        }
-    </script>
 </body>
 
 </html>

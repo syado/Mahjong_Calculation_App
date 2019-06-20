@@ -33,6 +33,7 @@ def print_hand_result(hand_result):
         "yaku":str(hand_result.yaku)[1:-1].split(", "),
         "fu_details":hand_result.fu_details,
     }
+    print(dir(hand_result))
     #print(json.dumps(hand_json,indent=4))
     return hand_json
 
@@ -90,6 +91,7 @@ def maj_cal(data):
         ],
         "option":[]
     }"""
+    print(data)
 
     handconfig = HandConfig(options=OptionalRules(has_open_tanyao=True,has_aka_dora=True))
     melds = []
