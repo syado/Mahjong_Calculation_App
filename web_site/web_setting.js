@@ -186,5 +186,4 @@ function calc() {
             // alert(data.cost.main);
         }
     });
-
 }

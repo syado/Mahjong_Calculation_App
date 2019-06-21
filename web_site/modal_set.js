@@ -1,5 +1,6 @@
 var set_id = "";
 
+// 牌選択画面用
 function centeringModalSyncer() {
 	var w = $( window ).width() ;
 	var h = $( window ).height() ;
@@ -19,10 +20,21 @@ function centeringModalSyncerRslt() {
 
 	$( "#modal-content-rslt" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
 }
+// 鳴き画面用
+function centeringModalSyncerNaki() {
+	var w = $( window ).width() ;
+	var h = $( window ).height() ;
 
+	var cw = $( "#modal-content-naki" ).outerWidth();
+	var ch = $( "#modal-content-naki" ).outerHeight();
+
+	$( "#modal-content-naki" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
+}
+
+// 牌選択画面オープン
 function modal_open(hai_id) {
-    set_id = hai_id;
-
+	set_id = hai_id;
+	
 	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
 	$( this ).blur() ;	//ボタンからフォーカスを外す
 	if( $( "#modal-overlay" )[0] ) return false ;		//新しくモーダルウィンドウを起動しない (防止策1)
@@ -46,24 +58,21 @@ function modal_open(hai_id) {
 
 			//[#modal-overlay]を削除する
 			$('#modal-overlay').remove() ;
-
 		} ) ;
-
 	} ) ;
 }
 
+// 牌選択画面で牌が選択されたとき実行
 function hai_change(src_name, alt_name){
 	document.getElementById(set_id).src = src_name;
 	document.getElementById(set_id).alt = alt_name;
     $( "#modal-content,#modal-overlay" ).fadeOut( "fast" , function(){
-
         //[#modal-overlay]を削除する
         $('#modal-overlay').remove() ;
-
     } ) ;
 }
 
-// リザルト画面用
+// リザルト画面オープン
 function modal_open_rslt() {
 	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
 	$( this ).blur() ;	//ボタンからフォーカスを外す
@@ -89,12 +98,45 @@ function modal_open_rslt() {
 
 			//[#modal-overlay]を削除する
 			$('#modal-overlay').remove() ;
-
 		} ) ;
-
 	} ) ;
 }
 
+// 鳴き画面オープン
+function modal_open_naki() {	
+	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
+	$( this ).blur() ;	//ボタンからフォーカスを外す
+	if( $( "#modal-overlay" )[0] ) return false ;		//新しくモーダルウィンドウを起動しない (防止策1)
+	//if($("#modal-overlay")[0]) $("#modal-overlay").remove() ;		//現在のモーダルウィンドウを削除して新しく起動する (防止策2)
+
+	//オーバーレイを出現させる
+	$( "body" ).append( '<div id="modal-overlay"></div>' ) ;
+	$( "#modal-overlay" ).fadeIn( "fast" ) ;
+
+	//コンテンツをセンタリングする
+	centeringModalSyncerNaki() ;
+
+	//コンテンツをフェードインする
+	$( "#modal-content-naki" ).fadeIn( "fast" ) ;
+
+	//[#modal-overlay]、または[#modal-close]をクリックしたら…
+	$( "#modal-overlay,#modal-close" ).unbind().click( function(){
+
+		//[#modal-content]と[#modal-overlay]をフェードアウトした後に…
+		$( "#modal-content-naki,#modal-overlay" ).fadeOut( "fast" , function(){
+
+			//[#modal-overlay]を削除する
+			$('#modal-overlay').remove() ;
+		} ) ;
+	} ) ;
+}
+
+// リサイズ用
+$( window ).resize( centeringModalSyncer ) ;
+$( window ).resize( centeringModalSyncerRslt ) ;
+$( window ).resize( centeringModalSyncerNaki ) ;
+
+// リザルト画面の牌生成
 function modal_hai_load() {
 	// リザルトの牌を初期化
 	var element = document.getElementById("hourakei");
@@ -112,6 +154,7 @@ function modal_hai_load() {
 	}
 }
 
+// リザルト画面の役生成
 function modal_yaku_load(yaku_list) {
 	// リザルトの役を初期化
 	var element1 = document.getElementById("yaku_name");
@@ -129,6 +172,7 @@ function modal_yaku_load(yaku_list) {
 	}
 }
 
+// リザルト画面の点数生成
 function modal_ten_load(cost_han, cost_fu, cost_main, cost_additional) {
 	// リザルトの点を初期化
 	var element = document.getElementById("modal_ten");
@@ -141,12 +185,15 @@ function modal_ten_load(cost_han, cost_fu, cost_main, cost_additional) {
 	han.id = "han";
 	han.innerHTML = cost_han + "翻" + cost_fu + "符";
 	ten.id = "ten";
+	// ロン
 	if (tumo == false) {
 		ten.innerHTML = cost_main + "点";
 	}
+	// 親ツモ
 	else if (wind == 1) {
 		ten.innerHTML = "ALL " + cost_main + "点";
 	}
+	// 子ツモ
 	else {
 		ten.innerHTML = "親" +  cost_main + "点 子" + cost_additional + "点";
 	}
@@ -157,6 +204,7 @@ function modal_ten_load(cost_han, cost_fu, cost_main, cost_additional) {
 	modal_mangan_load(cost_sum, cost_han);
 }
 
+// リザルト画面の満貫を生成
 function modal_mangan_load(cost, han) {
 	// リザルトの点を初期化
 	var element = document.getElementById("modal_mangan");
@@ -164,6 +212,7 @@ function modal_mangan_load(cost, han) {
 	// manganを生成
 	var mangan = document.createElement("p");
 	var wind = document.getElementById("jikaze").alt
+	// 親の場合
 	if (wind == 1) {
 		if (cost >= 48000) {
 			mangan.innerHTML = "役満";
@@ -184,6 +233,7 @@ function modal_mangan_load(cost, han) {
 			mangan.innerHTML = han + "翻";
 		}
 	}
+	// 子の場合
 	else {
 		if (cost >= 32000) {
 			mangan.innerHTML = "役満";
@@ -207,11 +257,9 @@ function modal_mangan_load(cost, han) {
 	element.appendChild(mangan);
 }
 
+// リザルト画面のリセット用
 function modal_reset(element) {
 	while (element.firstChild) {
 		element.removeChild(element.firstChild);
 	}
 }
-
-$( window ).resize( centeringModalSyncer ) ;
-$( window ).resize( centeringModalSyncerRslt ) ;

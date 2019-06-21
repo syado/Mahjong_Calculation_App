@@ -29,7 +29,11 @@
     <!-- 手牌、和了牌 -->
     <div class="wrapper">
         <div class="column_tehai">
-            <h2 class="title">手牌</h2>
+            <h2 id="title" class="title">手牌</h2>
+            <button id="pon" type="button" onclick="modal_open_naki()">ポン</button>
+            <button id="chi" type="button">チー</button>
+            <button id="open_kan" type="button">明カン</button>
+            <button id="close_kan" type="button">暗カン</button>
         </div>
         <div class="column_horahai">
             <h2 class="title">和了牌</h2>
@@ -243,6 +247,10 @@
         </form>
     </div>
 
+    <!-- 鳴きのモーダルウィンドウ -->
+    <div id="modal-content-naki">
+        <button type="button" id="modal-close" class="close-naki">キャンセル</button>
+    </div>
 </body>
 
 </html>
