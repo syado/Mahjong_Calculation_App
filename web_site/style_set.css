@@ -41,8 +41,11 @@
             /* border: solid 1px #0000;         */
             border-radius: 8px;
             background-color: rgba(0, 0, 0, 0.25);
-            width: calc( 100% - 2vh );
-            margin: 0 1vh 0 1vh;
+            width: calc( 100% - 0.5vw );
+            margin: 0 0.25vw 0 0.25vw;
+        }
+        h2.title {
+            margin: 1vh 0.25vw 0 0.25vw;
         }
         /* 手牌、和了牌 */
         .column_tehai {
@@ -54,7 +57,7 @@
             width: 7.5vw;
         }
         .column_horahai > *{
-            font-size: 2.3vw;
+            font-size: 2vw;
         }    
         /* 手牌、和了牌の牌スタイル */
         .tehai {
@@ -62,8 +65,8 @@
             justify-content: space-evenly;
             height: 20vh;
             width: 100vw;
-            margin-top: 0.7%;
-            margin-bottom: 0.7%; 
+            margin-top: 1%;
+            margin-bottom: 0.5%; 
         }
         .tehai > *{
             height: auto;
@@ -71,8 +74,8 @@
             max-height: 20vh;
             max-width: 7vw;
         }
-        .tehai > #tehai_14 {
-            margin-left: 0.3%;
+        .tehai > #agarihai {
+            margin-left: 0.5%;
         }
         /* ドラ、風牌、役 */
         .wrapper {
@@ -191,6 +194,18 @@
             z-index: 2 ;
             background-color: #1e9623;
         }
+        #modal-content-rslt {
+            height: 90vh ;
+            width: 90vw ;
+            margin: 0 ;
+            padding: 10px 20px ;
+            border: 2px solid #aaa ;
+            background: #fff ;
+            position: fixed ;
+            display: none ;
+            z-index: 2 ;
+            background-color: #1e9623;
+        }
         #modal-overlay {
             z-index: 1 ;
             display: none ;
@@ -201,7 +216,7 @@
             height: 120% ;
             background-color: rgba( 0,0,0, 0.75 ) ;
         }
-        /* モーダルウィンドウ内の牌スタイル */
+        /* 牌選択モーダルウィンドウ内の牌スタイル */
         #syurui {
             display: flex;
             justify-content: space-around;
@@ -216,11 +231,99 @@
             max-height: 18.5vh;
             max-width: 7vw;
         }
-        #modal-close {
+        .close-chng {
             margin-top: 1vh;
             height: 10vh;
             width: 90vw;
         }
+        /* 計算結果モーダルウィンドウ内のスタイル */
+        .hourakei {
+            display: flex;
+            justify-content: space-evenly;
+            height: 18vh;
+            width: 90vw;
+            margin-top: 0.7%;
+            margin-bottom: 0.7%; 
+        }
+        .hourakei > *{
+            height: auto;
+            width: auto;
+            max-height: 18vh;
+            max-width: 6.4vw;
+        }
+        .column_modal {
+            height: 48vh;
+            width: 45vw;
+        }
+        .wrapper_yaku {
+            height: 36vh;
+            width: 45vw;
+            overflow: scroll;
+            display: flex;
+        }
+        .column_m_yaku {
+            height: 36vh;
+            width: 32.5vw;
+            margin-left: 2.5vw;
+        }
+        .column_m_yaku > * {
+            border-radius: 8px 0 0 8px;
+            background-color: white;
+            color: black;
+            margin-top: 0.5vh;
+            padding-left: 3vw;
+        }
+        .column_m_han {
+            height: 36vh;
+            width: 12.5vw;
+            margin-right: 2.5vw; 
+        }
+        .column_m_han > * {
+            border-radius: 0 8px 8px 0;
+            text-align: right;
+            background-color: white;
+            color: black;
+            margin-top: 0.5vh;
+            padding-right: 2vw;
+        }
+        .modal_ten {
+            height: 23vh;
+            width: 45vw;
+            position: relative;
+        }
+        .modal_ten > #han {
+            padding-top: 1vh;
+            font-size: 7vh;
+        }
+        .modal_ten > #ten {
+            width: 45vw;
+            position: absolute;
+            bottom: 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 7.5vh;
+        }
+        .modal_mangan {
+            height: 12vh;
+            width: 44vw;
+            border-radius: 8px;
+            border: 2px solid red;
+            background-color: white;
+        }
+        .modal_mangan > * {
+            text-align: center;
+            font-weight: bold;
+            font-size: 10vh;
+            line-height: 12vh;
+            color: red;
+        }
+        .close-rslt {
+            float: left;
+            margin-top: 1vh;
+            height: 10vh;
+            width: 45vw;
+        }
+
         body {
             background-color: #1e9623;
             color: white;

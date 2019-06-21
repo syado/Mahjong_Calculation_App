@@ -11,7 +11,8 @@ function getUrlVars() {
 function changewind(id, alt) {
     var kaze_src = new Array("hai/h/1.png", "hai/h/2.png", "hai/h/3.png", "hai/h/4.png");
     var num = Number(alt) - 1
-    if (num >= 3) {
+    // 場風は東と南のみで変異
+    if (id == "bakaze" && num >= 1 || id == "jikaze" && num >= 3) {
         num = 0;
     }
     else {
@@ -90,6 +91,8 @@ function tenhou() {
     document.getElementById("chankan").checked = false;
     document.getElementById("haitei").checked = false;
 }
+
+var rslt
 
 function calc() {
     var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
@@ -173,7 +176,14 @@ function calc() {
         scriptCharset: 'utf-8',
         data: JSON.stringify(json_data, null, 2),
         success: function (data) {
-            alert(data.cost.main);
+            console.log(data);
+            // reselt画面を表示する
+            modal_open_rslt();
+            // 役を生成
+            modal_yaku_load(data.yaku);
+            // 点数を生成
+            modal_ten_load(data.han, data.fu, data.cost.main, data.cost.additional);
+            // alert(data.cost.main);
         }
     });
 
