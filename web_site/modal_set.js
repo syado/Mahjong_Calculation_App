@@ -154,10 +154,10 @@ function modal_ten_load(cost_han, cost_fu, cost_main, cost_additional) {
 	element.appendChild(ten);
 	// manganを生成する関数を呼び出し
 	var cost_sum = cost_main + (cost_additional * 2)
-	modal_mangan_load(cost_sum);
+	modal_mangan_load(cost_sum, cost_han);
 }
 
-function modal_mangan_load(cost) {
+function modal_mangan_load(cost, han) {
 	// リザルトの点を初期化
 	var element = document.getElementById("modal_mangan");
 	modal_reset(element);
@@ -181,7 +181,7 @@ function modal_mangan_load(cost) {
 			mangan.innerHTML = "満貫";
 		}
 		else {
-			mangan.innerHTML = data.han + "翻";
+			mangan.innerHTML = han + "翻";
 		}
 	}
 	else {
@@ -201,7 +201,7 @@ function modal_mangan_load(cost) {
 			mangan.innerHTML = "満貫";
 		}
 		else {
-			mangan.innerHTML = data.han + "翻";
+			mangan.innerHTML = han + "翻";
 		}
 	}
 	element.appendChild(mangan);
