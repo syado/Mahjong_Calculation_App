@@ -360,6 +360,20 @@
             margin-left: 2.5vw;
             margin-right: 2.5vw;
         }
+        .tehai_naki {
+            display: flex;
+            justify-content: space-evenly;
+            height: 20vh;
+            width: 100vw;
+            margin-top: 0.5%;
+            margin-bottom: 0.5%; 
+        }
+        .tehai_naki > *{
+            height: auto;
+            width: auto;
+            max-height: 20vh;
+            max-width: 7vw;
+        }
 
         body {
             background-color: #1e9623;

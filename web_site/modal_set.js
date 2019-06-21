@@ -88,7 +88,7 @@ function modal_open_rslt() {
 
 	//コンテンツをフェードインする
 	$( "#modal-content-rslt" ).fadeIn( "fast" ) ;
-	modal_hai_load();
+	modal_hai_load("hourakei");
 
 	//[#modal-overlay]、または[#modal-close]をクリックしたら…
 	$( "#modal-overlay,#modal-close" ).unbind().click( function(){
@@ -118,6 +118,7 @@ function modal_open_naki() {
 
 	//コンテンツをフェードインする
 	$( "#modal-content-naki" ).fadeIn( "fast" ) ;
+	modal_hai_load("tehai_naki");
 
 	//[#modal-overlay]、または[#modal-close]をクリックしたら…
 	$( "#modal-overlay,#modal-close" ).unbind().click( function(){
@@ -137,9 +138,9 @@ $( window ).resize( centeringModalSyncerRslt ) ;
 $( window ).resize( centeringModalSyncerNaki ) ;
 
 // リザルト画面の牌生成
-function modal_hai_load() {
+function modal_hai_load(id) {
 	// リザルトの牌を初期化
-	var element = document.getElementById("hourakei");
+	var element = document.getElementById(id);
 	modal_reset(element);
 	// 設定画面から牌を取得して生成
 	var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
