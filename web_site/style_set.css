@@ -42,10 +42,10 @@
             border-radius: 8px;
             background-color: rgba(0, 0, 0, 0.25);
             width: calc( 100% - 0.5vw );
-            margin: 0 1vw 0 1vw;
+            margin: 0 0.25vw 0 0.25vw;
         }
         h2.title {
-            margin: 1vh 0 0 0;
+            margin: 1vh 0.25vw 0 0.25vw;
         }
         /* 手牌、和了牌 */
         .column_tehai {
@@ -263,7 +263,7 @@
         }
         .column_m_yaku {
             height: 36vh;
-            width: 37.5vw;
+            width: 32.5vw;
             margin-left: 2.5vw;
         }
         .column_m_yaku > * {
@@ -275,7 +275,7 @@
         }
         .column_m_han {
             height: 36vh;
-            width: 7.5vw;
+            width: 12.5vw;
             margin-right: 2.5vw; 
         }
         .column_m_han > * {
@@ -314,7 +314,7 @@
             text-align: center;
             font-weight: bold;
             font-size: 10vh;
-            line-height: 14vh;
+            line-height: 12vh;
             color: red;
         }
         .close-rslt {
