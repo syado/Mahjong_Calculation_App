@@ -102,6 +102,18 @@
         .tehai > #agarihai {
             margin-left: 0.5%;
         }
+        .pon1 {
+            border: solid 1px red;
+        }
+        .chi1 {
+            border: solid 1px blue;
+        }
+        .open_kan1 {
+            border: solid 1px yellow;
+        }
+        .close_kan1 {
+            border: solid 1px cyan;
+        }
         /* ドラ、風牌、役 */
         .wrapper {
             display: flex;
@@ -175,6 +187,9 @@
             width: 36vw;
         }
         /* 役ボタンのスタイル */
+        .checkbox_box{
+            font-size: 0;
+        }
         .checkbox-input{
             display: none;
         }
@@ -373,6 +388,14 @@
             width: auto;
             max-height: 20vh;
             max-width: 7vw;
+        }
+        .naki {
+            border: solid 1px red;
+        }
+        .agari {
+            background-color: #000;
+            border-radius: 10%;
+            opacity: 0.5;
         }
 
         body {

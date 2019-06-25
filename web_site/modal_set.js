@@ -1,4 +1,10 @@
 var set_id = "";
+var naki_cnt = 0;
+var naki_mode = "";
+var set_hai =["", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
+var houra_ar = ["houra_01", "houra_02", "houra_03", "houra_04", "houra_05", "houra_06", "houra_07", "houra_08", "houra_09", "houra_10", "houra_11", "houra_12", "houra_13", "houra_a"];
+var naki_ar = ["naki_01", "naki_02", "naki_03", "naki_04", "naki_05", "naki_06", "naki_07", "naki_08", "naki_09", "naki_10", "naki_11", "naki_12", "naki_13", "naki_a"];
 
 // 牌選択画面用
 function centeringModalSyncer() {
@@ -103,7 +109,8 @@ function modal_open_rslt() {
 }
 
 // 鳴き画面オープン
-function modal_open_naki() {	
+function modal_open_naki(id) {	
+	naki_mode = id;
 	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
 	$( this ).blur() ;	//ボタンからフォーカスを外す
 	if( $( "#modal-overlay" )[0] ) return false ;		//新しくモーダルウィンドウを起動しない (防止策1)
@@ -137,20 +144,61 @@ $( window ).resize( centeringModalSyncer ) ;
 $( window ).resize( centeringModalSyncerRslt ) ;
 $( window ).resize( centeringModalSyncerNaki ) ;
 
-// リザルト画面の牌生成
-function modal_hai_load(id) {
-	// リザルトの牌を初期化
+function naki(id) {
 	var element = document.getElementById(id);
-	modal_reset(element);
+	if (naki_cnt < 2 && element.className == "none") {
+		naki_cnt += 1;
+		element.className = "naki";
+	} 
+	else if (naki_cnt == 2 && element.className == "none") {
+		element.className = "naki"
+		for (var j = 0; j < 13; j++) {
+			if (document.getElementById(naki_ar[j]).className == "naki") {
+				document.getElementById(tehai_ar[j]).className = naki_mode + 1;
+			}
+		}
+		$( "#modal-content-naki,#modal-overlay" ).fadeOut( "fast" , function(){
+			//[#modal-overlay]を削除する
+			$('#modal-overlay').remove() ;
+		} ) ;
+		naki_cnt = 0;
+		naki_mode = "";
+	}
+}
+function naki_reset() {
+	naki_cnt = 0;
+	naki_mode = "";
+}
+
+// リザルト&鳴き画面の牌生成 (挿入先のidを取得して生成)
+function modal_hai_load(id) {
+	// リザルト&鳴きの牌を初期化
+	var element = document.getElementById(id);
+	modal_reset(element);	
 	// 設定画面から牌を取得して生成
-	var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
 	for (var j = 0; j < 14; j++) {
 		var tmp = document.getElementById(tehai_ar[j]).alt;
-		var type = tmp.slice(0, 1);
-		var num = tmp.slice(1);
+		if (tmp == "error") {
+			var type = "h"
+			var num = "error"
+		} else {
+			var type = tmp.slice(0, 1);
+			var num = tmp.slice(1);
+		}
 		var img = document.createElement('img');
-		img.id = tehai_ar[j];
+		img.id = houra_ar[j];
 		img.src = "hai/" + type + "/" + num + ".png";
+		img.alt = type + num;
+		if (id == "tehai_naki") {
+			set_hai[j] = tmp;
+			img.id = naki_ar[j];
+			img.className = "none";
+			img.onclick = new Function("naki(this.id);");
+			if (j == 13) {
+				img.className = "agari";
+				img.onclick = "";
+			}
+		}
 		element.appendChild(img);
 	}
 }
