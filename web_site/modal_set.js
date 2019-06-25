@@ -1,6 +1,9 @@
 var set_id = "";
 var naki_cnt = 0;
 var naki_mode = "";
+var pon_cnt = 1;
+var chi_cnt = 1;
+var kan_cnt = 1;
 var set_hai =["", "", "", "", "", "", "", "", "", "", "", "", "", ""];
 var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
 var houra_ar = ["houra_01", "houra_02", "houra_03", "houra_04", "houra_05", "houra_06", "houra_07", "houra_08", "houra_09", "houra_10", "houra_11", "houra_12", "houra_13", "houra_a"];
@@ -148,14 +151,59 @@ function naki(id) {
 	var element = document.getElementById(id);
 	if (naki_cnt < 2 && element.className == "none") {
 		naki_cnt += 1;
-		element.className = "naki";
+		switch (naki_mode) {
+			case "pon":
+				element.className = naki_mode + pon_cnt;
+				break;
+			case "chi":
+				element.className = naki_mode + chi_cnt;
+				break;
+			case "open_kan":
+				element.className = naki_mode + kan_cnt;
+				break;
+			case "close_kan":
+				element.className = naki_mode + kan_cnt;
+				break;
+		}
 	} 
 	else if (naki_cnt == 2 && element.className == "none") {
-		element.className = "naki"
-		for (var j = 0; j < 13; j++) {
-			if (document.getElementById(naki_ar[j]).className == "naki") {
-				document.getElementById(tehai_ar[j]).className = naki_mode + 1;
-			}
+		switch (naki_mode) {
+			case "pon":
+				element.className = naki_mode + pon_cnt;
+				for (var j = 0; j < 13; j++) {
+					if (document.getElementById(naki_ar[j]).className == naki_mode + pon_cnt) {
+						document.getElementById(tehai_ar[j]).className = naki_mode + pon_cnt;
+					}
+				}
+				pon_cnt += 1;
+				break;
+			case "chi":
+				element.className = naki_mode + chi_cnt;
+				for (var j = 0; j < 13; j++) {
+					if (document.getElementById(naki_ar[j]).className == naki_mode + chi_cnt) {
+						document.getElementById(tehai_ar[j]).className = naki_mode + chi_cnt;
+					}
+				}
+				chi_cnt += 1;
+				break;
+			case "open_kan":
+				element.className = naki_mode + kan_cnt;
+				for (var j = 0; j < 13; j++) {
+					if (document.getElementById(naki_ar[j]).className == naki_mode + kan_cnt) {
+						document.getElementById(tehai_ar[j]).className = naki_mode + kan_cnt;
+					}
+				}
+				kan_cnt += 1;
+				break;
+			case "close_kan":
+				element.className = naki_mode + kan_cnt;
+				for (var j = 0; j < 13; j++) {
+					if (document.getElementById(naki_ar[j]).className == naki_mode + kan_cnt) {
+						document.getElementById(tehai_ar[j]).className = naki_mode + kan_cnt;
+					}
+				}
+				kan_cnt += 1;
+				break;
 		}
 		$( "#modal-content-naki,#modal-overlay" ).fadeOut( "fast" , function(){
 			//[#modal-overlay]を削除する

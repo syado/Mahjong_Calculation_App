@@ -98,15 +98,19 @@ var rslt
 var kan_cnt = 0;
 
 function calc() {
-    var template = {
+    var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
+    var tehai = {
         man: "",
         pin: "",
         sou: "",
         honors: ""
-    };    
-    var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
-    var tehai = template
-    var agari = template
+    };
+    var agari = {
+        man: "",
+        pin: "",
+        sou: "",
+        honors: ""
+    };
     var pon = [];
     var chi = [];
     var kan = [];
@@ -125,8 +129,15 @@ function calc() {
         }
         if (cls.slice(0,3) == "pon") {
             var num = cls.slice(3);
-            num -= 1;
-            pon[num] = template;
+            // num -= 1;
+            if (pon[num] == null){
+                pon[num] = {
+                    man: "",
+                    pin: "",
+                    sou: "",
+                    honors: ""
+                };
+            }
             if (tmp.slice(0, 1) == "m") pon[num].man += tmp.slice(1);
             else if (tmp.slice(0, 1) == "p") pon[num].pin += tmp.slice(1);
             else if (tmp.slice(0, 1) == "s") pon[num].sou += tmp.slice(1);
@@ -135,7 +146,14 @@ function calc() {
         if (cls.slice(0,3) == "chi") {
             var num = cls.slice(3);
             num -= 1;
-            chi[num] = template;
+            if (chi[num] == null){
+                chi[num] = {
+                    man: "",
+                    pin: "",
+                    sou: "",
+                    honors: ""
+                };
+            }
             if (tmp.slice(0, 1) == "m") chi[num].man += tmp.slice(1);
             else if (tmp.slice(0, 1) == "p") chi[num].pin += tmp.slice(1);
             else if (tmp.slice(0, 1) == "s") chi[num].sou += tmp.slice(1);
@@ -145,13 +163,15 @@ function calc() {
             kan_cnt += 1;
             var num = cls.slice(-1);
             num -= 1;
-            kan[num] = {
-                man: "",
-                pin: "",
-                sou: "",
-                honors: "",
-                open: ""
-            };
+            if (kan[num] == null){
+                kan[num] = {
+                    man: "",
+                    pin: "",
+                    sou: "",
+                    honors: "",
+                    open: ""
+                };
+            }
             if (tmp.slice(0, 1) == "m") kan[num].man += tmp.slice(1);
             else if (tmp.slice(0, 1) == "p") kan[num].pin += tmp.slice(1);
             else if (tmp.slice(0, 1) == "s") kan[num].sou += tmp.slice(1);
@@ -168,7 +188,12 @@ function calc() {
         }
     }
     var dora_ar = ["dora_01", "dora_02", "dora_03", "dora_04", "dora_05", "dora_06", "dora_07", "dora_08", "dora_09", "dora_10"];
-    var dora = template;
+    var dora = {
+        man: "",
+        pin: "",
+        sou: "",
+        honors: ""
+    };
     for (var j = 0; j < 10; j++) {
         var tmp = document.getElementById(dora_ar[j]).alt;
         if (tmp.slice(0, 1) == "m") dora.man += tmp.slice(1);
