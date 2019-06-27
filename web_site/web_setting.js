@@ -129,7 +129,7 @@ function calc() {
         }
         if (cls.slice(0,3) == "pon") {
             var num = cls.slice(3);
-            // num -= 1;
+            num -= 1;
             if (pon[num] == null){
                 pon[num] = {
                     man: "",
