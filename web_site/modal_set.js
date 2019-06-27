@@ -1,5 +1,15 @@
 var set_id = "";
+var naki_cnt = 0;
+var naki_mode = "";
+var pon_cnt = 1;
+var chi_cnt = 1;
+var kan_cnt = 1;
+var set_hai =["", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
+var houra_ar = ["houra_01", "houra_02", "houra_03", "houra_04", "houra_05", "houra_06", "houra_07", "houra_08", "houra_09", "houra_10", "houra_11", "houra_12", "houra_13", "houra_a"];
+var naki_ar = ["naki_01", "naki_02", "naki_03", "naki_04", "naki_05", "naki_06", "naki_07", "naki_08", "naki_09", "naki_10", "naki_11", "naki_12", "naki_13", "naki_a"];
 
+// 牌選択画面用
 function centeringModalSyncer() {
 	var w = $( window ).width() ;
 	var h = $( window ).height() ;
@@ -19,10 +29,21 @@ function centeringModalSyncerRslt() {
 
 	$( "#modal-content-rslt" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
 }
+// 鳴き画面用
+function centeringModalSyncerNaki() {
+	var w = $( window ).width() ;
+	var h = $( window ).height() ;
 
+	var cw = $( "#modal-content-naki" ).outerWidth();
+	var ch = $( "#modal-content-naki" ).outerHeight();
+
+	$( "#modal-content-naki" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
+}
+
+// 牌選択画面オープン
 function modal_open(hai_id) {
-    set_id = hai_id;
-
+	set_id = hai_id;
+	
 	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
 	$( this ).blur() ;	//ボタンからフォーカスを外す
 	if( $( "#modal-overlay" )[0] ) return false ;		//新しくモーダルウィンドウを起動しない (防止策1)
@@ -46,24 +67,21 @@ function modal_open(hai_id) {
 
 			//[#modal-overlay]を削除する
 			$('#modal-overlay').remove() ;
-
 		} ) ;
-
 	} ) ;
 }
 
+// 牌選択画面で牌が選択されたとき実行
 function hai_change(src_name, alt_name){
 	document.getElementById(set_id).src = src_name;
 	document.getElementById(set_id).alt = alt_name;
     $( "#modal-content,#modal-overlay" ).fadeOut( "fast" , function(){
-
         //[#modal-overlay]を削除する
         $('#modal-overlay').remove() ;
-
     } ) ;
 }
 
-// リザルト画面用
+// リザルト画面オープン
 function modal_open_rslt() {
 	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
 	$( this ).blur() ;	//ボタンからフォーカスを外す
@@ -79,7 +97,7 @@ function modal_open_rslt() {
 
 	//コンテンツをフェードインする
 	$( "#modal-content-rslt" ).fadeIn( "fast" ) ;
-	modal_hai_load();
+	modal_hai_load("hourakei");
 
 	//[#modal-overlay]、または[#modal-close]をクリックしたら…
 	$( "#modal-overlay,#modal-close" ).unbind().click( function(){
@@ -89,29 +107,151 @@ function modal_open_rslt() {
 
 			//[#modal-overlay]を削除する
 			$('#modal-overlay').remove() ;
-
 		} ) ;
-
 	} ) ;
 }
 
-function modal_hai_load() {
-	// リザルトの牌を初期化
-	var element = document.getElementById("hourakei");
-	modal_reset(element);
+// 鳴き画面オープン
+function modal_open_naki(id) {	
+	naki_mode = id;
+	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
+	$( this ).blur() ;	//ボタンからフォーカスを外す
+	if( $( "#modal-overlay" )[0] ) return false ;		//新しくモーダルウィンドウを起動しない (防止策1)
+	//if($("#modal-overlay")[0]) $("#modal-overlay").remove() ;		//現在のモーダルウィンドウを削除して新しく起動する (防止策2)
+
+	//オーバーレイを出現させる
+	$( "body" ).append( '<div id="modal-overlay"></div>' ) ;
+	$( "#modal-overlay" ).fadeIn( "fast" ) ;
+
+	//コンテンツをセンタリングする
+	centeringModalSyncerNaki() ;
+
+	//コンテンツをフェードインする
+	$( "#modal-content-naki" ).fadeIn( "fast" ) ;
+	modal_hai_load("tehai_naki");
+
+	//[#modal-overlay]、または[#modal-close]をクリックしたら…
+	$( "#modal-overlay,#modal-close" ).unbind().click( function(){
+
+		//[#modal-content]と[#modal-overlay]をフェードアウトした後に…
+		$( "#modal-content-naki,#modal-overlay" ).fadeOut( "fast" , function(){
+
+			//[#modal-overlay]を削除する
+			$('#modal-overlay').remove() ;
+		} ) ;
+	} ) ;
+}
+
+// リサイズ用
+$( window ).resize( centeringModalSyncer ) ;
+$( window ).resize( centeringModalSyncerRslt ) ;
+$( window ).resize( centeringModalSyncerNaki ) ;
+
+function naki(id) {
+	var element = document.getElementById(id);
+	if (naki_cnt < 2 && element.className == "none") {
+		naki_cnt += 1;
+		switch (naki_mode) {
+			case "pon":
+				element.className = naki_mode + pon_cnt;
+				break;
+			case "chi":
+				element.className = naki_mode + chi_cnt;
+				break;
+			case "open_kan":
+				element.className = naki_mode + kan_cnt;
+				break;
+			case "close_kan":
+				element.className = naki_mode + kan_cnt;
+				break;
+		}
+	} 
+	else if (naki_cnt == 2 && element.className == "none") {
+		switch (naki_mode) {
+			case "pon":
+				element.className = naki_mode + pon_cnt;
+				for (var j = 0; j < 13; j++) {
+					if (document.getElementById(naki_ar[j]).className == naki_mode + pon_cnt) {
+						document.getElementById(tehai_ar[j]).className = naki_mode + pon_cnt;
+					}
+				}
+				pon_cnt += 1;
+				break;
+			case "chi":
+				element.className = naki_mode + chi_cnt;
+				for (var j = 0; j < 13; j++) {
+					if (document.getElementById(naki_ar[j]).className == naki_mode + chi_cnt) {
+						document.getElementById(tehai_ar[j]).className = naki_mode + chi_cnt;
+					}
+				}
+				chi_cnt += 1;
+				break;
+			case "open_kan":
+				element.className = naki_mode + kan_cnt;
+				for (var j = 0; j < 13; j++) {
+					if (document.getElementById(naki_ar[j]).className == naki_mode + kan_cnt) {
+						document.getElementById(tehai_ar[j]).className = naki_mode + kan_cnt;
+					}
+				}
+				kan_cnt += 1;
+				break;
+			case "close_kan":
+				element.className = naki_mode + kan_cnt;
+				for (var j = 0; j < 13; j++) {
+					if (document.getElementById(naki_ar[j]).className == naki_mode + kan_cnt) {
+						document.getElementById(tehai_ar[j]).className = naki_mode + kan_cnt;
+					}
+				}
+				kan_cnt += 1;
+				break;
+		}
+		$( "#modal-content-naki,#modal-overlay" ).fadeOut( "fast" , function(){
+			//[#modal-overlay]を削除する
+			$('#modal-overlay').remove() ;
+		} ) ;
+		naki_cnt = 0;
+		naki_mode = "";
+	}
+}
+function naki_reset() {
+	naki_cnt = 0;
+	naki_mode = "";
+}
+
+// リザルト&鳴き画面の牌生成 (挿入先のidを取得して生成)
+function modal_hai_load(id) {
+	// リザルト&鳴きの牌を初期化
+	var element = document.getElementById(id);
+	modal_reset(element);	
 	// 設定画面から牌を取得して生成
-	var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
 	for (var j = 0; j < 14; j++) {
 		var tmp = document.getElementById(tehai_ar[j]).alt;
-		var type = tmp.slice(0, 1);
-		var num = tmp.slice(1);
+		if (tmp == "error") {
+			var type = "h"
+			var num = "error"
+		} else {
+			var type = tmp.slice(0, 1);
+			var num = tmp.slice(1);
+		}
 		var img = document.createElement('img');
-		img.id = tehai_ar[j];
+		img.id = houra_ar[j];
 		img.src = "hai/" + type + "/" + num + ".png";
+		img.alt = type + num;
+		if (id == "tehai_naki") {
+			set_hai[j] = tmp;
+			img.id = naki_ar[j];
+			img.className = "none";
+			img.onclick = new Function("naki(this.id);");
+			if (j == 13) {
+				img.className = "agari";
+				img.onclick = "";
+			}
+		}
 		element.appendChild(img);
 	}
 }
 
+// リザルト画面の役生成
 function modal_yaku_load(yaku_list) {
 	// リザルトの役を初期化
 	var element1 = document.getElementById("yaku_name");
@@ -129,6 +269,7 @@ function modal_yaku_load(yaku_list) {
 	}
 }
 
+// リザルト画面の点数生成
 function modal_ten_load(cost_han, cost_fu, cost_main, cost_additional) {
 	// リザルトの点を初期化
 	var element = document.getElementById("modal_ten");
@@ -141,12 +282,15 @@ function modal_ten_load(cost_han, cost_fu, cost_main, cost_additional) {
 	han.id = "han";
 	han.innerHTML = cost_han + "翻" + cost_fu + "符";
 	ten.id = "ten";
+	// ロン
 	if (tumo == false) {
 		ten.innerHTML = cost_main + "点";
 	}
+	// 親ツモ
 	else if (wind == 1) {
 		ten.innerHTML = "ALL " + cost_main + "点";
 	}
+	// 子ツモ
 	else {
 		ten.innerHTML = "親" +  cost_main + "点 子" + cost_additional + "点";
 	}
@@ -157,6 +301,7 @@ function modal_ten_load(cost_han, cost_fu, cost_main, cost_additional) {
 	modal_mangan_load(cost_sum, cost_han);
 }
 
+// リザルト画面の満貫を生成
 function modal_mangan_load(cost, han) {
 	// リザルトの点を初期化
 	var element = document.getElementById("modal_mangan");
@@ -164,6 +309,7 @@ function modal_mangan_load(cost, han) {
 	// manganを生成
 	var mangan = document.createElement("p");
 	var wind = document.getElementById("jikaze").alt
+	// 親の場合
 	if (wind == 1) {
 		if (cost >= 48000) {
 			mangan.innerHTML = "役満";
@@ -184,6 +330,7 @@ function modal_mangan_load(cost, han) {
 			mangan.innerHTML = han + "翻";
 		}
 	}
+	// 子の場合
 	else {
 		if (cost >= 32000) {
 			mangan.innerHTML = "役満";
@@ -207,11 +354,9 @@ function modal_mangan_load(cost, han) {
 	element.appendChild(mangan);
 }
 
+// リザルト画面のリセット用
 function modal_reset(element) {
 	while (element.firstChild) {
 		element.removeChild(element.firstChild);
 	}
 }
-
-$( window ).resize( centeringModalSyncer ) ;
-$( window ).resize( centeringModalSyncerRslt ) ;

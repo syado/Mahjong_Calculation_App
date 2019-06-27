@@ -6,6 +6,7 @@
 
     <!-- ビューポートの設定 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <!-- スタイルシートの読み込み -->
     <link rel="stylesheet" href="style_set.css">
@@ -29,7 +30,11 @@
     <!-- 手牌、和了牌 -->
     <div class="wrapper">
         <div class="column_tehai">
-            <h2 class="title">手牌</h2>
+            <h2 id="title" class="title">手牌</h2>
+            <button id="pon" type="button" onclick="modal_open_naki(this.id)">ポン</button>
+            <button id="chi" type="button" onclick="modal_open_naki(this.id)">チー</button>
+            <button id="open_kan" type="button" onclick="modal_open_naki(this.id)">明カン</button>
+            <button id="close_kan" type="button" onclick="modal_open_naki(this.id)">暗カン</button>
         </div>
         <div class="column_horahai">
             <h2 class="title">和了牌</h2>
@@ -107,7 +112,7 @@
                 <h2>役</h2>
                 <div class="wrapper">
                     <div class="yaku">
-                        <div class="checkbox box">
+                        <div class="checkbox_box">
                             <label>
                                 <input id="tumo" class="checkbox-input" name="checkbox[]" type="checkbox"
                                     onclick="tumo()" />
@@ -131,7 +136,7 @@
                         </div>
                     </div>
                     <div class="yaku">
-                        <div class="checkbox box">
+                        <div class="checkbox_box">
                             <label>
                                 <input id="riichi" class="checkbox-input" name="checkbox[]" type="checkbox"
                                     onclick="riichi()" />
@@ -237,12 +242,20 @@
                 </div>
             </div>
         </div>
-        <button type="button" id="modal-close" class="close-rslt">閉じる</button>
+        <button type="button" id="modal-close" class="close-rslt" onclick="naki_reset()">閉じる</button>
         <form action="index.html" method="GET">
             <button id="back" type="submit" class="close-rslt">終了する</button>
         </form>
     </div>
 
+    <!-- 鳴きのモーダルウィンドウ -->
+    <div id="modal-content-naki">
+        <h2 class="title">ポンした牌を選択してください。</h2>
+        <div id="tehai_naki" class="tehai_naki">
+
+        </div>
+        <button type="button" id="modal-close" class="close-naki" onclick="naki_reset()">キャンセル</button>
+    </div>
 </body>
 
 </html>

@@ -41,6 +41,7 @@ function wriichi() {
     if (document.getElementById("wriichi").checked) {
         document.getElementById("riichi").checked = false;
         document.getElementById("tenhou").checked = false;
+        document.getElementById("haitei").checked = false;
     }
     else {
         document.getElementById("ippatsu").checked = false;
@@ -81,6 +82,7 @@ function haitei() {
     document.getElementById("rinshan").checked = false;
     document.getElementById("chankan").checked = false;
     document.getElementById("tenhou").checked = false;
+    document.getElementById("wriichi").checked = false;
 }
 function tenhou() {
     document.getElementById("tumo").checked = true;
@@ -93,6 +95,7 @@ function tenhou() {
 }
 
 var rslt
+var kan_cnt = 0;
 
 function calc() {
     var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
@@ -108,8 +111,12 @@ function calc() {
         sou: "",
         honors: ""
     };
+    var pon = [];
+    var chi = [];
+    var kan = [];
     for (var j = 0; j < 14; j++) {
         var tmp = document.getElementById(tehai_ar[j]).alt;
+        var cls = document.getElementById(tehai_ar[j]).className;
         if (tmp.slice(0, 1) == "m") tehai.man += tmp.slice(1);
         else if (tmp.slice(0, 1) == "p") tehai.pin += tmp.slice(1);
         else if (tmp.slice(0, 1) == "s") tehai.sou += tmp.slice(1);
@@ -119,6 +126,65 @@ function calc() {
             else if (tmp.slice(0, 1) == "p") agari.pin += tmp.slice(1);
             else if (tmp.slice(0, 1) == "s") agari.sou += tmp.slice(1);
             else if (tmp.slice(0, 1) == "h") agari.honors += tmp.slice(1);
+        }
+        if (cls.slice(0,3) == "pon") {
+            var num = cls.slice(3);
+            num -= 1;
+            if (pon[num] == null){
+                pon[num] = {
+                    man: "",
+                    pin: "",
+                    sou: "",
+                    honors: ""
+                };
+            }
+            if (tmp.slice(0, 1) == "m") pon[num].man += tmp.slice(1);
+            else if (tmp.slice(0, 1) == "p") pon[num].pin += tmp.slice(1);
+            else if (tmp.slice(0, 1) == "s") pon[num].sou += tmp.slice(1);
+            else if (tmp.slice(0, 1) == "h") pon[num].honors += tmp.slice(1);
+        }
+        if (cls.slice(0,3) == "chi") {
+            var num = cls.slice(3);
+            num -= 1;
+            if (chi[num] == null){
+                chi[num] = {
+                    man: "",
+                    pin: "",
+                    sou: "",
+                    honors: ""
+                };
+            }
+            if (tmp.slice(0, 1) == "m") chi[num].man += tmp.slice(1);
+            else if (tmp.slice(0, 1) == "p") chi[num].pin += tmp.slice(1);
+            else if (tmp.slice(0, 1) == "s") chi[num].sou += tmp.slice(1);
+            else if (tmp.slice(0, 1) == "h") chi[num].honors += tmp.slice(1);
+        }
+        if (cls.slice(-4,-1) == "kan") {
+            kan_cnt += 1;
+            var num = cls.slice(-1);
+            num -= 1;
+            if (kan[num] == null){
+                kan[num] = {
+                    man: "",
+                    pin: "",
+                    sou: "",
+                    honors: "",
+                    open: ""
+                };
+            }
+            if (tmp.slice(0, 1) == "m") kan[num].man += tmp.slice(1);
+            else if (tmp.slice(0, 1) == "p") kan[num].pin += tmp.slice(1);
+            else if (tmp.slice(0, 1) == "s") kan[num].sou += tmp.slice(1);
+            else if (tmp.slice(0, 1) == "h") kan[num].honors += tmp.slice(1);
+            if (kan_cnt == 3) {
+                if (tmp.slice(0, 1) == "m") kan[num].man += tmp.slice(1);
+                else if (tmp.slice(0, 1) == "p") kan[num].pin += tmp.slice(1);
+                else if (tmp.slice(0, 1) == "s") kan[num].sou += tmp.slice(1);
+                else if (tmp.slice(0, 1) == "h") kan[num].honors += tmp.slice(1);
+                kan_cnt = 0;
+            }
+            if (cls == "close_kan") kan[num].open = 0
+            else kan[num].open = 1
         }
     }
     var dora_ar = ["dora_01", "dora_02", "dora_03", "dora_04", "dora_05", "dora_06", "dora_07", "dora_08", "dora_09", "dora_10"];
@@ -137,6 +203,9 @@ function calc() {
     }
     console.log(tehai);
     console.log(dora);
+    console.log(pon);
+    console.log(chi);
+    console.log(kan);
     var wind = { round: "", player: "" }
     wind.round = document.getElementById("bakaze").alt;
     wind.player = document.getElementById("jikaze").alt;
@@ -163,6 +232,9 @@ function calc() {
         agari: agari,
         dora: dora,
         wind: wind,
+        pon: pon,
+        chi: chi,
+        kan: kan,
         option: option
     };
     
@@ -186,5 +258,4 @@ function calc() {
             // alert(data.cost.main);
         }
     });
-
 }

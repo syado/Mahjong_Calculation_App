@@ -45,12 +45,37 @@
             margin: 0 0.25vw 0 0.25vw;
         }
         h2.title {
-            margin: 1vh 0.25vw 0 0.25vw;
+            margin: 0.5vh 0.25vw 0 0.25vw;
+        }
+        h2#title {
+            width: calc( 50% - 0.5vw );
+            background-color: transparent;
+            float: left;
+            margin: 0;
+        }
+        #pon {
+            margin: 1vh 2vw 1vh 0;
+            width: 10%;
+        }
+        #chi {
+            margin: 1vh 2vw 1vh 0;
+            width: 10%;
+        }
+        #open_kan {
+            margin: 1vh 2vw 1vh 0;
+            width: 10%;
+        }
+        #close_kan {
+            margin: 1vh 2vw 1vh 0;
+            width: 10%;
         }
         /* 手牌、和了牌 */
         .column_tehai {
             height: 12vh;
             width: 92.5vw;
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.25);
+            margin: 0.5vh 0.25vw 0 0.25vw;
         }
         .column_horahai {
             height: 12vh;
@@ -65,7 +90,7 @@
             justify-content: space-evenly;
             height: 20vh;
             width: 100vw;
-            margin-top: 1%;
+            margin-top: 0.5%;
             margin-bottom: 0.5%; 
         }
         .tehai > *{
@@ -76,6 +101,18 @@
         }
         .tehai > #agarihai {
             margin-left: 0.5%;
+        }
+        .pon1 {
+            border: solid 1px red;
+        }
+        .chi1 {
+            border: solid 1px blue;
+        }
+        .open_kan1 {
+            border: solid 1px yellow;
+        }
+        .close_kan1 {
+            border: solid 1px cyan;
         }
         /* ドラ、風牌、役 */
         .wrapper {
@@ -150,12 +187,15 @@
             width: 36vw;
         }
         /* 役ボタンのスタイル */
+        .checkbox_box{
+            font-size: 0;
+        }
         .checkbox-input{
             display: none;
         }
         .checkbox-parts{
             margin-top: 1vh;
-            margin-left: 1.5vw;
+            margin-left: 1.6vw;
             text-align: center;
             position: relative;
             padding: 2.7vh 0px 2.7vh 0px;
@@ -185,7 +225,6 @@
         #modal-content {
             height: 90vh ;
             width: 90vw ;
-            margin: 0 ;
             padding: 10px 20px ;
             border: 2px solid #aaa ;
             background: #fff ;
@@ -197,10 +236,17 @@
         #modal-content-rslt {
             height: 90vh ;
             width: 90vw ;
-            margin: 0 ;
             padding: 10px 20px ;
             border: 2px solid #aaa ;
             background: #fff ;
+            position: fixed ;
+            display: none ;
+            z-index: 2 ;
+            background-color: #1e9623;
+        }
+        #modal-content-naki {
+            height: 100vh ;
+            width: 100vw ;
             position: fixed ;
             display: none ;
             z-index: 2 ;
@@ -322,6 +368,34 @@
             margin-top: 1vh;
             height: 10vh;
             width: 45vw;
+        }
+        /* 鳴きモーダルウィンドウのスタイル */
+        .close-naki {
+            width: 95vw;
+            margin-left: 2.5vw;
+            margin-right: 2.5vw;
+        }
+        .tehai_naki {
+            display: flex;
+            justify-content: space-evenly;
+            height: 20vh;
+            width: 100vw;
+            margin-top: 0.5%;
+            margin-bottom: 0.5%; 
+        }
+        .tehai_naki > *{
+            height: auto;
+            width: auto;
+            max-height: 20vh;
+            max-width: 7vw;
+        }
+        .naki {
+            border: solid 1px red;
+        }
+        .agari {
+            background-color: #000;
+            border-radius: 10%;
+            opacity: 0.5;
         }
 
         body {
