@@ -4,7 +4,6 @@ var naki_mode = "";
 var pon_cnt = 1;
 var chi_cnt = 1;
 var kan_cnt = 1;
-var set_hai =["", "", "", "", "", "", "", "", "", "", "", "", "", ""];
 var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
 var houra_ar = ["houra_01", "houra_02", "houra_03", "houra_04", "houra_05", "houra_06", "houra_07", "houra_08", "houra_09", "houra_10", "houra_11", "houra_12", "houra_13", "houra_a"];
 var naki_ar = ["naki_01", "naki_02", "naki_03", "naki_04", "naki_05", "naki_06", "naki_07", "naki_08", "naki_09", "naki_10", "naki_11", "naki_12", "naki_13", "naki_a"];
@@ -228,8 +227,7 @@ function naki(id) {
 			//[#modal-overlay]を削除する
 			$('#modal-overlay').remove() ;
 		} ) ;
-		naki_cnt = 0;
-		naki_mode = "";
+		naki_reset();
 	}
 	else if (naki_cnt == 0 && element.className != "none") {
 		for (var j = 0; j < 13; j++) {
@@ -273,13 +271,37 @@ function naki(id) {
 			//[#modal-overlay]を削除する
 			$('#modal-overlay').remove() ;
 		} ) ;
-		naki_cnt = 0;
-		naki_mode = "";
+		naki_reset();
 	}
 }
 function naki_reset() {
 	naki_cnt = 0;
 	naki_mode = "";
+}
+//鳴きの後のソート用関数
+//完成後鳴き画面終了時に実行するように追記する
+function hai_load() {
+	var cnt = 0;
+	var n_cnt = 0;
+	var set_hai = [{hai: "", cls: ""}];
+	var naki_hai = [{hai: "", cls: ""}];
+	for (var j = 0; j < 13; j++) {
+		var tmp = document.getElementById(tehai_ar[j]);
+		if (tmp.className == "none") {
+			set_hai[cnt].hai = tmp.alt;
+			set_hai[cnt].cls = tmp.className;
+			cnt += 1;
+		} else {
+			naki_hai[n_cnt].hai = tmp.alt;
+			naki_hai[n_cnt].cls = tmp.className;
+			n_cnt += 1;
+		}
+	}
+	//ここにnaki_haiをソートする処理を追加
+	for (var j = 0; j < naki_hai.length; j++) {
+		//ここにnaki_haiをset_haiに追加する処理を追加
+	}
+	//ここに牌を再描画する処理を追加
 }
 
 // リザルト&鳴き画面の牌生成 (挿入先のidを取得して生成)
@@ -304,7 +326,6 @@ function modal_hai_load(id) {
 		img.alt = type + num;
 		img.className = tmp_c;
 		if (id == "tehai_naki") {
-			set_hai[j] = tmp;
 			img.id = naki_ar[j];
 			img.onclick = new Function("naki(this.id);");
 			if (j == 13) {
