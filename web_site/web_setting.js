@@ -183,7 +183,7 @@ function calc() {
                 else if (tmp.slice(0, 1) == "h") kan[num].honors += tmp.slice(1);
                 cnt = 0;
             }
-            if (cls == "close_kan") kan[num].open = 0
+            if (cls.slice(0,-1) == "close_kan") kan[num].open = 0
             else kan[num].open = 1
         }
     }
