@@ -103,16 +103,52 @@
             margin-left: 0.5%;
         }
         .pon1 {
-            border: solid 1px red;
+            border: solid 2px red;
+        }
+        .pon2 {
+            border: solid 2px magenta;
+        }
+        .pon3 {
+            border: solid 2px hotpink;
+        }
+        .pon4 {
+            border: solid 2px lightpink;
         }
         .chi1 {
-            border: solid 1px blue;
+            border: solid 2px blue;
+        }
+        .chi2 {
+            border: solid 2px dodgerblue;
+        }
+        .chi3 {
+            border: solid 2px aqua;
+        }
+        .chi4 {
+            border: solid 2px powderblue;
         }
         .open_kan1 {
-            border: solid 1px yellow;
+            border: solid 2px darkorange;
+        }
+        .open_kan2 {
+            border: solid 2px gold;
+        }
+        .open_kan3 {
+            border: solid 2px yellow;
+        }
+        .open_kan4 {
+            border: solid 2px khaki;
         }
         .close_kan1 {
-            border: solid 1px cyan;
+            border: solid 2px darkgreen;
+        }
+        .close_kan2 {
+            border: solid 2px green;
+        }
+        .close_kan3 {
+            border: solid 2px chartreuse;
+        }
+        .close_kan4 {
+            border: solid 2px greenyellow;
         }
         /* ドラ、風牌、役 */
         .wrapper {

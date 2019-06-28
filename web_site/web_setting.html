@@ -49,10 +49,10 @@
                 if (hai != undefined) {
                     var hai_0 = hai.slice(0, 1);
                     var hai_1 = hai.slice(1);
-                    document.write(`<img id="${ar[j]}" src="hai/${hai_0}/${hai_1}.png" alt="${hai}" onclick="modal_open(this.id)">`);
+                    document.write(`<img id="${ar[j]}" src="hai/${hai_0}/${hai_1}.png" alt="${hai}" class="none" onclick="modal_open(this.id)">`);
                 }
                 else {
-                    document.write(`<img id="${ar[j]}" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">`);
+                    document.write(`<img id="${ar[j]}" src="hai/h/error.png" alt="error" class="none" onclick="modal_open(this.id)">`);
                 }
             }
         </script>
@@ -250,7 +250,7 @@
 
     <!-- 鳴きのモーダルウィンドウ -->
     <div id="modal-content-naki">
-        <h2 class="title">ポンした牌を選択してください。</h2>
+        <h2 id="naki_title" class="title">ポンした牌を選択してください。</h2>
         <div id="tehai_naki" class="tehai_naki">
 
         </div>

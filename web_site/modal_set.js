@@ -112,8 +112,9 @@ function modal_open_rslt() {
 }
 
 // 鳴き画面オープン
-function modal_open_naki(id) {	
+function modal_open_naki(id) {
 	naki_mode = id;
+	naki_title_change(naki_mode);
 	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
 	$( this ).blur() ;	//ボタンからフォーカスを外す
 	if( $( "#modal-overlay" )[0] ) return false ;		//新しくモーダルウィンドウを起動しない (防止策1)
@@ -146,6 +147,24 @@ function modal_open_naki(id) {
 $( window ).resize( centeringModalSyncer ) ;
 $( window ).resize( centeringModalSyncerRslt ) ;
 $( window ).resize( centeringModalSyncerNaki ) ;
+
+function naki_title_change(id) {
+	var element = document.getElementById("naki_title");
+	switch (id) {
+		case "pon":
+			element.innerHTML = "ポンした牌を選択してください。";
+			break;
+		case "chi":
+			element.innerHTML = "チーした牌を選択してください。";
+			break;
+		case "open_kan":
+			element.innerHTML = "明槓した牌を選択してください。";
+			break;
+		case "close_kan":
+			element.innerHTML = "暗槓した牌を選択してください。";
+			break;
+	}
+}
 
 function naki(id) {
 	var element = document.getElementById(id);
@@ -204,6 +223,51 @@ function naki(id) {
 				}
 				kan_cnt += 1;
 				break;
+		} 
+		$( "#modal-content-naki,#modal-overlay" ).fadeOut( "fast" , function(){
+			//[#modal-overlay]を削除する
+			$('#modal-overlay').remove() ;
+		} ) ;
+		naki_cnt = 0;
+		naki_mode = "";
+	}
+	else if (naki_cnt == 0 && element.className != "none") {
+		for (var j = 0; j < 13; j++) {
+			var clsnmsrc = element.className
+			var mode = clsnmsrc.slice(0,-1);
+			var srcnum = clsnmsrc.slice(-1);
+			var clsnm = document.getElementById(naki_ar[j]).className
+			if (mode == clsnm.slice(0,-1)) {
+				if(srcnum == clsnm.slice(-1)) {
+					document.getElementById(tehai_ar[j]).className = "none";
+				} else if (srcnum < clsnm.slice(-1)) {
+					document.getElementById(tehai_ar[j]).className = mode + (clsnm.slice(-1) - 1);
+				}
+			} else if (mode == "open_kan") {
+				mode = "close_kan";
+				if(mode == clsnm.slice(0,-1) && srcnum < clsnm.slice(-1)) {
+					document.getElementById(tehai_ar[j]).className = mode + (clsnm.slice(-1) - 1);
+				}
+			} else if (mode == "close_kan") {
+				mode = "open_kan";
+				if(mode == clsnm.slice(0,-1) && srcnum < clsnm.slice(-1)) {
+					document.getElementById(tehai_ar[j]).className = mode + (clsnm.slice(-1) - 1);
+				}
+			}
+		}
+		switch (mode) {
+			case "pon": 
+				pon_cnt -= 1;
+				break;
+			case "chi": 
+				chi_cnt -= 1;
+				break;
+			case "open_kan": 
+				kan_cnt -= 1;
+				break;
+			case "close_kan": 
+				kan_cnt -= 1;
+				break;
 		}
 		$( "#modal-content-naki,#modal-overlay" ).fadeOut( "fast" , function(){
 			//[#modal-overlay]を削除する
@@ -226,6 +290,7 @@ function modal_hai_load(id) {
 	// 設定画面から牌を取得して生成
 	for (var j = 0; j < 14; j++) {
 		var tmp = document.getElementById(tehai_ar[j]).alt;
+		var tmp_c = document.getElementById(tehai_ar[j]).className;
 		if (tmp == "error") {
 			var type = "h"
 			var num = "error"
@@ -237,10 +302,10 @@ function modal_hai_load(id) {
 		img.id = houra_ar[j];
 		img.src = "hai/" + type + "/" + num + ".png";
 		img.alt = type + num;
+		img.className = tmp_c;
 		if (id == "tehai_naki") {
 			set_hai[j] = tmp;
 			img.id = naki_ar[j];
-			img.className = "none";
 			img.onclick = new Function("naki(this.id);");
 			if (j == 13) {
 				img.className = "agari";
