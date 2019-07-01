@@ -278,30 +278,62 @@ function naki_reset() {
 	naki_cnt = 0;
 	naki_mode = "";
 }
-//鳴きの後のソート用関数
-//完成後鳴き画面終了時に実行するように追記する
+//鳴き対応のソート
+//完成後設定画面表示時に実行するように追記する
 function hai_load() {
 	var cnt = 0;
 	var n_cnt = 0;
-	var set_hai = [{hai: "", cls: ""}];
-	var naki_hai = [{hai: "", cls: ""}];
+	var set_hai = [];
+	var naki_hai = [];
+	// 現在の牌を配列に保存
 	for (var j = 0; j < 13; j++) {
-		var tmp = document.getElementById(tehai_ar[j]);
-		if (tmp.className == "none") {
-			set_hai[cnt].hai = tmp.alt;
-			set_hai[cnt].cls = tmp.className;
+		var tmp_a = document.getElementById(tehai_ar[j]).alt;
+		var tmp_c = document.getElementById(tehai_ar[j]).className;
+		if (tmp_c == "none") {
+			set_hai[cnt] = {hai: "", cls: ""};
+			set_hai[cnt].hai = tmp_a;
+			set_hai[cnt].cls = tmp_c;
 			cnt += 1;
 		} else {
-			naki_hai[n_cnt].hai = tmp.alt;
-			naki_hai[n_cnt].cls = tmp.className;
+			naki_hai[n_cnt] = {hai: "", cls: ""};
+			naki_hai[n_cnt].hai = tmp_a;
+			naki_hai[n_cnt].cls = tmp_c.slice(0,-1);
+			naki_hai[n_cnt].cls.replace("pon", "10");
+			naki_hai[n_cnt].cls.replace("chi", "20");
+			naki_hai[n_cnt].cls.replace("open_kan", "30");
+			naki_hai[n_cnt].cls.replace("close_kan", "40");
+			naki_hai[n_cnt].cls += tmp_c.slice(-1);
 			n_cnt += 1;
 		}
 	}
-	//ここにnaki_haiをソートする処理を追加
-	for (var j = 0; j < naki_hai.length; j++) {
-		//ここにnaki_haiをset_haiに追加する処理を追加
+	// ソート
+	naki_hai.sort(function (a, b) {
+		return a.cls - b.cls;
+	});
+	// 鳴き牌を配列に追加
+	for (var j = 0; j < n_cnt; j++) {
+		set_hai[cnt] = {hai: "", cls: ""};
+		set_hai[cnt].hai = naki_hai[j].hai
+		naki_hai[j].cls.replace("10", "pon");
+		naki_hai[j].cls.replace("20", "chi");
+		naki_hai[j].cls.replace("30", "open_kan");
+		naki_hai[j].cls.replace("40", "close_kan");
+		set_hai[cnt].cls = naki_hai[j].cls
+		cnt += 1;
 	}
+	console.log(set_hai);
 	//ここに牌を再描画する処理を追加
+	var element = document.getElementById("tehai");
+	modal_reset(element);
+	for (var j = 0; j < 14; j++) {
+		var img = document.createElement('img');
+		img.id = tehai_ar[j];
+		img.src = "hai/" + set_hai[j].alt.slice(0,1); + "/" + set_hai[j].alt.slice(1) + ".png";
+		img.alt = set_hai[j].alt
+		img.className = set_hai[j].cls
+		img.onclick = new Function("modal_open(this.id);");
+		element.appendChild(img);
+	}
 }
 
 // リザルト&鳴き画面の牌生成 (挿入先のidを取得して生成)

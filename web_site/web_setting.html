@@ -31,6 +31,7 @@
     <div class="wrapper">
         <div class="column_tehai">
             <h2 id="title" class="title">手牌</h2>
+            <button id="pon" onclick="hai_load()">test</button>
             <button id="pon" type="button" onclick="modal_open_naki(this.id)">ポン</button>
             <button id="chi" type="button" onclick="modal_open_naki(this.id)">チー</button>
             <button id="open_kan" type="button" onclick="modal_open_naki(this.id)">明カン</button>
@@ -40,7 +41,7 @@
             <h2 class="title">和了牌</h2>
         </div>
     </div>
-    <div class="tehai">
+    <div id="tehai" class="tehai">
         <script>
             var args = getUrlVars();
             var ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
