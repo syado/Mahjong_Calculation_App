@@ -343,6 +343,7 @@ function hai_load() {
 		img.onclick = new Function("modal_open(this.id);");
 		element.appendChild(img);
 	}
+	console.log(set_hai);
 }
 
 // リザルト&鳴き画面の牌生成 (挿入先のidを取得して生成)
