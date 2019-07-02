@@ -282,7 +282,6 @@ function naki_reset() {
 }
 //鳴き対応のソート
 function hai_load() {
-	console.log("うごいた");
 	var cnt = 0;
 	var n_cnt = 0;
 	var set_hai = [];
@@ -304,7 +303,6 @@ function hai_load() {
 			n_cnt += 1;
 		}
 	}
-	console.log(naki_hai);
 	// ソート
 	naki_hai.sort(function(a, b) {
 		if (a.cls < b.cls) {
@@ -315,7 +313,6 @@ function hai_load() {
 		}
 		return 0;
 	});
-	console.log(naki_hai);
 	// 鳴き牌を配列に追加
 	for (var j = 0; j < n_cnt; j++) {
 		set_hai[cnt] = {hai: "", cls: ""};
@@ -326,14 +323,12 @@ function hai_load() {
 	var agari = document.getElementById("agarihai");
 	set_hai[13] = {hai: "", cls: ""};
 	set_hai[13].hai = agari.alt
-	set_hai[13].cls = agari.className
-	console.log(set_hai);
+	set_hai[13].cls = agari.className;
 	// 現在の牌を削除して再描画
 	var element = document.getElementById("tehai");
 	modal_reset(element);
 	for (var j = 0; j < 14; j++) {
 		var img = document.createElement('img');
-		console.log(set_hai[j].hai);
 		if (set_hai[j].hai == "error") {
 			var type = "h";
 			var num = "error";
