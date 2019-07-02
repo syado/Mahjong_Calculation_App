@@ -70,6 +70,11 @@
         margin-top: 0.5%;
         margin-bottom: 0.5%; 
         align-items: center;
+        position: relative;
+    }
+    .tehai p {
+        position: absolute;/*絶対配置*/
+        color: white;/*文字は白に*/
     }
     .tehai > *{
         height: auto;
@@ -174,17 +179,20 @@
     .column_title {
         height: 21.5vh;
         width: 6vw;
-        text-align: right;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .column_title > * {
-        font-size: 4vh;
+        font-size: 6vh;
     }
     .column_title > .ba {
-        margin-top: 1vh;
+        margin-top: 2vh;
     }
     .column_kazehai {
+        margin-left: 2vw;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
         height: 21.5vh;
         width: 10vw;
         align-items: center;

@@ -8,6 +8,13 @@ var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "teh
 var houra_ar = ["houra_01", "houra_02", "houra_03", "houra_04", "houra_05", "houra_06", "houra_07", "houra_08", "houra_09", "houra_10", "houra_11", "houra_12", "houra_13", "houra_a"];
 var naki_ar = ["naki_01", "naki_02", "naki_03", "naki_04", "naki_05", "naki_06", "naki_07", "naki_08", "naki_09", "naki_10", "naki_11", "naki_12", "naki_13", "naki_a"];
 
+function agarititle() {
+	var element = document.getElementById("agarihai")
+	var rect = element.getBoundingClientRect();
+	console.log(rect);
+	$( ".tehai p").css( {"left": ((rect.right + rect.left) / 2) + "px", "top": rect.bottom + "px"});
+}
+
 // 牌選択画面用
 function centeringModalSyncer() {
 	var w = $( window ).width() ;
