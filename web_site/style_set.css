@@ -53,19 +53,19 @@
             float: left;
             margin: 0;
         }
-        #pon {
+        #\0031\0030 {
             margin: 1vh 2vw 1vh 0;
             width: 10%;
         }
-        #chi {
+        #\0032\0030 {
             margin: 1vh 2vw 1vh 0;
             width: 10%;
         }
-        #open_kan {
+        #\0033\0030 {
             margin: 1vh 2vw 1vh 0;
             width: 10%;
         }
-        #close_kan {
+        #\0034\0030 {
             margin: 1vh 2vw 1vh 0;
             width: 10%;
         }
@@ -102,52 +102,52 @@
         .tehai > #agarihai {
             margin-left: 0.5%;
         }
-        .pon1 {
+        .\0031\0030\0031 {
             border: solid 2px red;
         }
-        .pon2 {
+        .\0031\0030\0032 {
             border: solid 2px magenta;
         }
-        .pon3 {
+        .\0031\0030\0033 {
             border: solid 2px hotpink;
         }
-        .pon4 {
+        .\0031\0030\0034 {
             border: solid 2px lightpink;
         }
-        .chi1 {
+        .\0032\0030\0031 {
             border: solid 2px blue;
         }
-        .chi2 {
+        .\0032\0030\0032 {
             border: solid 2px dodgerblue;
         }
-        .chi3 {
+        .\0032\0030\0033 {
             border: solid 2px aqua;
         }
-        .chi4 {
+        .\0032\0030\0034 {
             border: solid 2px powderblue;
         }
-        .open_kan1 {
+        .\0033\0030\0031 {
             border: solid 2px darkorange;
         }
-        .open_kan2 {
+        .\0033\0030\0032 {
             border: solid 2px gold;
         }
-        .open_kan3 {
+        .\0033\0030\0033 {
             border: solid 2px yellow;
         }
-        .open_kan4 {
+        .\0033\0030\0034 {
             border: solid 2px khaki;
         }
-        .close_kan1 {
+        .\0034\0030\0031 {
             border: solid 2px darkgreen;
         }
-        .close_kan2 {
+        .\0034\0030\0032 {
             border: solid 2px green;
         }
-        .close_kan3 {
+        .\0034\0030\0033 {
             border: solid 2px chartreuse;
         }
-        .close_kan4 {
+        .\0034\0030\0034 {
             border: solid 2px greenyellow;
         }
         /* ドラ、風牌、役 */
