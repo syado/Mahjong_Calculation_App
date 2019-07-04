@@ -28,7 +28,7 @@
     <div class="wrapper">
         <div class="column_tehai">
             <h2 id="title" class="title">手牌</h2>
-            <button id="10" type="button" onclick="agarititle()">ポン</button>
+            <button id="10" type="button" onclick="modal_open_naki(this.id)">ポン</button>
             <button id="20" type="button" onclick="modal_open_naki(this.id)">チー</button>
             <button id="30" type="button" onclick="modal_open_naki(this.id)">明カン</button>
             <button id="40" type="button" onclick="modal_open_naki(this.id)">暗カン</button>
@@ -53,7 +53,6 @@
                 }
             }
         </script>
-        <p>test</p>
     </div>
 
     <!-- ドラ、風牌、役 -->
@@ -248,10 +247,11 @@
 
     <!-- 鳴きのモーダルウィンドウ -->
     <div id="modal-content-naki">
-        <h2 id="naki_title" class="title">ポンした牌を選択してください。</h2>
+        <h2 id="naki_title" class="title">ポンした牌を選択してください</h2>
         <div id="tehai_naki" class="tehai_naki">
 
         </div>
+        <h2>既に鳴いている牌を選択した場合は解除されます</h2>
         <button type="button" id="modal-close" class="close-naki" onclick="naki_reset()">キャンセル</button>
     </div>
 </body>

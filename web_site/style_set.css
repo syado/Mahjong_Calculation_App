@@ -72,10 +72,6 @@
         align-items: center;
         position: relative;
     }
-    .tehai p {
-        position: absolute;/*絶対配置*/
-        color: white;/*文字は白に*/
-    }
     .tehai > *{
         height: auto;
         width: auto;
@@ -292,6 +288,7 @@
         display: flex;
         justify-content: space-around;
         height: 20vh;
+        align-items: center;
     }
     #syurui :not(.manzu) {
         margin-top: 0.5vh;
@@ -299,7 +296,7 @@
     #syurui > * {
         height: auto;
         width: auto;
-        max-height: 18.5vh;
+        max-height: 20vh;
         max-width: 7vw;
     }
     .close-chng {
@@ -315,6 +312,7 @@
         width: 90vw;
         margin-top: 0.7%;
         margin-bottom: 0.7%; 
+        align-items: center;
     }
     .hourakei > *{
         height: auto;
@@ -396,9 +394,8 @@
     }
     /* 鳴きモーダルウィンドウのスタイル */
     .close-naki {
-        width: 95vw;
-        margin-left: 2.5vw;
-        margin-right: 2.5vw;
+        width: 98vw;
+        margin: 0 1vw 0 1vw;
     }
     .tehai_naki {
         display: flex;
@@ -407,15 +404,13 @@
         width: 100vw;
         margin-top: 0.5%;
         margin-bottom: 0.5%; 
+        align-items: center;
     }
     .tehai_naki > *{
         height: auto;
         width: auto;
         max-height: 20vh;
         max-width: 7vw;
-    }
-    .naki {
-        border: solid 1px red;
     }
     .agari {
         background-color: #000;

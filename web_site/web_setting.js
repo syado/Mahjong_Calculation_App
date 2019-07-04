@@ -127,8 +127,8 @@ function calc() {
             else if (tmp.slice(0, 1) == "s") agari.sou += tmp.slice(1);
             else if (tmp.slice(0, 1) == "h") agari.honors += tmp.slice(1);
         }
-        if (cls.slice(0,3) == "pon") {
-            var num = cls.slice(3);
+        if (cls.slice(0,2) == "10") {
+            var num = cls.slice(2);
             num -= 1;
             if (pon[num] == null){
                 pon[num] = {
@@ -143,8 +143,8 @@ function calc() {
             else if (tmp.slice(0, 1) == "s") pon[num].sou += tmp.slice(1);
             else if (tmp.slice(0, 1) == "h") pon[num].honors += tmp.slice(1);
         }
-        if (cls.slice(0,3) == "chi") {
-            var num = cls.slice(3);
+        if (cls.slice(0,2) == "20") {
+            var num = cls.slice(2);
             num -= 1;
             if (chi[num] == null){
                 chi[num] = {
@@ -159,9 +159,9 @@ function calc() {
             else if (tmp.slice(0, 1) == "s") chi[num].sou += tmp.slice(1);
             else if (tmp.slice(0, 1) == "h") chi[num].honors += tmp.slice(1);
         }
-        if (cls.slice(-4,-1) == "kan") {
+        if (cls.slice(0,2) == "30" || cls.slice(0,2) == "40") {
             cnt += 1;
-            var num = cls.slice(-1);
+            var num = cls.slice(2);
             num -= 1;
             if (kan[num] == null){
                 kan[num] = {
@@ -183,7 +183,7 @@ function calc() {
                 else if (tmp.slice(0, 1) == "h") kan[num].honors += tmp.slice(1);
                 cnt = 0;
             }
-            if (cls.slice(0,-1) == "close_kan") kan[num].open = 0
+            if (cls.slice(0,2) == "40") kan[num].open = 0
             else kan[num].open = 1
         }
     }
