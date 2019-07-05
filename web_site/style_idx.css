@@ -9,50 +9,26 @@
     }
 
     /* メイン */
+    /* 背景 */
+    body {
+        background-color: #1e9623;
+        color: white;
+    }
+    /* タイトル */
     .title {
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
         font-size: 10vh;
-        line-height: 70vh;
     }
-    .btn {
-        /* margin-left: 7.5vw; */
-        width: 35vw;
-        height: 10vh;
-    }
+    /* ボタン */
     form {
+        height: 30vh;
         width: 50vw;
         float: left;
     }
-    .button_div {
-        width: 35vw;
-        height: 10vh;
-        position: relative;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translate(-50%,0%);
-        transform: translate(-50%,0%);
-        font-size: 4vh;
-    }
-    .button_div {
-        display: inline-block;
-        position: relative;
-        /* padding: 1em 2.2em; */
-        line-height: 10vh;
-        text-align: -webkit-center;
-        text-align: center;
-        color: #fff;
-        border-radius: 4px;
-        background-color: #2772DB;
-        overflow: hidden;
-        -webkit-transition: .3s ease;
-        -moz-transition: .3s ease;
-        -o-transition: .3s ease;
-        transition: .3s ease;
-      }
-      .button_div:hover {
-        background-color: #2062bf;
-      }
-      .btn {
+    .btn {
         position: absolute;
         top: 0;
         left: 0;
@@ -60,12 +36,29 @@
         height: 100%;
         opacity: 0;
         cursor: pointer;
-      }
-    body {
-        background-color: #1e9623;
-        color: white;
     }
-    /* ローディング画面の背景 */
+    .button_div {
+        display: inline-block;
+        position: relative;
+        width: 35vw;
+        height: 10vh;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%,-50%);
+        font-size: 4vh;
+        line-height: 10vh;
+        text-align: center;
+        color: #fff;
+        border-radius: 8px;
+        background-color: #2772DB;
+        overflow: hidden;
+    }
+    .button_div:hover {
+        background-color: #2062bf;
+    }
+    /* ローディング画面 */
+    /* 背景 */
     .loading {
         display: none;
         position: fixed;
@@ -83,15 +76,23 @@
         font-size: 5vh;
         top: 50%;
         left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%,-50%);
         color: #fff;
-        -webkit-animation: loadinganimation 2000ms ease-out forwards infinite;
         animation: loadinganimation 2000ms ease-out forwards infinite;
+        -webkit-animation: loadinganimation 2000ms ease-out forwards infinite;
     }
+    /* 0%と100%で半透明 50%で鮮明に表示 */
     @keyframes loadinganimation {
-        from,to {
+        from, to {
+            opacity: .5;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes loadinganimation {
+        from, to {
             opacity: .5;
         }
         50% {
