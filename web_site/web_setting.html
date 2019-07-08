@@ -40,13 +40,43 @@
     <div id="tehai" class="tehai">
         <script>
             var args = getUrlVars();
+            console.log(args);
             var ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
             for (var j = 0; j < 14; j++) {
                 var hai = args[String(j)];
                 if (hai != undefined) {
                     var hai_0 = hai.slice(0, 1);
-                    var hai_1 = hai.slice(1);
-                    document.write(`<img id="${ar[j]}" src="hai/${hai_0}/${hai_1}.png" alt="${hai}" class="none" onclick="modal_open(this.id)">`);
+                    var hai_1 = hai.slice(1, 2);
+                    switch (hai.slice(2, 3)) {
+                        case "p":
+                            var cls = "10" + pon_cnt;
+                            naki_cnt += 1
+                            if (naki_cnt == 3) {
+                                pon_cnt += 1;
+                                naki_cnt = 0;
+                            }
+                            break;
+                        case "c":
+                            var cls = "20" + chi_cnt;
+                            naki_cnt += 1
+                            if (naki_cnt == 3) {
+                                chi_cnt += 1;
+                                naki_cnt = 0;
+                            }
+                            break;
+                        case "k":
+                            var cls = "30" + kan_cnt;
+                            naki_cnt += 1
+                            if (naki_cnt == 3) {
+                                kan_cnt += 1;
+                                naki_cnt = 0;
+                            }
+                            break;
+                        default:
+                            var cls = "none";
+                            break;
+                    }
+                    document.write(`<img id="${ar[j]}" src="hai/${hai_0}/${hai_1}.png" alt="${hai_0 + hai_1}" class="${cls}" onclick="modal_open(this.id)">`);
                 }
                 else {
                     document.write(`<img id="${ar[j]}" src="hai/h/error.png" alt="error" class="none" onclick="modal_open(this.id)">`);
@@ -63,17 +93,35 @@
                 <h2>ドラ</h2>
                 <div class="dora1">
                     <script>
+                        var args = getUrlVars();
                         var ar = ["dora_01", "dora_02", "dora_03", "dora_04", "dora_05"];
-                        for (var j of ar) {
-                            document.write(`<img id="${j}" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">`);
+                        for (var j = 0; j < 6; j++) { 
+                            var hai = args[String(j + 20)];
+                            if (hai != undefined) {
+                                var hai_0 = hai.slice(0, 1);
+                                var hai_1 = hai.slice(1, 2);
+                                document.write(`<img id="${ar[j]}" src="hai/${hai_0}/${hai_1}.png" alt="${hai}" onclick="modal_open(this.id)">`);
+                            } 
+                            else {
+                                document.write(`<img id="${ar[j]}" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">`);
+                            }
                         }
                     </script>
                 </div>
                 <div class="dora2">
                     <script>
+                        var args = getUrlVars();
                         var ar = ["dora_06", "dora_07", "dora_08", "dora_09", "dora_10"];
-                        for (var j of ar) {
-                            document.write(`<img id="${j}" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">`);
+                        for (var j = 0; j < 6; j++) { 
+                            var hai = args[String(j + 25)];
+                            if (hai != undefined) {
+                                var hai_0 = hai.slice(0, 1);
+                                var hai_1 = hai.slice(1, 2);
+                                document.write(`<img id="${ar[j]}" src="hai/${hai_0}/${hai_1}.png" alt="${hai}" onclick="modal_open(this.id)">`);
+                            } 
+                            else {
+                                document.write(`<img id="${ar[j]}" src="hai/h/error.png" alt="error" onclick="modal_open(this.id)">`);
+                            }
                         }
                     </script>
                 </div>

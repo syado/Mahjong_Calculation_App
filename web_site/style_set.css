@@ -82,51 +82,67 @@
         margin-left: 10px;
     }
     .\0031\0030\0031 {
+        box-sizing: border-box;
         border: solid 2px red;
     }
     .\0031\0030\0032 {
+        box-sizing: border-box;
         border: solid 2px magenta;
     }
     .\0031\0030\0033 {
+        box-sizing: border-box;
         border: solid 2px hotpink;
     }
     .\0031\0030\0034 {
+        box-sizing: border-box;
         border: solid 2px lightpink;
     }
     .\0032\0030\0031 {
+        box-sizing: border-box;
         border: solid 2px blue;
     }
     .\0032\0030\0032 {
+        box-sizing: border-box;
         border: solid 2px dodgerblue;
     }
     .\0032\0030\0033 {
+        box-sizing: border-box;
         border: solid 2px aqua;
     }
     .\0032\0030\0034 {
+        box-sizing: border-box;
         border: solid 2px powderblue;
     }
     .\0033\0030\0031 {
+        box-sizing: border-box;
         border: solid 2px darkorange;
     }
     .\0033\0030\0032 {
+        box-sizing: border-box;
         border: solid 2px gold;
     }
     .\0033\0030\0033 {
+        box-sizing: border-box;
         border: solid 2px yellow;
     }
     .\0033\0030\0034 {
+        box-sizing: border-box;
         border: solid 2px khaki;
     }
     .\0034\0030\0031 {
+        box-sizing: border-box;
         border: solid 2px darkgreen;
     }
     .\0034\0030\0032 {
+        box-sizing: border-box;
         border: solid 2px green;
     }
     .\0034\0030\0033 {
+        box-sizing: border-box;
         border: solid 2px chartreuse;
     }
     .\0034\0030\0034 {
+        box-sizing: border-box;
         border: solid 2px greenyellow;
     }
     /* ドラ、風牌、役 */
@@ -400,7 +416,7 @@
     }
     .tehai_naki {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
         height: 20vh;
         width: 100vw;
         margin-top: 0.5%;
@@ -417,6 +433,7 @@
         background-color: #000;
         border-radius: 10%;
         opacity: 0.5;
+        margin-left: 10px;
     }
 
     body {
