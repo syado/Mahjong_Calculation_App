@@ -34,13 +34,13 @@ function camera_send() {
                     cnt += 1;
                 }
             }
-            cnt = 13
+            cnt = 13;
             // アガリ牌
             if (data.agari) {
                 seturl += String(cnt) + "=" + data.agari[0].name + "&";
             }
             // ドラ
-            cnt = 20
+            cnt = 20;
             for (var i = 0; i < data.dora.length; i++) {
                 seturl += String(cnt) + "=" + data.dora[i].name + "&";
                 cnt += 1;
@@ -86,12 +86,13 @@ function img_form_send() {
                     cnt += 1;
                 }
             }
+            cnt = 13;
             // アガリ牌
             if (data.agari) {
                 seturl += String(cnt) + "=" + data.agari[0].name + "&";
             }
             // ドラ
-            cnt = 20
+            cnt = 20;
             for (var i = 0; i < data.dora.length; i++) {
                 seturl += String(cnt) + "=" + data.dora[i].name + "&";
                 cnt += 1;
