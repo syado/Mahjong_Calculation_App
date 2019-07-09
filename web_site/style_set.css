@@ -412,7 +412,7 @@
     /* 鳴きモーダルウィンドウのスタイル */
     .close-naki {
         width: 98vw;
-        margin: 0 1vw 0 1vw;
+        margin: 1vh 1vw 0 1vw;
     }
     .tehai_naki {
         display: flex;

@@ -34,6 +34,7 @@ function camera_send() {
                     cnt += 1;
                 }
             }
+            cnt = 13
             // アガリ牌
             if (data.agari) {
                 seturl += String(cnt) + "=" + data.agari[0].name + "&";
