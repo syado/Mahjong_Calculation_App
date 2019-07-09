@@ -1,0 +1,53 @@
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+
+    <!-- スタイルシートの読み込み -->
+    <link rel="stylesheet" href="style_idx.css">
+    <!-- manifest.jsonを呼び出しています -->
+    <link rel="manifest" href="manifest.json">
+    <script>
+        // service workerが有効なら、service-worker.js を登録します
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service_worker.js').then(function () { console.log('Service Worker Registered'); });
+        }
+    </script>
+
+    <!-- JavaScriptの読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="api.js"></script>
+
+    <title>雀鳳</title>
+</head>
+
+<body>
+    <!-- 縦画面時に表示 -->
+    <h1 class="error">画面を横に傾けてください</h1>
+
+    <!-- 横画面時に表示 -->
+    <!-- タイトル -->
+    <h1 class="title">雀鳳</h1>
+    <!-- 写真を撮るボタン -->
+    <form action="web_camera.html" method="GET">
+        <div class="button_div">
+            写真を撮る
+            <button class="btn" type="submit">写真を撮る</button>
+        </div>
+    </form>
+    <!-- ファイル選択ボタン -->
+    <form id="img_form" action="https://mahjong.syado.net/img_api/post" method="POST" enctype="multipart/form-data">
+        <div class="button_div">
+            ファイルを選択
+            <input class="btn" onchange="img_form_send()" type="file" name="image"
+                accept="image/png, image/jpeg, image/jpg">
+        </div>
+    </form>
+
+    <!-- 画像送信中に表示 -->
+    <div class="loading">
+        <div class="animation">画像を送信しています<br>しばらくお待ちください</div>
+    </div>
+</body>
+
+</html>
