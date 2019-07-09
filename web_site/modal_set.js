@@ -327,6 +327,7 @@ function hai_load() {
 	// 現在の牌を削除して再描画
 	var element = document.getElementById("tehai");
 	modal_reset(element);
+	var kan_num = 0
 	for (var j = 0; j < 14; j++) {
 		var img = document.createElement('img');
 		if (set_hai[j].hai == "error") {
@@ -342,7 +343,23 @@ function hai_load() {
 		img.className = set_hai[j].cls
 		img.onclick = new Function("modal_open(this.id);");
 		element.appendChild(img);
+		if (set_hai[j].cls.slice(0,2) == "30" || set_hai[j].cls.slice(0,2) == "40") {
+			kan_num += 1
+			if (kan_num == 3) {
+				var img2 = document.createElement('img');
+				img2.id = tehai_ar[j];
+				img2.src = "hai/" + type + "/" + num + ".png";
+				img2.alt = set_hai[j].hai
+				img2.className = set_hai[j].cls
+				img2.onclick = new Function("modal_open(this.id);");
+				element.appendChild(img2);
+				kan_num = 0;
+			}
+		}
 	}
+	$(".tehai > *").css({
+		"max-width": "calc( ( 100% - 10px ) /" + String(14 + (kan_cnt-1)) + ")"
+	});
 	console.log(set_hai);
 }
 

@@ -76,7 +76,7 @@
         height: auto;
         width: auto;
         max-height: 20vh;
-        max-width: 7vw;
+        max-width: calc( ( 98% - 10px) / 14 ) ;
     }
     .tehai > #agarihai {
         margin-left: 10px;
