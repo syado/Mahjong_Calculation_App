@@ -37,7 +37,7 @@ function startup() {
     }, false)
 
     // 撮影ボタン(カメラ画面)がタップされた時
-    video.addEventListener('click', function (ev) {
+    grid_video.addEventListener('click', function (ev) {
         // スクリーンショット
         takepicture()
         ev.preventDefault()

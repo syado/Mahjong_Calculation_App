@@ -13,10 +13,28 @@
         background-color: #1e9623;
         color: white;
 	}
-	/* カメラの画面 */
+    /* カメラの画面 */
+    .camera {
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+    }
 	video {
 		height: 100vh;
-		width: 100vw;
+        width: 100vw;
+        z-index: -1;
+    }
+    #grid_video {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%,0);
+        -webkit-transform: translate(-50%,0);
+        height: 100vh;
 	}
 
 	/* 確認画面 */
@@ -24,11 +42,23 @@
 	#img {
 		height: 80vh;
 		width: 90vw;
-		text-align: center;
+        text-align: center;
+        position: relative;
 	}
 	canvas {
 		height: 80vh;
 		width: auto;
+    }
+    #grid_canvas {
+		height: 80vh;
+		width: auto;
+		z-index: 4;
+		display: flex;
+		position: absolute;
+		top: 0;
+        left: 50%;
+        transform: translate(-50%,0);
+        -webkit-transform: translate(-50%,0);
 	}
 	/* ボタン */
 	#btn {
