@@ -1,7 +1,7 @@
 @media screen and (orientation: landscape) {
 	/* 横向きの場合のスタイル */
 	* {
-		margin: 0%; padding: 0%;
+		margin: 0%; padding: 0%; font-size: 0;
 	}
 	/* 縦画面用のテキストを非表示にする */
     .error {
