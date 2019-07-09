@@ -13,7 +13,16 @@ let video = null
 let canvas = null
 let photo = null
 let startbutton = null
-let constrains = { video: {facingMode: 'environment'}, audio: false }
+let constrains = { 
+    video: {
+        // カメラの解像度
+        width: { min: 480},
+        height: { min: 640},
+        // フロントカメラを指定
+        facingMode: 'environment'
+    }, 
+    audio: false 
+}
 let myStream = null;
 /**
  * ユーザーのデバイスによるカメラ表示を開始し、

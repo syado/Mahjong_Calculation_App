@@ -18,7 +18,7 @@
 		text-align: center;
 	}
 	canvas {
-		height: 80vh;
+		height: 78vh;
 		width: auto;
 	}
 	#btn {
@@ -69,9 +69,8 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+		-webkit-transform: translate(-50%, -50%);
         color: #fff;
         -webkit-animation: loadinganimation 2000ms ease-out forwards infinite;
         animation: loadinganimation 2000ms ease-out forwards infinite;
