@@ -1,3 +1,4 @@
+// 画面リサイズ時にずれないよう調整
 function centeringModalSyncer() {
 	var w = $( window ).width() ;
 	var h = $( window ).height() ;
@@ -9,7 +10,6 @@ function centeringModalSyncer() {
 }
 
 function modal_open() {
-
 	// キーボード操作などにより、オーバーレイが多重起動するのを防止する
 	$( this ).blur() ;	// ボタンからフォーカスを外す
 	if( $( "#modal-overlay" )[0] ) return false ;  // 新しくモーダルウィンドウを起動しない
