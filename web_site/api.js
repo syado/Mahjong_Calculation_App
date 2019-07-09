@@ -21,28 +21,27 @@ function camera_send() {
             console.log('Success', data);
             var cnt = 0;
             seturl = "web_setting.html?";
-            // テスト用で[5]を追記 返答json改良後は不要
             // 手牌
-            for (var i = 0; i < data[5].tehai.length; i++) {
-                seturl += String(cnt) + "=" + data[5].tehai[i].name + "&";
+            for (var i = 0; i < data.tehai.length; i++) {
+                seturl += String(cnt) + "=" + data.tehai[i].name + "&";
                 cnt += 1;
             }
             // 鳴き
-            for (var i = 0; i < data[5].naki.length; i++) {
-                var mode = data[5].naki[i].name
+            for (var i = 0; i < data.naki.length; i++) {
+                var mode = data.naki[i].name
                 for (var j = 0; j < 3; j++) {
-                    seturl += String(cnt) + "=" + data[5].naki[i].hai[j].name + mode.slice(0,1) + String(i + 1) + "&";
+                    seturl += String(cnt) + "=" + data.naki[i].hai[j].name + mode.slice(0,1) + String(i + 1) + "&";
                     cnt += 1;
                 }
             }
             // アガリ牌
-            if (data[5].agari) {
-                seturl += String(cnt) + "=" + data[5].agari[0].name + "&";
+            if (data.agari) {
+                seturl += String(cnt) + "=" + data.agari[0].name + "&";
             }
             // ドラ
             cnt = 20
-            for (var i = 0; i < data[5].dora.length; i++) {
-                seturl += String(cnt) + "=" + data[5].dora[i].name + "&";
+            for (var i = 0; i < data.dora.length; i++) {
+                seturl += String(cnt) + "=" + data.dora[i].name + "&";
                 cnt += 1;
             }
             console.log(seturl);
@@ -73,28 +72,27 @@ function img_form_send() {
             console.log('Success', data);
             var cnt = 0;
             seturl = "web_setting.html?";
-            // テスト用で[5]を追記 返答json改良後は不要
             // 手牌
-            for (var i = 0; i < data[5].tehai.length; i++) {
-                seturl += String(cnt) + "=" + data[5].tehai[i].name + "&";
+            for (var i = 0; i < data.tehai.length; i++) {
+                seturl += String(cnt) + "=" + data.tehai[i].name + "&";
                 cnt += 1;
             }
             // 鳴き
-            for (var i = 0; i < data[5].naki.length; i++) {
-                var mode = data[5].naki[i].name
+            for (var i = 0; i < data.naki.length; i++) {
+                var mode = data.naki[i].name
                 for (var j = 0; j < 3; j++) {
-                    seturl += String(cnt) + "=" + data[5].naki[i].hai[j].name + mode.slice(0,1) + String(i + 1) + "&";
+                    seturl += String(cnt) + "=" + data.naki[i].hai[j].name + mode.slice(0,1) + String(i + 1) + "&";
                     cnt += 1;
                 }
             }
             // アガリ牌
-            if (data[5].agari) {
-                seturl += String(cnt) + "=" + data[5].agari[0].name + "&";
+            if (data.agari) {
+                seturl += String(cnt) + "=" + data.agari[0].name + "&";
             }
             // ドラ
             cnt = 20
-            for (var i = 0; i < data[5].dora.length; i++) {
-                seturl += String(cnt) + "=" + data[5].dora[i].name + "&";
+            for (var i = 0; i < data.dora.length; i++) {
+                seturl += String(cnt) + "=" + data.dora[i].name + "&";
                 cnt += 1;
             }
             console.log(seturl);
