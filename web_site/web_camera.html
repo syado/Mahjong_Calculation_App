@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="modal_cmr.js"></script>
     <script src="api.js"></script>
+    <script src="camera.js"> </script>
 
     <title>雀鳳</title>
 </head>
@@ -22,14 +23,15 @@
     <h1 class="error">画面を横に傾けてください</h1>
 
     <!-- 横画面時に表示 -->
+    <!-- カメラの画面 -->
     <div class="camera">
         <video id="video" autoplay playsinline="true" onclick="modal_open()">video stream not available</video>
     </div>
 
+    <!-- 確認画面 -->
     <div id="modal-content">
         <div id="img">
-            <canvas id="canvas">
-            </canvas>
+            <canvas id="canvas"></canvas>
         </div>
         <div id="btn">
             <button type="button" id="modal-close">
@@ -41,15 +43,15 @@
         </div>
     </div>
 
+    <!-- 送信中画面 -->
     <div class="loading">
         <div class="animation">画像を送信しています。<br>しばらくお待ちください。</div>
     </div>
+    
+    <!-- JavaScript -->
     <script>
-        document.querySelector('#video').addEventListener('click', function (e) {
-            video.pause();
-        }, false);
+        // カメラのスタートアップをhtmlが読み込み終わったら実行
+        startup()
     </script>
 </body>
-<script src="camera.js"> </script>
-
 </html>

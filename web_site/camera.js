@@ -1,59 +1,46 @@
-/*
-カメラ周りのコード記述
-カメラの解像度設定
-カメラで撮影した画像の送信先の記述
+// canvasのサイズ設定
+let width = "640"
+let height = "480"
 
-*/
-let width = "512"   // We will scale the photo width to this
-let height = "512"     // This will be computed based on the input stream
-
+// カメラ実行中かどうかのフラグ？
 let streaming = false
 
 let video = null
 let canvas = null
-let photo = null
-let startbutton = null
+
+// カメラの設定
 let constrains = { 
     video: {
-        // カメラの解像度
-        width: { min: 480},
-        height: { min: 640},
+        // カメラの解像度 低めに設定中要件以上のカメラを搭載してない場合はエラー
+        width: { min: 640},
+        height: { min: 480},
         // フロントカメラを指定
         facingMode: 'environment'
     }, 
     audio: false 
 }
 let myStream = null;
-/**
- * ユーザーのデバイスによるカメラ表示を開始し、
- * 各ボタンの挙動を設定する
- *
- */
+
+// カメラのスタートアップ
 function startup() {
     video = document.getElementById('video')
     canvas = document.getElementById('canvas')
-    photo = document.getElementById('photo')
-    startbutton = document.getElementById('startbutton')
 
+    // カメラ起動
     videoStart()
 
+    // カメラの準備ができた時
     video.addEventListener('canplay', function (ev) {
         if (!streaming) {
-            height = video.videoHeight / (video.videoWidth / width)
-
-            video.setAttribute('width', width)
-            video.setAttribute('height', height)
-            canvas.setAttribute('width', width)
-            canvas.setAttribute('height', height)
             streaming = true
         }
     }, false)
 
-    // 「画像撮影」ボタンをとる挙動を定義
+    // 撮影ボタン(カメラ画面)がタップされた時
     video.addEventListener('click', function (ev) {
+        // スクリーンショット
         takepicture()
         ev.preventDefault()
-        //カメラの動作を停止？
         streaming = true    
         
         if(myStream){
@@ -64,13 +51,11 @@ function startup() {
           if("srcObject" in video) video.srcObject = null;
           else video.src = null;
     }, false);
-
+    // canvasの表示領域を初期化する
     clearphoto()
 }
 
-/**
- * カメラ操作を開始する
- */
+// カメラ起動
 function videoStart() {
     streaming = false
     navigator.mediaDevices.getUserMedia(constrains)
@@ -83,17 +68,15 @@ function videoStart() {
             console.log("An error occured! " + err)
         })
 }
-/* canvasの写真領域を初期化する
- */
+
+// canvasの表示領域を初期化する
 function clearphoto() {
     let context = canvas.getContext('2d')
     context.fillStyle = "#AAA"
     context.fillRect(0, 0, canvas.width, canvas.height)
 }
 
-/**
- * カメラに表示されている現在の状況を撮影する
- */
+// スクリーンショット
 function takepicture() {
     let context = canvas.getContext('2d')
     if (width && height) {
@@ -104,6 +87,8 @@ function takepicture() {
         clearphoto()
     }
 }
+
+// カメラを再起動 
 function videoRestartbutton(){
     navigator.mediaDevices.getUserMedia(constrains)
     .then(function(stream){
@@ -116,5 +101,3 @@ function videoRestartbutton(){
     })
     .catch(function(err){ console.log(err.name + ": " + err.message); });
 };
-
-startup()
