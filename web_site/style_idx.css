@@ -99,6 +99,32 @@
             opacity: 1;
         }
     }
+    /* 送信失敗メッセージ
+    .message {
+        display: none;
+        height:80px;
+        text-align:center;
+        padding: 20px;
+        background: #fff;
+        border: 4px #66cdaa solid;
+        position: relative;
+        z-index: 10;
+        font-weight:bold;
+        font-size:20px;
+    }
+    .message:before {
+        content: "";
+        position: absolute;
+        background: #fff;
+        margin: 3px;
+        border: 2px #7accb0 solid;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: block;
+        z-index: -10;
+    } */
 }
 
 @media screen and (orientation: portrait) {

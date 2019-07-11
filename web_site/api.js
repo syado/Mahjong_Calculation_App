@@ -51,6 +51,7 @@ function camera_send() {
         error: function(errorThrown) {
             //非同期で通信失敗時に読み出される
             console.log('Error : ' + errorThrown);
+            $( ".loading" ).fadeOut( "fast" ) ;
         }
     });
 }
@@ -103,6 +104,10 @@ function img_form_send() {
         error: function (errorThrown) {
             //非同期で通信失敗時に読み出される
             console.log('Error : ' + errorThrown);
+            $( ".loading" ).fadeOut( "fast" ) ;
+            $( ".message:not(:animated)" ).fadeIn( "slow", function(){
+                $( this ).delay(3000).fadeOut("slow");
+            });
         }
     });
 }
