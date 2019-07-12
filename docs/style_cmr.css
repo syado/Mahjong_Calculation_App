@@ -64,12 +64,13 @@
 	#btn {
 		margin-top: 1.5vh; 
 		width: 90vw;
-		height: 10vh;
+        height: 10vh;
 	}
 	button {
 		float: left;
 		width: 45vw;
-		height: 10vh;
+        height: 10vh;
+        font-size: 3.5vh;
 	}
 	/* ポップアップ */
 	#modal-content {
@@ -135,6 +136,23 @@
         50% {
             opacity: 1;
         }
+    }
+    /* 送信失敗時に表示 */
+    .message {
+        display: none;
+        height:30vh;
+        width: 40vw;
+        text-align:center;
+        color: #000;
+        background: #fff;
+        border: 4px red solid;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-weight:bold;
+        line-height: 30vh;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%,-50%);
     }
 }
 

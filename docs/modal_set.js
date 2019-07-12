@@ -8,64 +8,64 @@ var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "teh
 var houra_ar = ["houra_01", "houra_02", "houra_03", "houra_04", "houra_05", "houra_06", "houra_07", "houra_08", "houra_09", "houra_10", "houra_11", "houra_12", "houra_13", "houra_a"];
 var naki_ar = ["naki_01", "naki_02", "naki_03", "naki_04", "naki_05", "naki_06", "naki_07", "naki_08", "naki_09", "naki_10", "naki_11", "naki_12", "naki_13", "naki_a"];
 
-// 牌選択画面用
-function centeringModalSyncer() {
+var modal_id = "";
+
+// モーダルウィンドウの画面調整
+function centeringModalSyncer(modal_id) {
 	var w = $( window ).width() ;
 	var h = $( window ).height() ;
 
-	var cw = $( "#modal-content" ).outerWidth();
-	var ch = $( "#modal-content" ).outerHeight();
+	var cw = $( modal_id ).outerWidth();
+	var ch = $( modal_id ).outerHeight();
 
-	$( "#modal-content" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
-}
-// リザルト画面用
-function centeringModalSyncerRslt() {
-	var w = $( window ).width() ;
-	var h = $( window ).height() ;
-
-	var cw = $( "#modal-content-rslt" ).outerWidth();
-	var ch = $( "#modal-content-rslt" ).outerHeight();
-
-	$( "#modal-content-rslt" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
-}
-// 鳴き画面用
-function centeringModalSyncerNaki() {
-	var w = $( window ).width() ;
-	var h = $( window ).height() ;
-
-	var cw = $( "#modal-content-naki" ).outerWidth();
-	var ch = $( "#modal-content-naki" ).outerHeight();
-
-	$( "#modal-content-naki" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
+	$( modal_id ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
 }
 
 // 牌選択画面オープン
-function modal_open(hai_id) {
-	set_id = hai_id;
-	
+function modal_open(select_id) {	
 	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
 	$( this ).blur() ;	//ボタンからフォーカスを外す
-	if( $( "#modal-overlay" )[0] ) return false ;		//新しくモーダルウィンドウを起動しない (防止策1)
-	//if($("#modal-overlay")[0]) $("#modal-overlay").remove() ;		//現在のモーダルウィンドウを削除して新しく起動する (防止策2)
+	if( $( "#modal-overlay" )[0] ) return false ;		//新しくモーダルウィンドウを起動しない
 
 	//オーバーレイを出現させる
 	$( "body" ).append( '<div id="modal-overlay"></div>' ) ;
 	$( "#modal-overlay" ).fadeIn( "fast" ) ;
 
+	try {
+		// 牌選択画面
+		if (select_id.length > 2) {
+			modal_id = "#modal-content";
+			set_id = select_id;
+		}
+		// 鳴き画面 
+		else {
+			modal_id = "#modal-content-naki";
+			naki_mode = select_id;
+			naki_title_change(naki_mode);
+			modal_hai_load("tehai_naki");
+		}
+	}
+	// リザルト画面
+	catch (error) {
+		modal_id = "#modal-content-rslt";
+		modal_hai_load("hourakei");
+	}
 	//コンテンツをセンタリングする
-	centeringModalSyncer() ;
+	centeringModalSyncer(modal_id) ;
 
 	//コンテンツをフェードインする
-	$( "#modal-content" ).fadeIn( "fast" ) ;
+	$( modal_id ).fadeIn( "fast" ) ;
 
 	//[#modal-overlay]、または[#modal-close]をクリックしたら…
 	$( "#modal-overlay,#modal-close" ).unbind().click( function(){
-
+		
+		modal_id += ",#modal_overlay";
 		//[#modal-content]と[#modal-overlay]をフェードアウトした後に…
-		$( "#modal-content,#modal-overlay" ).fadeOut( "fast" , function(){
+		$( modal_id ).fadeOut( "fast" , function(){
 
 			//[#modal-overlay]を削除する
 			$('#modal-overlay').remove() ;
+			modal_id = "";
 		} ) ;
 	} ) ;
 }
@@ -80,73 +80,10 @@ function hai_change(src_name, alt_name){
     } ) ;
 }
 
-// リザルト画面オープン
-function modal_open_rslt() {
-	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
-	$( this ).blur() ;	//ボタンからフォーカスを外す
-	if( $( "#modal-overlay" )[0] ) return false ;		//新しくモーダルウィンドウを起動しない (防止策1)
-	//if($("#modal-overlay")[0]) $("#modal-overlay").remove() ;		//現在のモーダルウィンドウを削除して新しく起動する (防止策2)
-
-	//オーバーレイを出現させる
-	$( "body" ).append( '<div id="modal-overlay"></div>' ) ;
-	$( "#modal-overlay" ).fadeIn( "fast" ) ;
-
-	//コンテンツをセンタリングする
-	centeringModalSyncerRslt() ;
-
-	//コンテンツをフェードインする
-	$( "#modal-content-rslt" ).fadeIn( "fast" ) ;
-	modal_hai_load("hourakei");
-
-	//[#modal-overlay]、または[#modal-close]をクリックしたら…
-	$( "#modal-overlay,#modal-close" ).unbind().click( function(){
-
-		//[#modal-content]と[#modal-overlay]をフェードアウトした後に…
-		$( "#modal-content-rslt,#modal-overlay" ).fadeOut( "fast" , function(){
-
-			//[#modal-overlay]を削除する
-			$('#modal-overlay').remove() ;
-		} ) ;
-	} ) ;
-}
-
-// 鳴き画面オープン
-function modal_open_naki(id) {
-	naki_mode = id;
-	naki_title_change(naki_mode);
-	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
-	$( this ).blur() ;	//ボタンからフォーカスを外す
-	if( $( "#modal-overlay" )[0] ) return false ;		//新しくモーダルウィンドウを起動しない (防止策1)
-	//if($("#modal-overlay")[0]) $("#modal-overlay").remove() ;		//現在のモーダルウィンドウを削除して新しく起動する (防止策2)
-
-	//オーバーレイを出現させる
-	$( "body" ).append( '<div id="modal-overlay"></div>' ) ;
-	$( "#modal-overlay" ).fadeIn( "fast" ) ;
-
-	//コンテンツをセンタリングする
-	centeringModalSyncerNaki() ;
-
-	//コンテンツをフェードインする
-	$( "#modal-content-naki" ).fadeIn( "fast" ) ;
-	modal_hai_load("tehai_naki");
-
-	//[#modal-overlay]、または[#modal-close]をクリックしたら…
-	$( "#modal-overlay,#modal-close" ).unbind().click( function(){
-
-		//[#modal-content]と[#modal-overlay]をフェードアウトした後に…
-		$( "#modal-content-naki,#modal-overlay" ).fadeOut( "fast" , function(){
-
-			//[#modal-overlay]を削除する
-			$('#modal-overlay').remove() ;
-		} ) ;
-	} ) ;
-}
-
 // リサイズ用
-$( window ).resize( centeringModalSyncer ) ;
-$( window ).resize( centeringModalSyncerRslt ) ;
-$( window ).resize( centeringModalSyncerNaki ) ;
+$( window ).resize( centeringModalSyncer(modal_id) ) ;
 
+// 鳴き画面の説明設定
 function naki_title_change(id) {
 	var element = document.getElementById("naki_title");
 	switch (id) {
@@ -165,8 +102,10 @@ function naki_title_change(id) {
 	}
 }
 
+// 鳴き画面の牌選択
 function naki(id) {
 	var element = document.getElementById(id);
+	// 選択された牌が鳴かれていない かつ ほかに2枚選択されていない 時
 	if (naki_cnt < 2 && element.className == "none") {
 		naki_cnt += 1;
 		switch (naki_mode) {
@@ -183,7 +122,8 @@ function naki(id) {
 				element.className = naki_mode + kan_cnt;
 				break;
 		}
-	} 
+	}
+	// 選択された牌が鳴かれていない かつ すでに2枚選択されている 時 
 	else if (naki_cnt == 2 && element.className == "none") {
 		switch (naki_mode) {
 			case "10":
@@ -327,6 +267,7 @@ function hai_load() {
 	// 現在の牌を削除して再描画
 	var element = document.getElementById("tehai");
 	modal_reset(element);
+	var kan_num = 0
 	for (var j = 0; j < 14; j++) {
 		var img = document.createElement('img');
 		if (set_hai[j].hai == "error") {
@@ -342,7 +283,23 @@ function hai_load() {
 		img.className = set_hai[j].cls
 		img.onclick = new Function("modal_open(this.id);");
 		element.appendChild(img);
+		if (set_hai[j].cls.slice(0,2) == "30" || set_hai[j].cls.slice(0,2) == "40") {
+			kan_num += 1
+			if (kan_num == 3) {
+				var img2 = document.createElement('img');
+				img2.id = tehai_ar[j];
+				img2.src = "hai/" + type + "/" + num + ".png";
+				img2.alt = set_hai[j].hai
+				img2.className = set_hai[j].cls
+				img2.onclick = new Function("modal_open(this.id);");
+				element.appendChild(img2);
+				kan_num = 0;
+			}
+		}
 	}
+	$(".tehai > *").css({
+		"max-width": "calc( ( 100% - 10px ) /" + String(14 + (kan_cnt-1)) + ")"
+	});
 	console.log(set_hai);
 }
 

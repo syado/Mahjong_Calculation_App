@@ -250,7 +250,7 @@ function calc() {
         success: function (data) {
             console.log(data);
             // reselt画面を表示する
-            modal_open_rslt();
+            modal_open();
             // 役を生成
             modal_yaku_load(data.yaku);
             // 点数を生成
