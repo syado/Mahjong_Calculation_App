@@ -299,8 +299,17 @@
         <div id="tehai_naki" class="tehai_naki">
 
         </div>
-        <h2>既に鳴いている牌を選択した場合は解除されます</h2>
+        <h2 class="naki_des1">既に鳴いている牌を選択した場合は解除されます</h2>
+        <h2 id="naki_des2" class="naki_des2"></h2>
         <button type="button" id="modal-close" class="close-naki" onclick="naki_reset()">キャンセル</button>
     </div>
+
+    <!-- 計算中に表示 -->
+    <div class="loading">
+        <div class="animation">計算中<br>しばらくお待ちください</div>
+    </div>
+
+    <!-- 計算失敗時に表示 -->
+    <div class="message">計算に失敗しました</div>
 </body>
 </html>
