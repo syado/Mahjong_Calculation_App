@@ -309,6 +309,7 @@ function modal_hai_load(id) {
 	var element = document.getElementById(id);
 	modal_reset(element);	
 	// 設定画面から牌を取得して生成
+	var kan_num = 0;
 	for (var j = 0; j < 14; j++) {
 		var tmp = document.getElementById(tehai_ar[j]).alt;
 		var tmp_c = document.getElementById(tehai_ar[j]).className;
@@ -333,7 +334,29 @@ function modal_hai_load(id) {
 			}
 		}
 		element.appendChild(img);
+		if (tmp_c.slice(0,2) == "30" || tmp_c.slice(0,2) == "40") {
+			kan_num += 1
+			if (kan_num == 3) {
+				var img2 = document.createElement('img');
+				img2.id = houra_ar[j];
+				img2.src = "hai/" + type + "/" + num + ".png";
+				img2.alt = type + num;
+				img2.className = tmp_c
+				if (id == "tehai_naki") {
+					img2.id = naki_ar[j];
+					img2.onclick = new Function("naki(this.id);");
+				}
+				element.appendChild(img2);
+				kan_num = 0;
+			}
+		}
 	}
+	$(".tehai_naki > *").css({
+		"max-width": "calc( ( 100% - 10px ) /" + String(14 + (kan_cnt-1)) + ")"
+	});
+	$(".hourakei > *").css({
+		"max-width": "calc( ( 100% - 10px ) /" + String(14 + (kan_cnt-1)) + ")"
+	});
 }
 
 // リザルト画面の役生成

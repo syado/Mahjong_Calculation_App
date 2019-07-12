@@ -97,6 +97,7 @@ function tenhou() {
 var rslt
 
 function calc() {
+    $( ".loading" ).fadeIn( "fast" ) ;
     var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
     var tehai = {
         man: "",
@@ -248,6 +249,7 @@ function calc() {
         scriptCharset: 'utf-8',
         data: JSON.stringify(json_data, null, 2),
         success: function (data) {
+            $( ".loading" ).fadeOut( "fast" ) ;
             console.log(data);
             // reselt画面を表示する
             modal_open();
@@ -256,6 +258,16 @@ function calc() {
             // 点数を生成
             modal_ten_load(data.han, data.fu, data.cost.main, data.cost.additional);
             // alert(data.cost.main);
+        },
+        error: function(errorThrown) {
+            //非同期で通信失敗時に読み出される
+            console.log('Error : ' + errorThrown);
+            // ロード画面を消して
+            $( ".loading" ).fadeOut( "fast" ) ;
+            // 計算失敗を表示
+            $( ".message:not(:animated)" ).fadeIn( "slow", function(){
+                $( this ).delay(5000).fadeOut("slow");
+            });
         }
     });
 }
