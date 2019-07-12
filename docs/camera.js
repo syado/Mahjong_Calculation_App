@@ -12,8 +12,8 @@ let canvas = null
 let constrains = { 
     video: {
         // カメラの解像度 低めに設定中要件以上のカメラを搭載してない場合はエラー
-        width: { min: 640},
-        height: { min: 480},
+        width: { min: 640, max: 640},
+        height: { min: 480, max: 480},
         // フロントカメラを指定
         facingMode: 'environment'
     }, 
