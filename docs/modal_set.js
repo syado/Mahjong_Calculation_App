@@ -85,19 +85,26 @@ $( window ).resize( centeringModalSyncer(modal_id) ) ;
 
 // 鳴き画面の説明設定
 function naki_title_change(id) {
-	var element = document.getElementById("naki_title");
+	var element1 = document.getElementById("naki_title");
+	var element2 = document.getElementById("naki_des2");
 	switch (id) {
 		case "10":
-			element.innerHTML = "ポンした牌を選択してください";
+			element1.innerHTML = "ポンした牌を選択してください";
+			$( ".naki_des2" ).fadeOut(1);
 			break;
 		case "20":
-			element.innerHTML = "チーした牌を選択してください";
+			element1.innerHTML = "チーした牌を選択してください";
+			$( ".naki_des2" ).fadeOut(1);
 			break;
 		case "30":
-			element.innerHTML = "明槓した牌を選択してください";
+			element1.innerHTML = "明槓した牌を選択してください";
+			element2.innerHTML = "暗槓している牌を選択すると明槓に変更します";
+			$( ".naki_des2" ).fadeIn(1);
 			break;
 		case "40":
-			element.innerHTML = "暗槓した牌を選択してください";
+			element1.innerHTML = "暗槓した牌を選択してください";
+			element2.innerHTML = "明槓している牌を選択すると暗槓に変更します";
+			$( ".naki_des2" ).fadeIn(1);
 			break;
 	}
 }
@@ -170,27 +177,36 @@ function naki(id) {
 		naki_reset();
 		hai_load();
 	}
+	// 鳴かれている牌が選択された場合
 	else if (naki_cnt == 0 && element.className != "none") {
+		var clsnmsrc = element.className
+		var mode = clsnmsrc.slice(0,-1);
+		var srcnum = clsnmsrc.slice(-1);
 		for (var j = 0; j < 13; j++) {
-			var clsnmsrc = element.className
-			var mode = clsnmsrc.slice(0,-1);
-			var srcnum = clsnmsrc.slice(-1);
 			var clsnm = document.getElementById(naki_ar[j]).className
-			if (mode == clsnm.slice(0,-1)) {
-				if(srcnum == clsnm.slice(-1)) {
-					document.getElementById(tehai_ar[j]).className = "none";
-				} else if (srcnum < clsnm.slice(-1)) {
-					document.getElementById(tehai_ar[j]).className = mode + (clsnm.slice(-1) - 1);
+			if (naki_mode == "30" && mode == "40") {
+				if (mode == clsnm.slice(0,-1) && srcnum == clsnm.slice(-1)) {
+					document.getElementById(tehai_ar[j]).className = naki_mode + srcnum;
 				}
-			} else if (mode == "30") {
-				mode = "40";
-				if(mode == clsnm.slice(0,-1) && srcnum < clsnm.slice(-1)) {
-					document.getElementById(tehai_ar[j]).className = mode + (clsnm.slice(-1) - 1);
+			} else if (naki_mode == "40" && mode == "30") {
+				if (mode == clsnm.slice(0,-1) && srcnum == clsnm.slice(-1)) {
+					document.getElementById(tehai_ar[j]).className = naki_mode + srcnum;
 				}
-			} else if (mode == "40") {
-				mode = "30";
-				if(mode == clsnm.slice(0,-1) && srcnum < clsnm.slice(-1)) {
-					document.getElementById(tehai_ar[j]).className = mode + (clsnm.slice(-1) - 1);
+			} else {
+				if (mode == clsnm.slice(0,-1)) {
+					if(srcnum == clsnm.slice(-1)) {
+						document.getElementById(tehai_ar[j]).className = "none";
+					} else if (srcnum < clsnm.slice(-1)) {
+						document.getElementById(tehai_ar[j]).className = mode + (clsnm.slice(-1) - 1);
+					}
+				} else if (mode == "30") {
+					if("40" == clsnm.slice(0,-1) && srcnum < clsnm.slice(-1)) {
+						document.getElementById(tehai_ar[j]).className = "40" + (clsnm.slice(-1) - 1);
+					}
+				} else if (mode == "40") {
+					if("30" == clsnm.slice(0,-1) && srcnum < clsnm.slice(-1)) {
+						document.getElementById(tehai_ar[j]).className = "30" + (clsnm.slice(-1) - 1);
+					}
 				}
 			}
 		}
@@ -202,10 +218,10 @@ function naki(id) {
 				chi_cnt -= 1;
 				break;
 			case "30": 
-				kan_cnt -= 1;
+				if (naki_mode != "40")kan_cnt -= 1;
 				break;
 			case "40": 
-				kan_cnt -= 1;
+				if (naki_mode != "30")kan_cnt -= 1;
 				break;
 		}
 		$( "#modal-content-naki,#modal-overlay" ).fadeOut( "fast" , function(){
@@ -309,6 +325,7 @@ function modal_hai_load(id) {
 	var element = document.getElementById(id);
 	modal_reset(element);	
 	// 設定画面から牌を取得して生成
+	var kan_num = 0;
 	for (var j = 0; j < 14; j++) {
 		var tmp = document.getElementById(tehai_ar[j]).alt;
 		var tmp_c = document.getElementById(tehai_ar[j]).className;
@@ -333,7 +350,29 @@ function modal_hai_load(id) {
 			}
 		}
 		element.appendChild(img);
+		if (tmp_c.slice(0,2) == "30" || tmp_c.slice(0,2) == "40") {
+			kan_num += 1
+			if (kan_num == 3) {
+				var img2 = document.createElement('img');
+				img2.id = houra_ar[j];
+				img2.src = "hai/" + type + "/" + num + ".png";
+				img2.alt = type + num;
+				img2.className = tmp_c
+				if (id == "tehai_naki") {
+					img2.id = naki_ar[j];
+					img2.onclick = new Function("naki(this.id);");
+				}
+				element.appendChild(img2);
+				kan_num = 0;
+			}
+		}
 	}
+	$(".tehai_naki > *").css({
+		"max-width": "calc( ( 100% - 10px ) /" + String(14 + (kan_cnt-1)) + ")"
+	});
+	$(".hourakei > *").css({
+		"max-width": "calc( ( 100% - 10px ) /" + String(14 + (kan_cnt-1)) + ")"
+	});
 }
 
 // リザルト画面の役生成
