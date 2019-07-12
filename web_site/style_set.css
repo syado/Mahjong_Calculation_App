@@ -449,6 +449,13 @@
         opacity: 0.5;
         margin-left: 10px;
     }
+    .naki_des1 {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    .naki_des2 {
+        background-color: rgba(0, 0, 0, 0);
+        display: none;
+    }
 
     body {
         background-color: #1e9623;
