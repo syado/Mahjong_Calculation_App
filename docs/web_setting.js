@@ -265,8 +265,8 @@ function calc() {
             // ロード画面を消して
             $( ".loading" ).fadeOut( "fast" ) ;
             // 計算失敗を表示
-            $( ".message:not(:animated)" ).fadeIn( "slow", function(){
-                $( this ).delay(5000).fadeOut("slow");
+            $( ".message:not(:animated)" ).fadeIn( "fast", function(){
+                $( this ).delay(2000).fadeOut("fast");
             });
         }
     });

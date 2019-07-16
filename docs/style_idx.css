@@ -105,12 +105,12 @@
         height:30vh;
         width: 40vw;
         text-align:center;
-        color: #000;
-        background: #fff;
-        border: 4px red solid;
+        color: white;
+        background: rgba( 0, 0, 0 ,0.75);
         position: absolute;
         top: 50%;
         left: 50%;
+        font-size: 5vh;
         font-weight:bold;
         line-height: 30vh;
         transform: translate(-50%, -50%);
