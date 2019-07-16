@@ -41,7 +41,6 @@ function wriichi() {
     if (document.getElementById("wriichi").checked) {
         document.getElementById("riichi").checked = false;
         document.getElementById("tenhou").checked = false;
-        document.getElementById("haitei").checked = false;
     }
     else {
         document.getElementById("ippatsu").checked = false;
@@ -82,7 +81,6 @@ function haitei() {
     document.getElementById("rinshan").checked = false;
     document.getElementById("chankan").checked = false;
     document.getElementById("tenhou").checked = false;
-    document.getElementById("wriichi").checked = false;
 }
 function tenhou() {
     document.getElementById("tumo").checked = true;
