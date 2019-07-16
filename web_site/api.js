@@ -54,8 +54,8 @@ function camera_send() {
             // ロード画面を消して
             $( ".loading" ).fadeOut( "fast" ) ;
             // 送信失敗を表示
-            $( ".message:not(:animated)" ).fadeIn( "slow", function(){
-                $( this ).delay(5000).fadeOut("slow");
+            $( ".message:not(:animated)" ).fadeIn( "fast", function(){
+                $( this ).delay(2000).fadeOut("fast");
             });
         }
     });
@@ -109,8 +109,8 @@ function img_form_send() {
             // ロード画面を消して
             $( ".loading" ).fadeOut( "fast" ) ;
             // 送信失敗を表示
-            $( ".message:not(:animated)" ).fadeIn( "slow", function(){
-                $( this ).delay(5000).fadeOut("slow");
+            $( ".message:not(:animated)" ).fadeIn( "fast", function(){
+                $( this ).delay(2000).fadeOut("fast");
             });
         }
     });
