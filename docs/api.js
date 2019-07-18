@@ -16,7 +16,7 @@ function camera_send() {
         data: fd,
         contentType: false,
         processData: false,
-        timeout: 10000,
+        timeout: 30000,
         success: function (data) {
             //非同期で通信成功時に読み出される [200 OK 時]
             console.log('Success', data);
@@ -72,7 +72,7 @@ function img_form_send() {
         data: new FormData($('#img_form').get(0)),
         contentType: false,
         processData: false,
-        timeout: 10000,
+        timeout: 30000,
         success: function (data) {
             //非同期で通信成功時に読み出される [200 OK 時]
             console.log('Success', data);
