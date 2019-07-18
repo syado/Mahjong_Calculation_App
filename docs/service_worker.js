@@ -1,8 +1,7 @@
 // キャッシュファイルの指定
 var CACHE_NAME = 'Mahjong_Calculation_App';
 var urlsToCache = [
-    '/hai/',
-    '/image/',
+    'index.html',
 ];
 
 // インストール処理
