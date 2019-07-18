@@ -80,10 +80,10 @@ function hai_change(src_name, alt_name){
     } ) ;
 }
 
-// リサイズ用
+// ウィンドウサイズがリサイズされたらモーダルウィンドウの位置を調整
 $( window ).resize( centeringModalSyncer(modal_id) ) ;
 
-// 鳴き画面の説明設定
+// 鳴き画面の文字変更
 function naki_title_change(id) {
 	var element1 = document.getElementById("naki_title");
 	var element2 = document.getElementById("naki_des2");
@@ -112,7 +112,7 @@ function naki_title_change(id) {
 // 鳴き画面の牌選択
 function naki(id) {
 	var element = document.getElementById(id);
-	// 選択された牌が鳴かれていない かつ ほかに2枚選択されていない 時
+	// 選択された牌が鳴かれていない かつ 既に選択された牌が2枚以下
 	if (naki_cnt < 2 && element.className == "none") {
 		naki_cnt += 1;
 		switch (naki_mode) {
@@ -130,7 +130,7 @@ function naki(id) {
 				break;
 		}
 	}
-	// 選択された牌が鳴かれていない かつ すでに2枚選択されている 時 
+	// 選択された牌が鳴かれていない かつ 既に選択された牌が2枚
 	else if (naki_cnt == 2 && element.className == "none") {
 		switch (naki_mode) {
 			case "10":
@@ -177,26 +177,34 @@ function naki(id) {
 		naki_reset();
 		hai_load();
 	}
-	// 鳴かれている牌が選択された場合
+	// 既に鳴かれている牌が選択 かつ 選択されている牌が1枚もない → 鳴き解除or明槓と暗槓を反転
 	else if (naki_cnt == 0 && element.className != "none") {
 		var clsnmsrc = element.className
 		var mode = clsnmsrc.slice(0,-1);
 		var srcnum = clsnmsrc.slice(-1);
 		for (var j = 0; j < 13; j++) {
 			var clsnm = document.getElementById(naki_ar[j]).className
+			// 明槓ボタンで起動 かつ 選択された牌が暗槓
 			if (naki_mode == "30" && mode == "40") {
+				// 選択された暗槓のみを明槓に変更
 				if (mode == clsnm.slice(0,-1) && srcnum == clsnm.slice(-1)) {
 					document.getElementById(tehai_ar[j]).className = naki_mode + srcnum;
 				}
+			// 暗槓ボタンで起動 かつ 選択された牌が明槓
 			} else if (naki_mode == "40" && mode == "30") {
+				// 選択された明槓のみを暗槓に変更
 				if (mode == clsnm.slice(0,-1) && srcnum == clsnm.slice(-1)) {
 					document.getElementById(tehai_ar[j]).className = naki_mode + srcnum;
 				}
 			} else {
+				// 選択された牌と同じ鳴きモード
 				if (mode == clsnm.slice(0,-1)) {
+					// 選択された牌と同じ鳴き番号
 					if(srcnum == clsnm.slice(-1)) {
 						document.getElementById(tehai_ar[j]).className = "none";
-					} else if (srcnum < clsnm.slice(-1)) {
+					}
+					// 選択された牌より大きい鳴き番号 
+					else if (srcnum < clsnm.slice(-1)) {
 						document.getElementById(tehai_ar[j]).className = mode + (clsnm.slice(-1) - 1);
 					}
 				} else if (mode == "30") {
