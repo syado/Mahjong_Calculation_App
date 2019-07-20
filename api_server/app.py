@@ -15,4 +15,5 @@ if __name__ == '__main__':
     ssl_context.load_cert_chain(
         'syado.net.pem', 'syado.net.private.pem'
     )
+    #application.run(host="0.0.0.0", port=80, debug=True)
     application.run(host="0.0.0.0", port=443, ssl_context=ssl_context, debug=True)

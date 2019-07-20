@@ -10,9 +10,21 @@ import json
 calculator = HandCalculator()
 
 
+def yaku_json_create(x, opened):
+    if opened:
+        return {"name":x.name,"japanese":x.japanese, "han":x.han_open}
+    else:
+        return {"name":x.name,"japanese":x.japanese, "han":x.han_closed}
+
+def yaku_is_yakuman(yaku):
+    for x in yaku:
+        if x.is_yakuman:
+            return "役満"
+    
+    return "役満なし"
 
 # useful helper
-def print_hand_result(hand_result):
+def print_hand_result(hand_result, opened=False):
     #print(hand_result.han, hand_result.fu)
     #print(hand_result.cost['main'])
     #print(hand_result.yaku)
@@ -30,10 +42,11 @@ def print_hand_result(hand_result):
         "han":hand_result.han,
         "fu":hand_result.fu,
         "cost":hand_result.cost,
-        "yaku":str(hand_result.yaku)[1:-1].split(", "),
+        "yaku": [yaku_json_create(x,opened) for x in hand_result.yaku],
+        "yaku_is_yakuman": yaku_is_yakuman(hand_result.yaku),
         "fu_details":hand_result.fu_details,
     }
-    print(dir(hand_result))
+    #print(dir(hand_result))
     #print(json.dumps(hand_json,indent=4))
     return hand_json
 
@@ -42,6 +55,13 @@ def to_136_array(obj=None, man=None, pin=None, sou=None, honors=None, has_aka_do
         return TilesConverter.string_to_136_array(man=man, pin=pin, sou=sou, honors=honors, has_aka_dora=has_aka_dora)
     else:
         return TilesConverter.string_to_136_array(man=obj["man"], pin=obj["pin"], sou=obj["sou"], honors=obj["honors"], has_aka_dora=has_aka_dora)
+
+def to_34_array(obj=None, man=None, pin=None, sou=None, honors=None):
+    if obj == None:
+        return TilesConverter.string_to_34_array(man=man, pin=pin, sou=sou, honors=honors)
+    else:
+        return TilesConverter.string_to_34_array(man=obj["man"], pin=obj["pin"], sou=obj["sou"])
+
 
 def maj_cal(data):
     """{
@@ -92,29 +112,47 @@ def maj_cal(data):
         "option":[]
     }"""
     print(data)
+    has_aka_dora = False
+    for d_i, d in data.items(): 
+        if d_i != "option" and has_aka_dora == False:
+            if type(d) == type({}):
+                for i, v in d.items():
+                    if i != "open" and "r" in v:
+                        has_aka_dora = True
+                        break
+            elif type(d) == type([]):
+                for d2 in d:
+                    for i, v in d2.items():
+                        print("v",v)
+                        if i != "open" and "r" in v:
+                            has_aka_dora = True
+                            break
 
-    handconfig = HandConfig(options=OptionalRules(has_open_tanyao=True,has_aka_dora=True))
+    handconfig = HandConfig(options=OptionalRules(has_open_tanyao=True,has_aka_dora=has_aka_dora))
     melds = []
     dora_indicators = []
-
+    yaku_opened = False
     if "wind" in data.keys():
         handconfig.round_wind = WINDS[int(data["wind"]["round"])-1]
         handconfig.player_wind = WINDS[int(data["wind"]["player"])-1]
-        # 東家の場合に親判定をTrueにする
         handconfig.is_dealer = handconfig.player_wind == WINDS[0]
 
     if "kan" in data.keys() and len(data["kan"]) > 0:
         for kan in data["kan"]:
             opened = (kan["open"] in {"1", 1})
             melds.append(Meld(meld_type=Meld.KAN, tiles=to_136_array(obj=kan), opened=opened))
+            if opened:
+                yaku_opened = opened
 
     if "pon" in data.keys() and len(data["pon"]) > 0:
         for pon in data["pon"]:
             melds.append(Meld(meld_type=Meld.PON, tiles=to_136_array(obj=pon)))
+            yaku_opened = True
 
     if "chi" in data.keys() and len(data["chi"]) > 0:
         for chi in data["chi"]:
             melds.append(Meld(meld_type=Meld.CHI, tiles=to_136_array(obj=chi)))
+            yaku_opened = True
 
     if "dora" in data.keys():
         dora_indicators = to_136_array(obj=data["dora"])
@@ -150,13 +188,13 @@ def maj_cal(data):
     #print(json.dumps(data["tehai"], indent=4))
     #print(json.dumps(data["agari"], indent=4))
 
-    tiles = to_136_array(data["tehai"], has_aka_dora=True)
-    win_tile = to_136_array(data["agari"], has_aka_dora=True)[0]
+    tiles = to_136_array(data["tehai"], has_aka_dora=has_aka_dora)
+    win_tile = to_136_array(data["agari"], has_aka_dora=has_aka_dora)[0]
 
     if len(dora_indicators) == []: dora_indicators = None
     if len(melds) == 0: melds = None
     result = calculator.estimate_hand_value(tiles, win_tile, melds=melds, dora_indicators=dora_indicators, config=handconfig)
-    return print_hand_result(result)
+    return print_hand_result(result, opened=yaku_opened)
 
 if __name__ == '__main__':
     maj_cal({
