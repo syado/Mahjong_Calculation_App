@@ -273,6 +273,26 @@
         height: 10vh;
         width: 50vw;
         font-size: 3.9vh;
+        border-radius: 8px;
+    }
+    #back, #calc {
+        width: 46.25vw;
+        height: 10vh;
+        font-size: 4vh;
+        line-height: 10vh;
+        text-align: center;
+        color: #fff;
+        border-radius: 8px;
+        background-color: #2772DB;
+        border-style: none;
+        overflow: hidden;
+    }
+    .btnflex {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2.5vw 0 2.5vw;
+        width: 95vw;
+        height: 10vh;
     }
     /* モーダルウィンドウ */
     #modal-content {
@@ -417,11 +437,24 @@
         line-height: 12vh;
         color: red;
     }
-    .close-rslt {
-        float: left;
-        margin-top: 1vh;
+    .btnflex_modal {
+        display: flex;
+        justify-content: space-between;
+        width: 88vw;
         height: 10vh;
-        width: 45vw;
+        padding: 1vh 1vw 0 1vw;
+    }
+    .close-rslt {
+        width: 42vw;
+        height: 10vh;
+        font-size: 4vh;
+        line-height: 10vh;
+        text-align: center;
+        color: #fff;
+        border-radius: 8px;
+        background-color: #2772DB;
+        border-style: none;
+        overflow: hidden;
     }
     /* 鳴きモーダルウィンドウのスタイル */
     .close-naki {

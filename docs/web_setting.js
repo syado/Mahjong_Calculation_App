@@ -1,3 +1,7 @@
+function moveIndex() {
+    location.href = "index.html";
+}
+
 function getUrlVars() {
     var arg = new Object;
     var pair=location.search.substring(1).split('&');
