@@ -1,3 +1,7 @@
+function moveIndex() {
+    location.href = "index.html";
+}
+
 function getUrlVars() {
     var arg = new Object;
     var pair=location.search.substring(1).split('&');
@@ -246,6 +250,7 @@ function calc() {
         contentType: 'application/json',
         scriptCharset: 'utf-8',
         data: JSON.stringify(json_data, null, 2),
+        timeout: 10000,
         success: function (data) {
             $( ".loading" ).fadeOut( "fast" ) ;
             console.log(data);

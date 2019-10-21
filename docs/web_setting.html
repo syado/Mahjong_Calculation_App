@@ -210,11 +210,10 @@
     </div>
 
     <!-- ボタン -->
-    <form action="index.html" method="GET">
-        <button id="back" type="submit">撮りなおす</button>
-    </form>
-    <button id="calc" onclick="calc()">計算する</button>
-
+    <div class="btnflex">
+        <button id="back" onclick="moveIndex()">撮りなおす</button>
+        <button id="calc" onclick="calc()">計算する</button>
+    </div>
     <!-- 牌選択のモーダルウィンドウ -->
     <div id="modal-content">
         <div class="hai">
@@ -287,10 +286,10 @@
                 </div>
             </div>
         </div>
-        <button type="button" id="modal-close" class="close-rslt" onclick="naki_reset()">閉じる</button>
-        <form action="index.html" method="GET">
-            <button id="back" type="submit" class="close-rslt">終了する</button>
-        </form>
+        <div class="btnflex_modal">
+            <button type="button" id="modal-close" class="close-rslt" onclick="naki_reset()">閉じる</button>
+            <button type="submit" class="close-rslt" onclick="moveIndex()">終了する</button>
+        </div>
     </div>
 
     <!-- 鳴きのモーダルウィンドウ -->
