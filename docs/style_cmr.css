@@ -62,15 +62,23 @@
 	}
 	/* ボタン */
 	#btn {
+        display: flex;
+        justify-content: space-between;
 		margin-top: 1.5vh; 
-		width: 90vw;
+		width: 88vw;
         height: 10vh;
 	}
 	button {
-		float: left;
-		width: 45vw;
+		width: 42vw;
         height: 10vh;
-        font-size: 3.5vh;
+        font-size: 4vh;
+        line-height: 10vh;
+        text-align: center;
+        color: #fff;
+        border-radius: 8px;
+        background-color: #2772DB;
+        border-style: none;
+        overflow: hidden;
 	}
 	/* ポップアップ */
 	#modal-content {

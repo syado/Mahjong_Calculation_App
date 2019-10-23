@@ -358,6 +358,7 @@ function modal_hai_load(id) {
 			}
 		}
 		element.appendChild(img);
+		// 明槓暗槓の時は３枚目を複製する
 		if (tmp_c.slice(0,2) == "30" || tmp_c.slice(0,2) == "40") {
 			kan_num += 1
 			if (kan_num == 3) {

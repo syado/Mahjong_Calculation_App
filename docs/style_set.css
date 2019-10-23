@@ -277,7 +277,7 @@
     }
     #back, #calc {
         width: 46.25vw;
-        height: 10vh;
+        height: 9.5vh;
         font-size: 4vh;
         line-height: 10vh;
         text-align: center;
@@ -292,7 +292,7 @@
         justify-content: space-between;
         padding: 0 2.5vw 0 2.5vw;
         width: 95vw;
-        height: 10vh;
+        height: 9.5vh;
     }
     /* モーダルウィンドウ */
     #modal-content {
@@ -352,8 +352,17 @@
         max-width: 7vw;
     }
     .close-chng {
+        width: 88vw;
+        margin: 2vh 1vw 0 1vw;
         height: 10vh;
-        width: 90vw;
+        font-size: 4vh;
+        line-height: 10vh;
+        text-align: center;
+        color: #fff;
+        border-radius: 8px;
+        background-color: #2772DB;
+        border-style: none;
+        overflow: hidden;
     }
     /* 計算結果モーダルウィンドウ内のスタイル */
     .hourakei {
@@ -460,6 +469,15 @@
     .close-naki {
         width: 98vw;
         margin: 1vh 1vw 0 1vw;
+        height: 10vh;
+        font-size: 4vh;
+        line-height: 10vh;
+        text-align: center;
+        color: #fff;
+        border-radius: 8px;
+        background-color: #2772DB;
+        border-style: none;
+        overflow: hidden;
     }
     .tehai_naki {
         display: flex;

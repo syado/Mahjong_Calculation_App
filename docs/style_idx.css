@@ -25,7 +25,7 @@
     /* ボタン */
     form {
         height: 30vh;
-        width: 50vw;
+        width: 33.3vw;
         float: left;
     }
     .btn {
@@ -40,7 +40,7 @@
     .button_div {
         display: inline-block;
         position: relative;
-        width: 35vw;
+        width: 30vw;
         height: 10vh;
         top: 50%;
         left: 50%;
