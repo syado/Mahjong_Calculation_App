@@ -494,6 +494,11 @@
         max-height: 20vh;
         max-width: calc( ( 98% - 10px) / 14 ) ;
     }
+    .nakenai {
+        background-color: #000;
+        border-radius: 10%;
+        opacity: 0.5;
+    }
     .agari {
         background-color: #000;
         border-radius: 10%;

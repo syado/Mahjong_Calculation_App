@@ -351,7 +351,102 @@ function modal_hai_load(id) {
 		img.className = tmp_c;
 		if (id == "tehai_naki") {
 			img.id = naki_ar[j];
-			img.onclick = new Function("naki(this.id);");
+			var cnt = 0;
+			switch (naki_mode) {
+				case "10":
+					for (var k = 0; k < 13; k++) {
+						var t_alt = document.getElementById(tehai_ar[k]).alt;
+						var t_clsnm = document.getElementById(tehai_ar[k]).className;
+						if (img.alt == t_alt && t_clsnm == "none") {
+							cnt += 1;
+						} else if (num == "5") {
+							i_alt = type + "r";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						} else if (num == "r") {
+							i_alt = type + "5";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						}
+					}
+					if (cnt >= 3){
+						img.onclick = new Function("naki(this.id);");
+					}
+					else if (img.className == "none") {
+						img.className = "nakenai";
+					}
+					else {
+						img.onclick = new Function("naki(this.id);");
+					}
+					break;
+				case "20":
+					var t_alt = type + Number(num + 1);
+					for (var k = 0; k < 13; k++) {
+						if (img.alt == t_alt && t_clsnm == "none") {
+
+						}
+					}
+					img.onclick = new Function("naki(this.id);");
+					break;
+				case "30":
+					for (var k = 0; k < 13; k++) {
+						var t_alt = document.getElementById(tehai_ar[k]).alt;
+						var t_clsnm = document.getElementById(tehai_ar[k]).className;
+						if (img.alt == t_alt && t_clsnm == "none") {
+							cnt += 1;
+						} else if (num == "5") {
+							i_alt = type + "r";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						} else if (num == "r") {
+							i_alt = type + "5";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						}
+					}
+					if (cnt >= 3){
+						img.onclick = new Function("naki(this.id);");
+					}
+					else if (img.className == "none") {
+						img.className = "nakenai";
+					}
+					else {
+						img.onclick = new Function("naki(this.id);");
+					}
+					break;
+				case "40":
+					for (var k = 0; k < 13; k++) {
+						var t_alt = document.getElementById(tehai_ar[k]).alt;
+						var t_clsnm = document.getElementById(tehai_ar[k]).className;
+						if (img.alt == t_alt && t_clsnm == "none") {
+							cnt += 1;
+						} else if (num == "5") {
+							i_alt = type + "r";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						} else if (num == "r") {
+							i_alt = type + "5";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						}
+					}
+					if (cnt >= 3){
+						img.onclick = new Function("naki(this.id);");
+					}
+					else if (img.className == "none") {
+						img.className = "nakenai";
+					}
+					else {
+						img.onclick = new Function("naki(this.id);");
+					}
+					break;
+			}
 			if (j == 13) {
 				img.className = "agari";
 				img.onclick = "";
