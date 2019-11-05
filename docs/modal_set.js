@@ -228,6 +228,7 @@ function naki(id) {
 					document.getElementById(naki_ar[j]).onclick = new Function("naki(this.id);");
 				} 
 				else if (document.getElementById(naki_ar[j]).alt != target_alt && document.getElementById(naki_ar[j]).className == "none") {
+					document.getElementById(naki_ar[j]).onclick = "";
 					document.getElementById(naki_ar[j]).className = "nakenai";
 				}
 			}
