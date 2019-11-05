@@ -109,76 +109,144 @@ function naki_title_change(id) {
 	}
 }
 
+// 鳴き処理用関数
+function pon(target_alt) {
+	for (var j = 12; j >= 0; j--) {
+		if (document.getElementById(naki_ar[j]).alt == target_alt && document.getElementById(naki_ar[j]).className == "none") {
+			document.getElementById(tehai_ar[j]).className = naki_mode + pon_cnt;
+			naki_cnt += 1;
+			if (naki_cnt >= 3) {
+				pon_cnt += 1;
+				break;
+			}
+		}
+	}
+}
+function mkan(target_alt) {
+	for (var j = 12; j >= 0; j--) {
+		if (document.getElementById(naki_ar[j]).alt == target_alt && document.getElementById(naki_ar[j]).className == "none") {
+			document.getElementById(tehai_ar[j]).className = naki_mode + kan_cnt;
+			naki_cnt += 1;
+			if (naki_cnt >= 3) {
+				kan_cnt += 1;
+				break;
+			}
+		}
+	}
+}
+function akan(target_alt) {
+	for (var j = 12; j >= 0; j--) {
+		if (document.getElementById(naki_ar[j]).alt == target_alt && document.getElementById(naki_ar[j]).className == "none") {
+			document.getElementById(tehai_ar[j]).className = naki_mode + kan_cnt;
+			naki_cnt += 1;
+			if (naki_cnt >= 3) {
+				kan_cnt += 1;
+				break;
+			}
+		}
+	}
+}
+
 // 鳴き画面の牌選択
 function naki(id) {
 	var element = document.getElementById(id);
-	// 選択された牌が鳴かれていない かつ 既に選択された牌が2枚以下
-	if (naki_cnt < 2 && element.className == "none") {
-		naki_cnt += 1;
-		switch (naki_mode) {
-			case "10":
-				element.className = naki_mode + pon_cnt;
-				break;
-			case "20":
-				element.className = naki_mode + chi_cnt;
-				break;
-			case "30":
-				element.className = naki_mode + kan_cnt;
-				break;
-			case "40":
-				element.className = naki_mode + kan_cnt;
-				break;
+	var target_alt = "";
+	if (element.className == "none" && naki_mode != "20") {
+		target_alt = element.alt;
+		if (target_alt.slice(-1) == "5" || target_alt.slice(-1) == "r") {
+			switch (naki_mode) {
+				case "10":
+					pon(target_alt);
+					if(target_alt.slice(-1) == "5" && naki_cnt < 3) {
+						target_alt = target_alt.replace("5", "r");
+						pon(target_alt);
+					}
+					else if (naki_cnt < 3) {
+						target_alt = target_alt.replace("r", "5");
+						pon(target_alt);
+					}
+					break;
+				case "30":
+					mkan(target_alt);
+					if(target_alt.slice(-1) == "5" && naki_cnt < 3) {
+						target_alt = target_alt.replace("5", "r");
+						mkan(target_alt);
+					}
+					else if (naki_cnt < 3) {
+						target_alt = target_alt.replace("r", "5");
+						mkan(target_alt);
+					}
+					break;
+				case "40":
+					akan(target_alt);
+					if(target_alt.slice(-1) == "5" && naki_cnt < 3) {
+						target_alt = target_alt.replace("5", "r");
+						akan(target_alt);
+					}
+					else if (naki_cnt < 3) {
+						target_alt = target_alt.replace("r", "5");
+						akan(target_alt);
+					}
+					break;
+			}
 		}
-	}
-	// 選択された牌が鳴かれていない かつ 既に選択された牌が2枚
-	else if (naki_cnt == 2 && element.className == "none") {
-		switch (naki_mode) {
-			case "10":
-				element.className = naki_mode + pon_cnt;
-				for (var j = 0; j < 13; j++) {
-					if (document.getElementById(naki_ar[j]).className == naki_mode + pon_cnt) {
-						document.getElementById(tehai_ar[j]).className = naki_mode + pon_cnt;
-					}
-				}
-				pon_cnt += 1;
-				break;
-			case "20":
-				element.className = naki_mode + chi_cnt;
-				for (var j = 0; j < 13; j++) {
-					if (document.getElementById(naki_ar[j]).className == naki_mode + chi_cnt) {
-						document.getElementById(tehai_ar[j]).className = naki_mode + chi_cnt;
-					}
-				}
-				chi_cnt += 1;
-				break;
-			case "30":
-				element.className = naki_mode + kan_cnt;
-				for (var j = 0; j < 13; j++) {
-					if (document.getElementById(naki_ar[j]).className == naki_mode + kan_cnt) {
-						document.getElementById(tehai_ar[j]).className = naki_mode + kan_cnt;
-					}
-				}
-				kan_cnt += 1;
-				break;
-			case "40":
-				element.className = naki_mode + kan_cnt;
-				for (var j = 0; j < 13; j++) {
-					if (document.getElementById(naki_ar[j]).className == naki_mode + kan_cnt) {
-						document.getElementById(tehai_ar[j]).className = naki_mode + kan_cnt;
-					}
-				}
-				kan_cnt += 1;
-				break;
-		} 
+		else {
+			switch (naki_mode) {
+				case "10":
+					pon(target_alt);
+					break;
+				case "30":
+					mkan(target_alt);
+					break;
+				case "40":
+					akan(target_alt);
+					break;
+			}
+		}
 		$( "#modal-content-naki,#modal-overlay" ).fadeOut( "fast" , function(){
-			//[#modal-overlay]を削除する
 			$('#modal-overlay').remove() ;
 		} ) ;
 		naki_reset();
 		hai_load();
 	}
-	// 既に鳴かれている牌が選択 かつ 選択されている牌が1枚もない → 鳴き解除or明槓と暗槓を反転
-	else if (naki_cnt == 0 && element.className != "none") {
+	else if (element.className == "none" && naki_mode == "20") {
+		element.className = naki_mode + chi_cnt;
+		naki_cnt += 1;
+		if (naki_cnt < 3) {
+			var target_num = 0
+			var target_r = element.alt.slice(0,-1) + "r";
+			if (element.alt.slice(-1) == "r") {
+				target_num = 6
+			}
+			else {
+				target_num = Number(element.alt.slice(-1)) + 1;
+			} 
+			target_alt = element.alt.slice(0,-1) + target_num;
+			for (var j = 0; j < 13; j++) {
+				if ((document.getElementById(naki_ar[j]).alt == target_alt || (target_num == 5 && document.getElementById(naki_ar[j]).alt == target_r)) && (document.getElementById(naki_ar[j]).className == "nakenai" || document.getElementById(naki_ar[j]).className == "none")) {
+					document.getElementById(naki_ar[j]).className = "none";
+					document.getElementById(naki_ar[j]).onclick = new Function("naki(this.id);");
+				} 
+				else if (document.getElementById(naki_ar[j]).alt != target_alt && document.getElementById(naki_ar[j]).className == "none") {
+					document.getElementById(naki_ar[j]).className = "nakenai";
+				}
+			}
+		}
+		else {
+			for (var j = 0; j < 13; j++) {
+				if (document.getElementById(naki_ar[j]).className == naki_mode + chi_cnt) {
+					document.getElementById(tehai_ar[j]).className = naki_mode + chi_cnt;
+				}
+			}
+			chi_cnt += 1;
+			$( "#modal-content-naki,#modal-overlay" ).fadeOut( "fast" , function(){
+				$('#modal-overlay').remove() ;
+			} ) ;
+			naki_reset();
+			hai_load();
+		}
+	}
+	else if (element.className != "none") {
 		var clsnmsrc = element.className
 		var mode = clsnmsrc.slice(0,-1);
 		var srcnum = clsnmsrc.slice(-1);
@@ -351,7 +419,139 @@ function modal_hai_load(id) {
 		img.className = tmp_c;
 		if (id == "tehai_naki") {
 			img.id = naki_ar[j];
-			img.onclick = new Function("naki(this.id);");
+			var cnt = 0;
+			switch (naki_mode) {
+				case "10":
+					for (var k = 0; k < 13; k++) {
+						var t_alt = document.getElementById(tehai_ar[k]).alt;
+						var t_clsnm = document.getElementById(tehai_ar[k]).className;
+						if (img.alt == t_alt && t_clsnm == "none") {
+							cnt += 1;
+						} else if (num == "5") {
+							i_alt = type + "r";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						} else if (num == "r") {
+							i_alt = type + "5";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						}
+					}
+					if (cnt >= 3){
+						img.onclick = new Function("naki(this.id);");
+					}
+					else if (img.className == "none") {
+						img.className = "nakenai";
+					}
+					else {
+						img.onclick = new Function("naki(this.id);");
+					}
+					break;
+				case "20":
+					var flg = false;
+					var n_num = 0;
+					var nn_num = 0;
+					var n_alt = 0;
+					var nn_alt = 0;
+					var r_alt = type + "r"
+					if (img.className == "none") {
+						if (num == "r") {
+							n_alt = type + "6";
+							nn_alt = type + "7";
+						}
+						else if (Number(num) < 8) {
+							n_num = Number(num) + 1;
+							nn_num = Number(num) + 2;
+							n_alt = type + String(n_num);
+							nn_alt = type + String(nn_num);
+						} else {
+							img.className = "nakenai";
+						}
+						for (var k = 0; k < 13; k++) {
+							var t_alt = document.getElementById(tehai_ar[k]).alt;
+							var t_clsnm = document.getElementById(tehai_ar[k]).className;
+							if ((n_alt == t_alt && t_clsnm == "none") || (n_num == 5 && r_alt == t_alt && t_clsnm == "none")) {
+								for (var l = 0; l < 13; l++) {
+									var tt_alt = document.getElementById(tehai_ar[l]).alt;
+									var tt_clsnm = document.getElementById(tehai_ar[l]).className;
+									if ((nn_alt == tt_alt && tt_clsnm == "none") || (nn_num == 5 && r_alt == tt_alt && tt_clsnm == "none")) {
+										flg = true;
+										break;
+									}
+								}
+							}
+							if (flg == true) {
+								img.className = "none";
+								img.onclick = new Function("naki(this.id);");
+								flg = false;
+								break;
+							} else {
+								img.className = "nakenai";
+							}
+						}
+					} else {
+						img.onclick = new Function("naki(this.id);");
+					}
+					break;
+				case "30":
+					for (var k = 0; k < 13; k++) {
+						var t_alt = document.getElementById(tehai_ar[k]).alt;
+						var t_clsnm = document.getElementById(tehai_ar[k]).className;
+						if (img.alt == t_alt && t_clsnm == "none") {
+							cnt += 1;
+						} else if (num == "5") {
+							i_alt = type + "r";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						} else if (num == "r") {
+							i_alt = type + "5";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						}
+					}
+					if (cnt >= 3){
+						img.onclick = new Function("naki(this.id);");
+					}
+					else if (img.className == "none") {
+						img.className = "nakenai";
+					}
+					else {
+						img.onclick = new Function("naki(this.id);");
+					}
+					break;
+				case "40":
+					for (var k = 0; k < 13; k++) {
+						var t_alt = document.getElementById(tehai_ar[k]).alt;
+						var t_clsnm = document.getElementById(tehai_ar[k]).className;
+						if (img.alt == t_alt && t_clsnm == "none") {
+							cnt += 1;
+						} else if (num == "5") {
+							i_alt = type + "r";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						} else if (num == "r") {
+							i_alt = type + "5";
+							if (i_alt == t_alt && t_clsnm == "none") {
+								cnt += 1;
+							}
+						}
+					}
+					if (cnt >= 3){
+						img.onclick = new Function("naki(this.id);");
+					}
+					else if (img.className == "none") {
+						img.className = "nakenai";
+					}
+					else {
+						img.onclick = new Function("naki(this.id);");
+					}
+					break;
+			}
 			if (j == 13) {
 				img.className = "agari";
 				img.onclick = "";
