@@ -262,15 +262,27 @@ function calc() {
             modal_ten_load(data.han, data.fu, data.cost.main, data.cost.additional);
             // alert(data.cost.main);
         },
-        error: function(errorThrown) {
-            //非同期で通信失敗時に読み出される
-            console.log('Error : ' + errorThrown);
-            // ロード画面を消して
-            $( ".loading" ).fadeOut( "fast" ) ;
-            // 計算失敗を表示
-            $( ".message:not(:animated)" ).fadeIn( "fast", function(){
-                $( this ).delay(2000).fadeOut("fast");
-            });
+        error: function(errorThrown, t) {
+            console.log(t);
+            if (t == "timeout") {
+                //非同期で通信失敗時に読み出される
+                console.log('Error : ' + errorThrown);
+                // ロード画面を消して
+                $( ".loading" ).fadeOut( "fast" ) ;
+                // 計算失敗を表示
+                $( "#message-timeout:not(:animated)" ).fadeIn( "fast", function(){
+                    $( this ).delay(2000).fadeOut("fast");
+                });
+            } else {
+                //非同期で通信失敗時に読み出される
+                console.log('Error : ' + errorThrown);
+                // ロード画面を消して
+                $( ".loading" ).fadeOut( "fast" ) ;
+                // 計算失敗を表示
+                $( "#message-error:not(:animated)" ).fadeIn( "fast", function(){
+                    $( this ).delay(2000).fadeOut("fast");
+                });
+            }
         }
     });
 }
