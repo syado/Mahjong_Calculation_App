@@ -608,6 +608,7 @@ function modal_yaku_load(yaku_list) {
 
 // リザルト画面の点数生成
 function modal_ten_load(cost_han, cost_fu, cost_m, cost_a) {
+	honba_cnt = 0;
 	cost_main = cost_m;
 	cost_additional = cost_a;
 	var ten = document.getElementById("ten");
