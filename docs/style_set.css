@@ -423,6 +423,7 @@
     .modal_ten > #han {
         padding-top: 1vh;
         font-size: 7vh;
+        display: inline;
     }
     .modal_ten > #ten {
         width: 45vw;
@@ -430,7 +431,27 @@
         bottom: 0;
         text-align: center;
         font-weight: bold;
-        font-size: 7.5vh;
+        font-size: 7vh;
+    }
+    .modal_ten > #honba-button {
+        width: 5vw;
+        height: 7vh;
+        margin-bottom: 2vh;
+        display: inline;
+        float: none;
+        text-align: center;
+        color: #fff;
+        background-color: #2772DB;
+        border-style: none;
+    }
+    .modal_ten > .honba-button {
+        margin-left: 5vw;
+    }
+    .modal_ten > #honba {
+        display: inline;
+        padding-top: 1vh;
+        font-size: 5vh;
+        font-weight: normal;
     }
     .modal_mangan {
         height: 12vh;
