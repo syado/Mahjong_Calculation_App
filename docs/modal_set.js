@@ -4,6 +4,9 @@ var naki_mode = "";
 var pon_cnt = 1;
 var chi_cnt = 1;
 var kan_cnt = 1;
+var honba_cnt = 0;
+var cost_main = 0;
+var cost_additional = 0;
 var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
 var houra_ar = ["houra_01", "houra_02", "houra_03", "houra_04", "houra_05", "houra_06", "houra_07", "houra_08", "houra_09", "houra_10", "houra_11", "houra_12", "houra_13", "houra_a"];
 var naki_ar = ["naki_01", "naki_02", "naki_03", "naki_04", "naki_05", "naki_06", "naki_07", "naki_08", "naki_09", "naki_10", "naki_11", "naki_12", "naki_13", "naki_a"];
@@ -604,8 +607,9 @@ function modal_yaku_load(yaku_list) {
 }
 
 // リザルト画面の点数生成
-function modal_ten_load(cost_han, cost_fu, cost_main, cost_additional) {
-	// リザルトの点を初期化
+function modal_ten_load(cost_han, cost_fu, cost_m, cost_a) {
+	cost_main = cost_m;
+	cost_additional = cost_a;
 	var ten = document.getElementById("ten");
 	var han = document.getElementById("han");
 	// JSONから取得した点を生成
@@ -680,6 +684,52 @@ function modal_mangan_load(cost, han) {
 		}
 	}
 	element.appendChild(mangan);
+}
+
+// 本場数変更
+function honba_minus() {
+	if (honba_cnt > 0) {
+		honba_cnt -= 1
+		var honba = document.getElementById("honba");
+		var ten = document.getElementById("ten");
+		var tumo = document.getElementById("tumo").checked;
+		var wind = document.getElementById("jikaze").alt;
+		honba.innerHTML = honba_cnt + "本場";
+		// ロン
+		if (tumo == false) {
+			ten.innerHTML = (cost_main + honba_cnt * 300) + "点";
+		}
+		// 親ツモ
+		else if (wind == 1) {
+			ten.innerHTML = "ALL " + (cost_main + honba_cnt * 100) + "点";
+		}
+		// 子ツモ
+		else {
+			ten.innerHTML = "親" +  (cost_main + honba_cnt * 100) + "点 子" + (cost_additional + honba_cnt * 100) + "点";
+		}
+	}
+}
+function honba_plus() {
+	if (honba_cnt < 9) {
+		honba_cnt += 1
+		var honba = document.getElementById("honba");
+		var ten = document.getElementById("ten");
+		var tumo = document.getElementById("tumo").checked;
+		var wind = document.getElementById("jikaze").alt;
+		honba.innerHTML = honba_cnt + "本場";
+		// ロン
+		if (tumo == false) {
+			ten.innerHTML = (cost_main + honba_cnt * 300) + "点";
+		}
+		// 親ツモ
+		else if (wind == 1) {
+			ten.innerHTML = "ALL " + (cost_main + honba_cnt * 100) + "点";
+		}
+		// 子ツモ
+		else {
+			ten.innerHTML = "親" +  (cost_main + honba_cnt * 100) + "点 子" + (cost_additional + honba_cnt * 100) + "点";
+		}
+	}
 }
 
 // リザルト画面のリセット用
