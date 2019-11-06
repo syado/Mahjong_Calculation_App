@@ -435,8 +435,7 @@
     }
     .modal_ten > #honba-button {
         width: 5vw;
-        height: 7vh;
-        margin-bottom: 2vh;
+        height: 8vh;
         display: inline;
         float: none;
         text-align: center;
@@ -445,11 +444,10 @@
         border-style: none;
     }
     .modal_ten > .honba-button {
-        margin-left: 5vw;
+        margin-left: 6vw;
     }
     .modal_ten > #honba {
         display: inline;
-        padding-top: 1vh;
         font-size: 5vh;
         font-weight: normal;
     }
