@@ -572,7 +572,7 @@
         left: 50%;
         font-size: 5vh;
         font-weight:bold;
-        line-height: 30vh;
+        line-height: 15vh;
         transform: translate(-50%, -50%);
         -webkit-transform: translate(-50%,-50%);
     }

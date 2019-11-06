@@ -606,16 +606,12 @@ function modal_yaku_load(yaku_list) {
 // リザルト画面の点数生成
 function modal_ten_load(cost_han, cost_fu, cost_main, cost_additional) {
 	// リザルトの点を初期化
-	var element = document.getElementById("modal_ten");
-	modal_reset(element);
+	var ten = document.getElementById("ten");
+	var han = document.getElementById("han");
 	// JSONから取得した点を生成
-	var han = document.createElement("p");
-	var ten = document.createElement("p");
-	var tumo = document.getElementById("tumo").checked
-	var wind = document.getElementById("jikaze").alt
-	han.id = "han";
+	var tumo = document.getElementById("tumo").checked;
+	var wind = document.getElementById("jikaze").alt;
 	han.innerHTML = cost_han + "翻" + cost_fu + "符";
-	ten.id = "ten";
 	// ロン
 	if (tumo == false) {
 		ten.innerHTML = cost_main + "点";
@@ -628,8 +624,6 @@ function modal_ten_load(cost_han, cost_fu, cost_main, cost_additional) {
 	else {
 		ten.innerHTML = "親" +  cost_main + "点 子" + cost_additional + "点";
 	}
-	element.appendChild(han);
-	element.appendChild(ten);
 	// manganを生成する関数を呼び出し
 	var cost_sum = cost_main + (cost_additional * 2)
 	modal_mangan_load(cost_sum, cost_han);

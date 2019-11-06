@@ -278,8 +278,9 @@
             <div class="column_modal">
                 <h2>点数</h2>
                 <div id="modal_ten" class="modal_ten">
-                    <p id="han">10翻100符</p>
-                    <p id="ten">親:32000 子:16000</p>
+                    <h3 id="han">10翻100符</h3>
+                    <button type="button">test</button>
+                    <h3 id="ten">親:32000 子:16000</h3>
                 </div>
                 <div id="modal_mangan" class="modal_mangan">
                     <p>倍満</p>
@@ -309,6 +310,7 @@
     </div>
 
     <!-- 計算失敗時に表示 -->
-    <div class="message">計算に失敗しました</div>
+    <div class="message" id="message-error">計算エラー<br><div style="font-size: 4vh;">正しく入力できているか確認してください</div></div>
+    <div class="message" id="message-timeout">通信エラー<br><div style="font-size: 4vh;">サーバーが応答しません</div></div>
 </body>
 </html>
