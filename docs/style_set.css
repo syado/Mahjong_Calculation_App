@@ -353,7 +353,7 @@
     }
     .close-chng {
         width: 88vw;
-        margin: 2vh 1vw 0 1vw;
+        margin: 1vh 1vw 0 1vw;
         height: 10vh;
         font-size: 4vh;
         line-height: 10vh;
@@ -416,12 +416,12 @@
         padding-right: 2vw;
     }
     .modal_ten {
-        height: 23vh;
+        margin-top: 1vh;
+        height: 22vh;
         width: 45vw;
         position: relative;
     }
     .modal_ten > #han {
-        padding-top: 1vh;
         font-size: 7vh;
         display: inline;
     }
@@ -581,7 +581,7 @@
     .message {
         display: none;
         height:30vh;
-        width: 40vw;
+        width: 57vw;
         text-align:center;
         color: white;
         background: rgba( 0, 0, 0 ,0.75);
