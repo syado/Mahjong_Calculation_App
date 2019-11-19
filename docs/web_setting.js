@@ -61,6 +61,7 @@ function ippatsu() {
         if (document.getElementById("ippatsu").checked){
             document.getElementById("ippatsu").checked = true;
             document.getElementById("rinshan").checked = false;
+            document.getElementById("haitei").checked = false;
         }
     }
     else {
