@@ -86,6 +86,11 @@ function haitei() {
     document.getElementById("rinshan").checked = false;
     document.getElementById("chankan").checked = false;
     document.getElementById("tenhou").checked = false;
+    if (document.getElementById("wriichi").checked) {
+        if (document.getElementById("ippatsu").checked) {
+            document.getElementById("ippatsu").checked = false;
+        }
+    }
 }
 function tenhou() {
     document.getElementById("tumo").checked = true;
