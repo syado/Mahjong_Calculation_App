@@ -96,67 +96,19 @@
     .tehai > #agarihai {
         margin-left: 10px;
     }
-    .\0031\0030\0031 {
+    .\0031\0030\0031, .\0031\0030\0032, .\0031\0030\0033, .\0031\0030\0034 {
         box-sizing: border-box;
         border: solid 2px red;
     }
-    .\0031\0030\0032 {
-        box-sizing: border-box;
-        border: solid 2px red;
-    }
-    .\0031\0030\0033 {
-        box-sizing: border-box;
-        border: solid 2px red;
-    }
-    .\0031\0030\0034 {
-        box-sizing: border-box;
-        border: solid 2px red;
-    }
-    .\0032\0030\0031 {
+    .\0032\0030\0031, .\0032\0030\0032, .\0032\0030\0033, .\0032\0030\0034 {
         box-sizing: border-box;
         border: solid 2px blue;
     }
-    .\0032\0030\0032 {
-        box-sizing: border-box;
-        border: solid 2px blue;
-    }
-    .\0032\0030\0033 {
-        box-sizing: border-box;
-        border: solid 2px blue;
-    }
-    .\0032\0030\0034 {
-        box-sizing: border-box;
-        border: solid 2px blue;
-    }
-    .\0033\0030\0031 {
+    .\0033\0030\0031, .\0033\0030\0032, .\0033\0030\0033, .\0033\0030\0034 {
         box-sizing: border-box;
         border: solid 2px darkorange;
     }
-    .\0033\0030\0032 {
-        box-sizing: border-box;
-        border: solid 2px darkorange;
-    }
-    .\0033\0030\0033 {
-        box-sizing: border-box;
-        border: solid 2px darkorange;
-    }
-    .\0033\0030\0034 {
-        box-sizing: border-box;
-        border: solid 2px darkorange;
-    }
-    .\0034\0030\0031 {
-        box-sizing: border-box;
-        border: solid 2px magenta;
-    }
-    .\0034\0030\0032 {
-        box-sizing: border-box;
-        border: solid 2px magenta;
-    }
-    .\0034\0030\0033 {
-        box-sizing: border-box;
-        border: solid 2px magenta;
-    }
-    .\0034\0030\0034 {
+    .\0034\0030\0031, .\0034\0030\0032, .\0034\0030\0033, .\0034\0030\0034 {
         box-sizing: border-box;
         border: solid 2px magenta;
     }

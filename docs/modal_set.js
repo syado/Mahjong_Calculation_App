@@ -226,15 +226,18 @@ function naki(id) {
 			} 
 			target_alt = element.alt.slice(0,-1) + target_num;
 			for (var j = 0; j < 13; j++) {
+				// 鳴ける牌が鳴かれていなければ選択できるようにする
 				if ((document.getElementById(naki_ar[j]).alt == target_alt || (target_num == 5 && document.getElementById(naki_ar[j]).alt == target_r)) && (document.getElementById(naki_ar[j]).className == "nakenai" || document.getElementById(naki_ar[j]).className == "none")) {
 					document.getElementById(naki_ar[j]).className = "none";
 					document.getElementById(naki_ar[j]).onclick = new Function("naki(this.id);");
 				} 
-				else if (document.getElementById(naki_ar[j]).alt != target_alt && document.getElementById(naki_ar[j]).className == "none") {
+				// 鳴けない牌が選択できるようになってる時選択できなくさせる
+				if (document.getElementById(naki_ar[j]).alt != target_alt && document.getElementById(naki_ar[j]).className == "none") {
 					document.getElementById(naki_ar[j]).onclick = "";
 					document.getElementById(naki_ar[j]).className = "nakenai";
 				}
-				else if (naki_ar[j] == id) {
+				// 鳴いた牌を選択できなくさせる
+				if (document.getElementById(naki_ar[j]).className != "none" && document.getElementById(naki_ar[j]).className != "nakenai") {
 					document.getElementById(naki_ar[j]).onclick = "";
 				}
 			}
