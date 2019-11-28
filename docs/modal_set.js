@@ -234,6 +234,9 @@ function naki(id) {
 					document.getElementById(naki_ar[j]).onclick = "";
 					document.getElementById(naki_ar[j]).className = "nakenai";
 				}
+				else if (naki_ar[j] == id) {
+					document.getElementById(naki_ar[j]).onclick = "";
+				}
 			}
 		}
 		else {
