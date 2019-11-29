@@ -16,7 +16,7 @@
     }
     .wallpaper {
         position: absolute;
-        background-image: url("\wallpaper.jpg");
+        background-image: url("/images/wallpaper.jpg");
         background-size: cover;
         width:100vw;
         height: 100vh;

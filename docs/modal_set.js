@@ -10,6 +10,9 @@ var cost_additional = 0;
 var tehai_ar = ["tehai_01", "tehai_02", "tehai_03", "tehai_04", "tehai_05", "tehai_06", "tehai_07", "tehai_08", "tehai_09", "tehai_10", "tehai_11", "tehai_12", "tehai_13", "agarihai"];
 var houra_ar = ["houra_01", "houra_02", "houra_03", "houra_04", "houra_05", "houra_06", "houra_07", "houra_08", "houra_09", "houra_10", "houra_11", "houra_12", "houra_13", "houra_a"];
 var naki_ar = ["naki_01", "naki_02", "naki_03", "naki_04", "naki_05", "naki_06", "naki_07", "naki_08", "naki_09", "naki_10", "naki_11", "naki_12", "naki_13", "naki_a"];
+var id1 = "";
+var id2 = "";
+
 
 var modal_id = "";
 
@@ -215,6 +218,12 @@ function naki(id) {
 	else if (element.className == "none" && naki_mode == "20") {
 		element.className = naki_mode + chi_cnt;
 		naki_cnt += 1;
+		if (naki_cnt == 1) {
+			id1 = id;
+		}
+		if (naki_cnt == 2) {
+			id2 = id;
+		}
 		if (naki_cnt < 3) {
 			var target_num = 0
 			var target_r = element.alt.slice(0,-1) + "r";
@@ -232,13 +241,25 @@ function naki(id) {
 					document.getElementById(naki_ar[j]).onclick = new Function("naki(this.id);");
 				} 
 				// 鳴けない牌が選択できるようになってる時選択できなくさせる
-				if (document.getElementById(naki_ar[j]).alt != target_alt && document.getElementById(naki_ar[j]).className == "none") {
+				else if (document.getElementById(naki_ar[j]).alt != target_alt && document.getElementById(naki_ar[j]).className == "none") {
 					document.getElementById(naki_ar[j]).onclick = "";
 					document.getElementById(naki_ar[j]).className = "nakenai";
 				}
-				// 鳴いた牌を選択できなくさせる
-				if (document.getElementById(naki_ar[j]).className != "none" && document.getElementById(naki_ar[j]).className != "nakenai") {
+				else if (naki_ar[j] == id1 || naki_ar[j] == id2) {
 					document.getElementById(naki_ar[j]).onclick = "";
+				}
+				// 鳴いた牌を選択できなくさせる
+				else if (document.getElementById(naki_ar[j]).className != "none" && document.getElementById(naki_ar[j]).className != "nakenai") {
+					document.getElementById(naki_ar[j]).onclick = "";
+					var test = document.getElementById(naki_ar[j]);
+					console.log(test);
+					if (naki_cnt == 1) {
+						document.getElementById(naki_ar[j]).className = document.getElementById(naki_ar[j]).className + "a";
+						if(document.getElementById(naki_ar[j] + "z")) {
+							document.getElementById(naki_ar[j] + "z").onclick = "";
+							document.getElementById(naki_ar[j] + "z").className = document.getElementById(naki_ar[j] + "z").className + "a";
+						}
+					}
 				}
 			}
 		}
@@ -390,6 +411,9 @@ function hai_load() {
 			if (kan_num == 3) {
 				var img2 = document.createElement('img');
 				img2.id = tehai_ar[j];
+				if(num == "r") {
+					num = 5;
+				}
 				img2.src = "hai/" + type + "/" + num + ".png";
 				img2.alt = set_hai[j].hai
 				img2.className = set_hai[j].cls
@@ -574,11 +598,14 @@ function modal_hai_load(id) {
 			if (kan_num == 3) {
 				var img2 = document.createElement('img');
 				img2.id = houra_ar[j];
+				if(num == "r") {
+					num = 5;
+				}
 				img2.src = "hai/" + type + "/" + num + ".png";
 				img2.alt = type + num;
 				img2.className = tmp_c
 				if (id == "tehai_naki") {
-					img2.id = naki_ar[j];
+					img2.id = naki_ar[j] + "z";
 					img2.onclick = new Function("naki(this.id);");
 				}
 				element.appendChild(img2);
