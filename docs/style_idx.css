@@ -11,15 +11,26 @@
     /* メイン */
     /* 背景 */
     body {
-        background-color: #1e9623;
+        /* background-color: #1e9623; */
         color: white;
+    }
+    .wallpaper {
+        position: absolute;
+        background-image: url("\wallpaper.jpg");
+        background-size: cover;
+        width:100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background-position: center;
+        z-index: -1;
     }
     /* タイトル */
     .title {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 70vh;
+        height: 75vh;
         font-size: 10vh;
     }
     /* ボタン */
