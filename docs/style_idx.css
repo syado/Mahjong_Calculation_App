@@ -16,7 +16,7 @@
     }
     .wallpaper {
         position: absolute;
-        background-image: url("\wallpaper.jpg");
+        background-image: url(".\wallpaper.jpg");
         background-size: cover;
         width:100vw;
         height: 100vh;
@@ -30,12 +30,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 75vh;
+        height: 80vh;
         font-size: 10vh;
     }
     /* ボタン */
     form {
-        height: 30vh;
+        height: 20vh;
         width: 33.3vw;
         float: left;
     }
