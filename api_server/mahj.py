@@ -47,7 +47,7 @@ def print_hand_result(hand_result, opened=False):
         "fu_details":hand_result.fu_details,
     }
     #print(dir(hand_result))
-    #print(json.dumps(hand_json,indent=4))
+    print(json.dumps(hand_json,indent=4))
     return hand_json
 
 def to_136_array(obj=None, man=None, pin=None, sou=None, honors=None, has_aka_dora=True):
@@ -123,7 +123,7 @@ def maj_cal(data):
             elif type(d) == type([]):
                 for d2 in d:
                     for i, v in d2.items():
-                        print("v",v)
+                        # print("v",v)
                         if i != "open" and "r" in v:
                             has_aka_dora = True
                             break
@@ -151,6 +151,21 @@ def maj_cal(data):
 
     if "chi" in data.keys() and len(data["chi"]) > 0:
         for chi in data["chi"]:
+            #配列内をソート
+            for chi_key in chi.keys():
+                if chi[chi_key] != "":
+                    r_flag = False
+                    if "r" in chi[chi_key]:
+                        r_flag = True
+                        chi[chi_key] = chi[chi_key].replace("r","5")
+
+                    tmp = chi[chi_key]
+                    tmp = sorted([tmp[0],tmp[1],tmp[2]])
+                    chi[chi_key] = "".join(tmp)
+                    if r_flag:
+                        chi[chi_key] = chi[chi_key].replace("5","r")
+                    print(chi[chi_key])
+
             melds.append(Meld(meld_type=Meld.CHI, tiles=to_136_array(obj=chi)))
             yaku_opened = True
 
