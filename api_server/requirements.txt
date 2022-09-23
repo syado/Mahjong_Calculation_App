@@ -19,7 +19,7 @@ numpy==1.16.4
 opencv-python==4.1.0.25
 Pillow==5.2.0
 post==2019.4.13
-protobuf==3.8.0
+protobuf==3.18.3
 public==2019.4.13
 PyYAML==5.1
 query-string==2019.4.13
